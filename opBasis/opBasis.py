@@ -591,6 +591,7 @@ def _getCustomBlockTemplates(cblocks:list[type], mdTarget:int):
    `cblocks` that have the appropriate mass-dimension.
 
    Parameters
+   ----------
    cblocks : list[type]
       Collection of custom implementations of `Block` (and masses) that to
       be used.

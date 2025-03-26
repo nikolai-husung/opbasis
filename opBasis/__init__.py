@@ -5,7 +5,7 @@ assert sys.version_info >= MIN_PYTHON, "Requires Pyton %s.%s or"%MIN_PYTHON \
 del sys, MIN_PYTHON
 
 from .basics import rotPlanes, Complex, CustomIndex, IntIndex, sptIdx, \
-   indices, defaultIndices
+   indices, defaultIndices, massDim
 from .blocks import Block, d, D0l, D0, Dl, D, DF, F, M, dM,\
    Colour, Multiplicative
 from .dirac import Dirac, axisGammas, Gamma

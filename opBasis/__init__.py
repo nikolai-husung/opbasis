@@ -12,7 +12,7 @@ from .dirac import Dirac, axisGammas, Gamma
 from .pauli import Pauli, SU2
 from .ops import LinearComb, Commutative, Trace, Bilinear
 from .opBasis import Model, overcompleteBasis, symmetrise, parseAnsatz,\
-   getBilinearTemplates, getAlgebraTraceTemplates
+   getBilinearTemplates, getAlgebraTraceTemplates, getTemplates
 from .eoms import GluonEOM, unmaskGluonEOMs, unmaskFermionEOMs
 from .minBasis import findMinBases
 from .io import parseLinearCombs, CompressedBasis

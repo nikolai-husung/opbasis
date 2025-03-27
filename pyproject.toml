@@ -3,16 +3,18 @@ name = "opBasis"
 version = "0.9"
 description = "Python scripts to derive a minimal operator basis for lattice gauge theory."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{name = "Nikolai Husung", email = "nikolai.husung@uam.es"}]
 requires-python = ">=3.10"
 dependencies = [
    "numpy>1.20",
 ]
 classifiers = [
-    "Intended Audience :: Lattice Field Theorists",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
-    "License :: OSI Approved :: MIT License",
 ]
 keywords = ["lattice field theory", "operator basis"]
 

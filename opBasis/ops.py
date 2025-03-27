@@ -13,9 +13,10 @@ import numpy as np
 from .blocks import Block, _AlgebraBlock, Multiplicative,\
    d, D0l, D0, Dl, D, DF, F, M, dM, Colour
 from .dirac import Dirac, axisGammas, Gamma
-from .basics import Complex, whiteSpace
+from .basics import Complex, whiteSpace, massDim
 
 
+@massDim(3)
 class Bilinear:
    """
    Bilinear of two flavours with an intermediate piece consisting of covariant
@@ -143,6 +144,7 @@ class Bilinear:
       return cp
 
 
+@massDim(0)
 class Trace:
    """Cyclic permuting grouping of instances of Block.
 
@@ -559,6 +561,9 @@ def _productRule(op:LinearComb)->bool:
          mu = term.derivatives[0].mu
          del term.derivatives[0]
          for ip,p in enumerate(term.prod):
+            # traces carrying custom Block are assumed to be constants!
+            if p.__class__ is Trace and\
+               not p.cyclic[0].__class__ is _AlgebraBlock: continue
             temp = _copy(term)
             temp.prod[ip].derivatives.append(d(mu))
             op.terms.append(temp)

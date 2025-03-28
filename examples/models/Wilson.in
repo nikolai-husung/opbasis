@@ -1,0 +1,7 @@
+Transf: default
+Flavours: up dn = Psi
+
+# Discrete transformations
+Discrete: P ++++
+Discrete: C +
+Discrete: H4 ++++++

@@ -281,7 +281,7 @@ def parseLinearCombs(expr:str, model:Model)->list[LinearComb]:
       [getattr(model.pyModule, b) for b in model.blocks] + [M,dM,SU2,Gamma])\
       + ")"
    oTrace = "tr\\((" + oBlock + "\\.)*" + oBlock + "\\)"
-   bilin  = "(%s\\.)*"%_d + flavourMask + "\\." + _covl + \
+   bilin  = "(%s)*"%_d + flavourMask + "\\." + _covl + \
             "(" + oBlock + "\\.)*(" + _algBlock + "\\.)*" + _covr + flavourMask
    prod   = (bilin,_algTrace,oTrace)
    term   = "\\s*" + _coeff + "\\*" + _der + "?<((" +\

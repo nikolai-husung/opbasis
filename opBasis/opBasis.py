@@ -534,7 +534,7 @@ class TemplateRep(dict):
       for k in set(self.keys())|set(add.keys()):
          newSort[k] = self[k] + add[k]
       return TemplateRep(self.rep + "*" + add.rep, self.md+add.md,
-         (self.tder or add.tder) and \
+         self.tder+add.tder>0 and \
          newSort["Bilinear"] + newSort["AlgTrace"]==1, **newSort)
 
 
@@ -676,9 +676,9 @@ def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
    "Covariant derivatives, EOMs or field-strength tensors are not permitted."
 
    templates = list()
-   _sort = list()
    middle = ""
    s0 = dict()
+   s0["Bilinear"] = 1
    for m0 in filter(lambda x: x.__massDim__==0, cblocks):
       middle += m0.__name__ + "."
       s0[m0.__name__] = 1
@@ -690,7 +690,7 @@ def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
       s = dict(s0)
       s[d.__name__] = nd
       for nD0l in range(md//D0l.__massDim__ + 1):
-         mD0l = mdTarget - nD0l*D0l.__massDim__
+         mD0l = md - nD0l*D0l.__massDim__
          s[D0l.__name__] = nD0l
          for nDl in range(mD0l//Dl.__massDim__ + 1):
             mDl = mD0l - nDl*Dl.__massDim__
@@ -706,25 +706,24 @@ def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
                      s[F.__name__]  = alg.count(F)
                      s[DF.__name__] = alg.count(DF)
                      if mAlg==0:
-                        templates.append(left + middle +\
-                           "".join(map(lambda x: x.__name__ + ".", alg)) +\
-                           "D0."*nD0 + flavours[1])
                         for block in cblocks:
                            s[block.__name__] = 0
-                        _sort.append(_copy(s))
+                        templates.append(TemplateRep(left + middle +\
+                           "".join(map(lambda x: x.__name__ + ".", alg)) +\
+                           "D0."*nD0 + flavours[1], mdTarget+Bilinear.__massDim__,
+                           nd>0, **s))
                      elif len(cblocks)>0:
                         for cbt in _getCustomBlockTemplates(cblocks, mAlg):
-                           templates.append(left +\
+                           for block in cblocks:
+                              s[block.__name__] = cbt.count(block)
+                           templates.append(TemplateRep(left +\
                               "".join(map(lambda x: x.__name__ + ".", cbt)) +\
                               middle +\
                               "".join(map(lambda x: x.__name__ + ".", alg)) +\
-                              "D0."*nD0 + flavours[1])
-                           for block in cblocks:
-                              s[block.__name__] = cbt.count(block)
-                           _sort.append(_copy(s))
-   return [TemplateRep(x[0], mdTarget+Bilinear.__massDim__, nd>0, **x[1])\
-           for x in zip(templates,_sort)]
-
+                              "D0."*nD0 + flavours[1],
+                              mdTarget+Bilinear.__massDim__,
+                              nd>0, **s))
+   return templates
 
 def _prepareCustomMassTemplates(cblocks:list[type], mdTarget:int|Fraction):
    """
@@ -782,21 +781,21 @@ def getCustomMassTemplates(cblocks:list[type], mdTarget:int|Fraction):
    return templates
 
 
-def _buildCombinations(bts:list[TemplateRep], custom:list[TemplateRep], 
-   mdTarget:int|Fraction, minBTs:int):
+def _buildCombinations(active:list[TemplateRep], excl:list[TemplateRep], 
+   mdTarget:int|Fraction, minExcl:int):
    """
    Finds all combinations of templates for traces, bilinears, and derivatives
    thereof, that have the desired mass-dimension `mdTarget`.
 
    Parameters
    ----------
-   bts : list[TemplateRep]
-      Collection of templates for bilinears and algebra traces.
-   custom : list[TemplateRep]
-      Collection of templates for other traces.
+   active : list[TemplateRep]
+      Collection of templates to be used exclusively until `minExcl==0`.
+   excl : list[TemplateRep]
+      Collection of templates to be included once `minExcl==0`.
    mdTarget : int|Fraction
       The desired mass-dimension of the full template.
-   minBTs : int
+   minExcl : int
       The minimal number of bilinears or algebra traces. Needed to avoid
       redundancy between total derivatives and derivatives acting only on
       sub-parts of the template.
@@ -807,16 +806,15 @@ def _buildCombinations(bts:list[TemplateRep], custom:list[TemplateRep],
       All possible templates with mass-dimension `mdTarget`.
    """
    if mdTarget>0:
-      for ibt,bt in enumerate(bts):
-         if minBTs>0:
-            for comb in _buildCombinations(bts[ibt:], custom, mdTarget - bt.md,
-               minBTs-1):
-               yield comb+bt
-         else:
-            for comb in _buildCombinations(bts[ibt:]+custom, [],
-               mdTarget - bt.md, 0):
-               yield comb+bt
-   elif mdTarget==0 and minBTs<1: yield TemplateRep("", 0, False)
+      if minExcl<=0 and len(excl)>0:
+         active = active+excl
+         excl = list()
+      for ia,a in enumerate(active):
+         for comb in _buildCombinations(active[ia:], excl, mdTarget - a.md,
+            minExcl-1):
+            yield comb+a
+   elif mdTarget==0 and minExcl<1:
+      yield TemplateRep("", 0, False)
 
 
 def getTemplates(mdTarget:int|Fraction, flavours:tuple[str,str]=None,

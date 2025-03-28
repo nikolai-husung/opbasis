@@ -96,7 +96,7 @@ def defaultIndices(cls):
    return indices(None, **kwargs)(cls)
 
 
-def massDim(md:int):
+def massDim(md:int|Fraction):
    """
    Allows to assign a non-zero mass dimension to an instance of `Block` through
    use of a `decorator <https://docs.python.org/3/glossary.html#term-decorator>`_
@@ -120,8 +120,8 @@ def massDim(md:int):
    AssertionError
       If the chosen mass-dimension is not a non-negative integer.
    """
-   assert isinstance(md, int) and md >=0,\
-      "Mass-dimension is expected to be a non-negative integer."
+   assert isinstance(md, (int,Fraction)) and md >=0,\
+      "Mass-dimension is expected to be a non-negative rational number."
    def setMassDim(cls):
       cls.__massDim__ = md
       return cls

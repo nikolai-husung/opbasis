@@ -13,10 +13,10 @@ import numpy as np
 from .blocks import Block, _AlgebraBlock, Multiplicative,\
    d, D0l, D0, Dl, D, DF, F, M, dM, Colour
 from .dirac import Dirac, axisGammas, Gamma
-from .basics import Complex, whiteSpace, massDim
+from .basics import dim, Complex, whiteSpace, massDim
 
 
-@massDim(3)
+@massDim(dim-1)
 class Bilinear:
    """
    Bilinear of two flavours with an intermediate piece consisting of covariant

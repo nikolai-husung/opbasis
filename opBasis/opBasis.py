@@ -499,9 +499,28 @@ def overcompleteBasis(template:str, model:Model)->list[LinearComb]:
 
 
 class TemplateRep(dict):
-   def __init__(self, rep:str, md:int, **kwargs:dict[str,int]):
+   """
+   Represents building blocks ued to create the overall templates potentially
+   consisting of bilinears, algebra traces, and other traces. Allows to track
+   details like the presence of EOM insertions, custom blocks, etc.
+
+   Parameters
+   ----------
+   rep : str
+      The actual string-representation of the template.
+   md : int|Fraction
+      Mass-dimension of the template.
+   tder : bool
+      Indicates whether the overall template is a total derivative.
+   kwargs : dict[str,int]
+      Other details of the template like the number of different EOM
+      insertions.
+   """
+   def __init__(self, rep:str, md:int|Fraction, tder:bool,
+      **kwargs:dict[str,int]):
       self.rep = rep
       self.md = md
+      self.tder = tder
       dict.__init__(self, **kwargs)
 
    def __str__(self):
@@ -515,14 +534,15 @@ class TemplateRep(dict):
    def __add__(self, add):
       if self.rep == "": return _copy(add)
       if add.rep == "": return _copy(self)
-      newSort = dict()
+      newSort = {"Bilinear" : 0, "AlgTrace" : 0}
       for k in set(self.keys())|set(add.keys()):
          newSort[k] = self[k] + add[k]
-      return TemplateRep(self.rep + "*" + add.rep,
-                         self.md+add.md, **newSort)
+      return TemplateRep(self.rep + "*" + add.rep, self.md+add.md,
+         (self.tder or add.tder) and \
+         newSort["Bilinear"] + newSort["AlgTrace"]==1, **newSort)
 
 
-def _prepareAlgebraBlockTemplates(nb:int, mdTarget:int):
+def _prepareAlgebraBlockTemplates(nb:int, mdTarget:int|Fraction):
    """
    Distributes covariant derivatives among all the `nb` blocks remaining.
 
@@ -530,7 +550,7 @@ def _prepareAlgebraBlockTemplates(nb:int, mdTarget:int):
    ----------
    nb : int
       Number of blocks (remaining).
-   mdTarget : int
+   mdTarget : int|Fraction
       Non-negative integer specifying the desired mass-dimension of all the
       covariant derivatives to be distributed.
 
@@ -549,7 +569,7 @@ def _prepareAlgebraBlockTemplates(nb:int, mdTarget:int):
       yield []
    
 
-def getAlgebraTraceTemplates(mdTarget:int)->list[TemplateRep]:
+def getAlgebraTraceTemplates(mdTarget:int|Fraction)->list[TemplateRep]:
    """
    Returns all templates for algebra traces of mass-dimension `mdTarget`
    (except for the identity). Those can be obtained from their lower
@@ -559,7 +579,7 @@ def getAlgebraTraceTemplates(mdTarget:int)->list[TemplateRep]:
 
    Parameters
    ----------
-   mdTaget : int
+   mdTarget : int|Fraction
       Non-negative integer specifying the desired mass dimension.
 
    Returns
@@ -591,13 +611,15 @@ def getAlgebraTraceTemplates(mdTarget:int)->list[TemplateRep]:
                templates.add(TemplateRep(
                   label,
                   mdTarget,
+                  nd>0,
                   **{F.__name__ : sum(1 for x in template[0] if x[1] is F),
                      DF.__name__ : sum(1 for x in template[0] if x[1] is DF),
-                     d.__name__ : nd}
+                     d.__name__ : nd,
+                     "AlgTrace" : 1}
                   ))
    return list(templates.content)
 
-def _getCustomBlockTemplates(cblocks:list[type], mdTarget:int):
+def _getCustomBlockTemplates(cblocks:list[type], mdTarget:int|Fraction):
    """
    Generator returning all possible combinations of variants of `Block` in
    `cblocks` that have the appropriate mass-dimension.
@@ -607,7 +629,7 @@ def _getCustomBlockTemplates(cblocks:list[type], mdTarget:int):
    cblocks : list[type]
       Collection of custom implementations of `Block` (and masses) that to
       be used.
-   mdTarget : int
+   mdTarget : int|Fraction
       Desired mass-dimension.
 
    Returns
@@ -627,7 +649,7 @@ def _getCustomBlockTemplates(cblocks:list[type], mdTarget:int):
 
 
 def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
-   mdTarget:int)->list[TemplateRep]:
+   mdTarget:int|Fraction)->list[TemplateRep]:
    """
    Produce all templates of bilinears that have mass-dimension `mdTarget`.
 
@@ -639,7 +661,7 @@ def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
       Implementations of `Block` to be used that are not derivatives,
       insertions of EOMs or field-strength tensors nor abstract variants like
       `_AlgebraBlock`.
-   mdTarget : int
+   mdTarget : int|Fraction
       Mass-dimension of the bilinear.
 
    Returns
@@ -704,11 +726,11 @@ def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
                            for block in cblocks:
                               s[block.__name__] = cbt.count(block)
                            _sort.append(_copy(s))
-   return [TemplateRep(x[0], mdTarget+Bilinear.__massDim__, **x[1])\
+   return [TemplateRep(x[0], mdTarget+Bilinear.__massDim__, nd>0, **x[1])\
            for x in zip(templates,_sort)]
 
 
-def _prepareCustomMassTemplates(cblocks:list[type], mdTarget:int):
+def _prepareCustomMassTemplates(cblocks:list[type], mdTarget:int|Fraction):
    """
    Builds a trace by combining different (custom) implementations of `M` that
    amount to the desired mass-dimension.
@@ -717,7 +739,7 @@ def _prepareCustomMassTemplates(cblocks:list[type], mdTarget:int):
    ----------
    cblocks : list[type]
       All the (custom) implementations of `M` that are to be used.
-   mdTarget : int
+   mdTarget : int|Fraction
       Desired mass-dimension.
 
    Returns
@@ -734,7 +756,24 @@ def _prepareCustomMassTemplates(cblocks:list[type], mdTarget:int):
       yield []
 
 
-def getCustomMassTemplates(cblocks, mdTarget:int):
+def getCustomMassTemplates(cblocks:list[type], mdTarget:int|Fraction):
+   """
+   Given a collection of "mass-like" implementations of `Block`, i.e.,
+   subclasses of `M` with `@massDim(n)` at `n>0`, all templates for single
+   traces with appropriate mass-dimension `mdTarget` are being derived.
+
+   Parameters
+   ----------
+   cblocks : list[type]
+      Mass-like implementations of `Block`.
+   mdTarget : int|Fraction
+      The desired mass-dimension.
+
+   Returns
+   -------
+   list[TemplateRep]
+      All templates matching the requested mass-dimension.
+   """
    if mdTarget<1: return list()
    templates = list()
    for cbt in _prepareCustomMassTemplates(cblocks, mdTarget):
@@ -743,12 +782,34 @@ def getCustomMassTemplates(cblocks, mdTarget:int):
       for k,n in zip(cblocks, cbt):
          s[k.__name__] = n
          rep += (k.__name__ + ".")*n
-      templates.append(TemplateRep(rep[:-1] + ")", mdTarget, **s))
+      templates.append(TemplateRep(rep[:-1] + ")", mdTarget, False, **s))
    return templates
 
 
 def _buildCombinations(bts:list[TemplateRep], custom:list[TemplateRep], 
-   mdTarget:int, minBTs:int):
+   mdTarget:int|Fraction, minBTs:int):
+   """
+   Finds all combinations of templates for traces, bilinears, and derivatives
+   thereof, that have the desired mass-dimension `mdTarget`.
+
+   Parameters
+   ----------
+   bts : list[TemplateRep]
+      Collection of templates for bilinears and algebra traces.
+   custom : list[TemplateRep]
+      Collection of templates for other traces.
+   mdTarget : int|Fraction
+      The desired mass-dimension of the full template.
+   minBTs : int
+      The minimal number of bilinears or algebra traces. Needed to avoid
+      redundancy between total derivatives and derivatives acting only on
+      sub-parts of the template.
+
+   Returns
+   -------
+   Iterator[TemplateRep]
+      All possible templates with mass-dimension `mdTarget`.
+   """
    if mdTarget>0:
       for ibt,bt in enumerate(bts):
          if minBTs>0:
@@ -756,22 +817,52 @@ def _buildCombinations(bts:list[TemplateRep], custom:list[TemplateRep],
                minBTs-1):
                yield comb+bt
          else:
-            for comb in _buildCombinations(bts[ibt:]+custom, [], mdTarget - bt.md,
-               0):
+            for comb in _buildCombinations(bts[ibt:]+custom, [],
+               mdTarget - bt.md, 0):
                yield comb+bt
-   elif mdTarget==0 and minBTs<1: yield TemplateRep("", 0)
+   elif mdTarget==0 and minBTs<1: yield TemplateRep("", 0, False)
 
 
-def getTemplates(mdTarget:int, flavours:tuple[str,str]=None,
-   cblocks:list[type]=None, algTrace:bool=True, customFilter=None):
+def getTemplates(mdTarget:int|Fraction, flavours:tuple[str,str]=None,
+   cblocks:list[type]=None, algTrace:bool=True,
+   customFilter:Callable[[list[TemplateRep]],list[TemplateRep]]=None):
    """
-   Produces all templates 
+   Produces all templates with a given mass-dimension `mdTarget` including
+   product of traces, bilinears etc.
+
+   Parameters
+   ----------
+   mdTarget : int|Fraction
+      Desired mass-dimension.
+   flavours : tuple[str,str], optional
+      Flavour to be used in a template for a `Bilinear`. Defaults to `None`
+      if omitted, implying to not create such templates.
+   cblocks : list[type], optional
+      Collection of (custom) blocks to be used as masses, Dirac gamma matrices
+      etc. Defaults to `None`.
+   algTrace : bool, optional
+      Indicates whether templates involving algebra traces are allowed.
+      Defaults to `True`.
+   customFilter : Callable[[list[TemplateRep]],list[TemplateRep]]
+      Additional filter to drop any undesired templates, e.g., keep only
+      even powers of the twisted-mass parameter in templates for `Trace`.
+
+   Returns
+   -------
+   list[TemplateRep]
+      Collection of all the allowed templates.
+
    Raises
    ------
    AssertionError
       If `mdTarget` is negative.
+   ValueError
+      If `mdTarget` is too large and would allow for 6-quark operators.
    """
    assert mdTarget>=0, "mdTarget has to be a non-negative integer."
+   if not flavours is None and mdTarget >= 3*Bilinear.__massDim__:
+      raise ValueError("6-quark operators and beyond are not accessible due "+
+         "to implicit use of Fierz identities.")
    cblocks = [] if cblocks is None else cblocks
    if customFilter is None: customFilter = lambda x: x
    temp = list()
@@ -790,11 +881,12 @@ def getTemplates(mdTarget:int, flavours:tuple[str,str]=None,
       md = mdTarget - nd*d.__massDim__
       for c in _buildCombinations(temp, custom, md, 2 if nd>0 else 1):
          if c.rep=="" or not c[Colour.__name__] in (0,2): continue
-         # We only care about overall derivatives!
+         # We only care about overall derivatives..!
          if nd>0:
-            c[d.__name__] = nd
+            c[d.__name__] += nd
             c.rep = "d."*nd + "{" + c.rep + "}"
             c.md += nd*d.__massDim__
+            c.tder = True
          templates.append(c)
    return templates
 

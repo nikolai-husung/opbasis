@@ -329,7 +329,7 @@ def findMinBases(bases:list[list[LinearComb]], gEOM:GluonEOM|None=None,
          # Probably highly inefficient but does the job.
          if evec is None: continue
          evecsIndep.add(evec)
-         rank = np.linalg.linalg.matrix_rank(np.array(list(evecsIndep)))
+         rank = np.linalg.matrix_rank(np.array(list(evecsIndep)))
          if lastRank<rank:
             lastRank += 1
             linIndep.append(l[i])

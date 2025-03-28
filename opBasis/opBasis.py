@@ -78,7 +78,6 @@ class Model:
    transf: dict[str,str]
    spurion: list[str]
    flavourSets: dict[str,list[str]]
-   templates: list[str]
    pyModule: object
 
    def toReference(self):
@@ -169,7 +168,6 @@ class Model:
       transfs = dict()
       spurions = list()
       fs = dict()
-      temps = list()
       protected = _copy(_PROTECTED)
       for line in lines:
          if not ":" in line:
@@ -177,9 +175,7 @@ class Model:
             continue
          cat,opt = line.split(":", maxsplit=1)
          cat = cat.replace(" ", "")
-         if cat == "Op":
-            temps.append(opt.replace(" ", ""))
-         elif cat == "Discrete":
+         if cat == "Discrete":
             temp = [x for x in opt.split(" ") if x!=""]
             test = "".join(temp[1:])
             assert all(x in "x+-" for x in test)
@@ -205,7 +201,7 @@ class Model:
          else:
             raise NotImplementedError(
                "Option \"%s\" used in model file does not exist!"%cat)
-      return Model(pyName, blocks, transfs, spurions, fs, temps, None)
+      return Model(pyName, blocks, transfs, spurions, fs, None)
 
    def apply(self):
       """Replaces the currently used Model.

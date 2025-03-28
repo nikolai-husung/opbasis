@@ -27,7 +27,7 @@ def _BlockWildcards(blocks):
 _frac     = "([0-9]*|[0-9]*/[0-9]*)"
 _coeff    = "[+-](\\([+-]?%s[+-]%sj\\)|%s|%sj)"%(_frac,_frac,_frac,_frac)
 _d        = d._toRegex() + "\\."
-_der      = "((%s\\.)*%s)"%(_d,_d[:-2])
+_der      = "((%s)*%s)"%(_d,_d[:-2])
 _D0l      = D0l._toRegex() + "\\."
 _Dl       = Dl._toRegex() + "\\."
 _covl     = "(" + _D0l + ")*(" + _Dl + ")*"

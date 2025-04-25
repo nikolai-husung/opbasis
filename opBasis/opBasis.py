@@ -4,8 +4,10 @@ desired transformations and transformation-behaviour of the future operator
 basis. Part of a `Model` are also declarations of any custom implementations
 of `Block`. Finally, classes of operators can be defined as string-valued so
 called *templates*, which are then parsed into ansätze for the desired operator
-basis. After imposing the specified transformation-behaviour through a call
-to `overcompleteBasis` this yields a yet overcomplete basis.
+basis. While proposing ansätze via templates can be performed manually, via
+`getTemplates` one may get a complete set of templates without the danger of
+overlooking any. After imposing the specified transformation-behaviour through
+a call to `overcompleteBasis` this yields a yet overcomplete basis.
 """
 
 from dataclasses import dataclass
@@ -35,6 +37,8 @@ _ALG = "|".join(["F","DF"])
 _PROTECTED = ["Block", "d", "D", "Dl", "F", "DF", "D0", "D0l",
    "Colour", "M", "dM", "Gamma", "SU2", "Multiplicative",
    "LinearComb", "Commutative", "Bilinear", "Trace"]
+
+MAX_ITER = 100
 
 def _checkProtected(name:str, type_:str, protected:list[str]):
    """
@@ -427,11 +431,19 @@ def symmetrise(ansatz:LinearComb, model:Model)->LinearComb:
    -------
    LinearComb
       Further symmetrised variant of the initial ansatz.
+
+   Raises
+   ------
+   ValueError
+      If enforcing the desired transformation properties fails within MAX_ITER
+      iterations.
    """
    anyNew = True
    coll = Union()
    coll.add(ansatz)
+   niter = 0
    while anyNew:
+      niter += 1
       anyNew = False
       for c in coll:
          negc = -c
@@ -450,6 +462,10 @@ def symmetrise(ansatz:LinearComb, model:Model)->LinearComb:
                      ansatz.factor = 0
                      return ansatz
                   anyNew |= coll.add(temp)
+      if niter > MAX_ITER:
+         raise ValueError("Enforcing the desired transformations onto the " +
+            "current ansatz\n   %s\nfails within %i iterations."%(
+               str(ansatz),MAX_ITER))
    coll = iter(coll)
    ansatz = next(coll)
    for c in coll:
@@ -819,7 +835,7 @@ def _buildCombinations(active:list[TemplateRep], excl:list[TemplateRep],
 
 def getTemplates(mdTarget:int|Fraction, flavours:tuple[str,str]=None,
    cblocks:list[type]=None, algTrace:bool=True,
-   customFilter:Callable[[list[TemplateRep]],list[TemplateRep]]=None):
+   customFilter:Callable[[TemplateRep],bool]=None):
    """
    Produces all templates with a given mass-dimension `mdTarget` including
    product of traces, bilinears etc.
@@ -837,7 +853,7 @@ def getTemplates(mdTarget:int|Fraction, flavours:tuple[str,str]=None,
    algTrace : bool, optional
       Indicates whether templates involving algebra traces are allowed.
       Defaults to `True`.
-   customFilter : Callable[[list[TemplateRep]],list[TemplateRep]]
+   customFilter : Callable[[TemplateRep],bool]
       Additional filter to drop any undesired templates, e.g., keep only
       even powers of the twisted-mass parameter in templates for `Trace`.
 
@@ -858,18 +874,20 @@ def getTemplates(mdTarget:int|Fraction, flavours:tuple[str,str]=None,
       raise ValueError("6-quark operators and beyond are not accessible due "+
          "to implicit use of Fierz identities.")
    cblocks = [] if cblocks is None else cblocks
-   if customFilter is None: customFilter = lambda x: x
+   if customFilter is None: customFilter = lambda x: True
    temp = list()
    custom = list()
    for i in range(mdTarget+1):
       # prepare custom Block traces and store them for higher mass-dimensions!
       if not flavours is None:
-         temp.extend(getBilinearTemplates(flavours, cblocks, i))
-         temp.extend(getBilinearTemplates(flavours, cblocks+[Colour], i))
+         temp.extend([y for y in getBilinearTemplates(flavours, cblocks, i) \
+            if customFilter(y))
+         temp.extend([y for y in getBilinearTemplates(flavours,
+            cblocks+[Colour], i) if customFilter(y)])
       if algTrace:
-         temp.extend(getAlgebraTraceTemplates(i))
-      custom.extend(customFilter(getCustomMassTemplates(
-         [x for x in cblocks if issubclass(x, M)], i)))
+         temp.extend([y for y in getAlgebraTraceTemplates(i) if customFilter(y)])
+      custom.extend(y for y in getCustomMassTemplates(
+         [x for x in cblocks if issubclass(x, M)], i) if customFilter(y))
    templates = list()
    for nd in range(mdTarget//d.__massDim__ + 1):
       md = mdTarget - nd*d.__massDim__

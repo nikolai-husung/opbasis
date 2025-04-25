@@ -280,6 +280,7 @@ class Colour(Block):
    """
    pass
 
+
 @massDim(1)
 class M(Block):
    """

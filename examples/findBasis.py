@@ -18,7 +18,7 @@ templates = opb.getTemplates(md, tuple([list(model.flavourSets.keys())[0]]*2),
 # total derivative > EOM-vanishing > massive > #(of Bilinear) > #F(in Bilinear)
 # > others > #F(in Trace)
 # -> Last three inequalities are our choice to get, e.g., the SW-term and
-#    discard tr(F.F.F) in favour of othre operators.
+#    discard tr(F.F.F) in favour of other operators.
 templates = [str(x) for x in sorted(templates, reverse=True,
    key=lambda x: (
       + 7**5 * (1 if x.tder else 0)

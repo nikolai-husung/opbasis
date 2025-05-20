@@ -9,10 +9,11 @@ from .basics import rotPlanes, Complex, CustomIndex, IntIndex, sptIdx, \
 from .blocks import Block, d, D0l, D0, Dl, D, DF, F, M, dM,\
    Colour, Multiplicative
 from .dirac import Dirac, axisGammas, Gamma
-from .pauli import Pauli, SU2
-from .ops import LinearComb, Commutative, Trace, Bilinear
-from .opBasis import Model, overcompleteBasis, symmetrise, parseAnsatz,\
-   TemplateRep, getBilinearTemplates, getAlgebraTraceTemplates, getTemplates
 from .eoms import GluonEOM, unmaskGluonEOMs, unmaskFermionEOMs
-from .minBasis import findMinBases
 from .io import parseLinearCombs, CompressedBasis
+from .minBasis import findMinBases
+from .opBasis import Model, overcompleteBasis, symmetrise, parseAnsatz
+from .ops import LinearComb, Commutative, Trace, Bilinear
+from .pauli import Pauli, SU2
+from .templates import TemplateRep, getBilinearTemplates,\
+   getAlgebraTraceTemplates, getTemplates

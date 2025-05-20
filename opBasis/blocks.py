@@ -495,7 +495,6 @@ class F(Block):
 
    def rotation(self, plane:int):
       rho,sigma = rotPlanes[plane]
-      # understand signs!!!
       if self.mu == rho and self.nu == sigma:
          return self.__class__(sigma, rho, -self.factor)
       if self.mu == sigma and self.nu == rho:

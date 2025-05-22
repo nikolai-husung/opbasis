@@ -1,6 +1,12 @@
-from fractions import Fraction
+from copy import deepcopy as _copy
 
-from .blocks import d,DF,F,D,Dl,D0,D0l,Trace,Bilinear,Colour
+from fractions import Fraction
+from collections.abc import Callable
+from itertools import product
+
+from .basics import Union
+from .blocks import M,d,DF,F,D,Dl,D0,D0l,Colour
+from .ops import Trace,Bilinear
 
 class TemplateRep(dict):
    """
@@ -374,7 +380,7 @@ def getTemplates(mdTarget:int|Fraction, flavours:list[tuple[str,str]]=None,
       if not flavours is None:
          for fl in flavours:
             temp.extend([y for y in getBilinearTemplates(fl, cblocks, i) \
-               if customFilter(y))
+               if customFilter(y)])
             temp.extend([y for y in getBilinearTemplates(fl,
                cblocks+[Colour], i) if customFilter(y)])
       if algTrace:

@@ -15,7 +15,6 @@ from fractions import Fraction
 from importlib import import_module as _import
 from copy import deepcopy as _copy
 from operator import and_
-from collections.abc import Callable
 
 import re
 
@@ -363,7 +362,7 @@ def _parsePart(template:str, model:Model)->Iterator[Trace|Bilinear]:
                   yield Bilinear(_copy(list(blocks)), _copy(list(covl)),
                                  _copy(list(covr)), fl, _copy(list(dd)))
    else:
-      raise ValueError("Something is wrong with the template *%s*."%template)
+      raise ValueError("Something is wrong with the template `%s`."%template)
 
 
 def parseAnsatz(template:str, model:Model)->Iterator[LinearComb]:

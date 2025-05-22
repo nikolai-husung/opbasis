@@ -1,6 +1,6 @@
 [project]
 name = "opBasis"
-version = "0.9"
+version = "0.9.1"
 description = "Python scripts to derive a minimal operator basis for lattice gauge theory."
 readme = "README.md"
 license = "MIT"

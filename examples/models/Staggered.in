@@ -1,0 +1,11 @@
+Transf: Staggered
+Flavours: u1 u2 u3 u4 = Psi
+Block: Taste
+# Discrete symmetries
+Discrete: modP ++++
+Discrete: modC +
+Discrete: Shift ++++
+Discrete: modH4 ++++++
+
+Spurion: remnantChiral
+#Spurion: tau5

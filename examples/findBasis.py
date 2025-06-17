@@ -13,7 +13,8 @@ model = opb.Model.read("models/%s.in"%name)
 model.apply()
 
 fset = list(model.flavourSets.keys())[0]
-templates = opb.getTemplates(md, [(fset,fset),], [opb.Gamma,opb.M])
+templates = opb.getTemplates(md, [(fset,fset),],
+   [getattr(model.pyModule,x) for x in model.blocks] + [opb.Gamma,opb.M])
 # Sort templates according to the following criteria:
 # total derivative > EOM-vanishing > massive > #(of Bilinear) > #F(in Bilinear)
 # > others > #F(in Trace)

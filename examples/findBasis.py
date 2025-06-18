@@ -11,16 +11,23 @@ md   = int(sys.argv[2])
 
 model = opb.Model.read("models/%s.in"%name)
 model.apply()
+print(model)
 
 fset = list(model.flavourSets.keys())[0]
-templates = opb.getTemplates(md, [(fset,fset),],
-   [getattr(model.pyModule,x) for x in model.blocks] + [opb.Gamma,opb.M])
+# Default behaviour: Use already existing templates and associated basis.
+#                    -> Adapt at will.
+storage = opb.CompressedBasis(name+"_%i.basis"%md, model)
+if len(storage.templates) == 0:
+   templates = opb.getTemplates(md, [(fset,fset),],
+      [getattr(model.pyModule,x) for x in model.blocks] + [opb.Gamma,opb.M])
+else:
+   templates = storage.getTemplates()
 # Sort templates according to the following criteria:
-# total derivative > EOM-vanishing > massive > #(of Bilinear) > #F(in Bilinear)
-# > others > #F(in Trace)
+# is(total derivative) > EOM-vanishing > massive > #(of Bilinear)
+#                      > #F(in Bilinear) > others > #F(in Trace)
 # -> Last three inequalities are our choice to get, e.g., the SW-term and
 #    discard tr(F.F.F) in favour of other operators.
-templates = [str(x) for x in sorted(templates, reverse=True,
+templates = [x for x in sorted(templates, reverse=True,
    key=lambda x: (
       + 7**5 * (1 if x.tder else 0)
       + 7**4 * (x["DF"]+x["D0"]+x["D0l"])
@@ -30,14 +37,12 @@ templates = [str(x) for x in sorted(templates, reverse=True,
       +        x["F"]*(1 if x["Bilinear"]>0 else -1)
       ))]
 
-print(model)
 bases = list()
-storage = opb.CompressedBasis(name+"_%i.basis"%md, model)
 for template in templates:
-   if template in storage:
-      basis = storage.get(template, model)
+   if str(template) in storage:
+      basis = storage.get(str(template), model)
    else:
-      basis = opb.overcompleteBasis(template, model)
+      basis = opb.overcompleteBasis(str(template), model)
       storage.add(template, basis)
       for b in basis:
          print(b)

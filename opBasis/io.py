@@ -19,6 +19,7 @@ from .dirac import Gamma
 from .pauli import SU2
 from .ops import LinearComb, Commutative, Bilinear, Trace
 from .opBasis import Model
+from .templates import TemplateRep
 
 def _BlockWildcards(blocks):
    return "|".join(x._toRegex() for x in blocks)
@@ -373,7 +374,7 @@ class CompressedBasis:
       """
       return template in self.templates
 
-   def add(self, template:str, ops:list[LinearComb]):
+   def add(self, template:TemplateRep, ops:list[LinearComb]):
       """
       Appends a file with the name *template*.ops containing the string-
       representation of the operators *ops*. Raises a ValueError in case
@@ -382,20 +383,29 @@ class CompressedBasis:
       
       Parameters
       ----------
-      template : str
-         String representation of the template for ansätze to be used.
+      template : TemplateRep
+         Carries details about the building blocks used in the template when
+         deriving the associated operator basis as well as the actual
+         mass-dimension.
+
+      ops : list[LinearComb]
+         Collection of operators found for this specific template that are
+         compatible with the model-specific transformation properties.
 
       Raises
       ------
       ValueError
          If the *template* to be added is already present.
       """
-      if template in self.templates:
+      if template.rep in self.templates:
          raise ValueError(
-            "The specified template *%s* already exists."%template)
+            "The specified template *%s* already exists."%template.rep)
       with ZipFile(self.fname, 'a', ZIP_DEFLATED, compresslevel=9) as zf:
-         zf.writestr(template+".ops", "\n".join(str(op) for op in ops))
-      self.templates.append(template)
+         zf.writestr(template.rep+".ops", "\n".join(str(op) for op in ops))
+         zf.writestr(template.rep+".rep", "\n".join(
+            [str(template.md),str(template.tder)] +\
+            [key+" : "+str(item) for key,item in template.items()]))
+      self.templates.append(template.rep)
 
    def get(self, template:str, model:Model)->list[LinearComb]:
       """
@@ -410,7 +420,7 @@ class CompressedBasis:
       Returns
       -------
       list[LinearComb]
-         Collection of LinearComb stored for the given *template*.
+         Collection of `LinearComb` stored for the given *template*.
 
       Raises
       ------
@@ -423,3 +433,25 @@ class CompressedBasis:
          ops = parseLinearCombs(
                   Path(zf).joinpath(template+".ops").read_text(), model)
       return ops
+
+   def getTemplates(self):
+      """
+      Reads all templates currently available including their `TemplateRep` for
+      customised ordering.
+
+      Returns
+      -------
+      list[TemplateRep]
+         Collection of `TemplateRep` representing all the operators stored
+         and grouped according to their *template*.
+      """
+      res = list()
+      with ZipFile(self.fname, 'r', ZIP_DEFLATED, compresslevel=9) as zf:
+         for template in self.templates:
+            parts = Path(zf).joinpath(template+".rep").read_text().split("\n")
+            temp = TemplateRep(template, Fraction(parts[0]), bool(parts[1]))
+            for part in parts[2:]:
+               key,item = part.split(" : ")
+               temp[key] = int(item)
+            res.append(temp)
+      return res

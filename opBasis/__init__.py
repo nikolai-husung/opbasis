@@ -13,7 +13,7 @@ from .eoms import GluonEOM, unmaskGluonEOMs, unmaskFermionEOMs
 from .io import parseLinearCombs, CompressedBasis
 from .minBasis import findMinBases
 from .opBasis import Model, overcompleteBasis, symmetrise, parseAnsatz
-from .ops import LinearComb, Commutative, Trace, Bilinear
+from .ops import LinearComb, _Commutative, Trace, Bilinear
 from .pauli import Pauli, SU2
 from .templates import TemplateRep, getBilinearTemplates,\
    getAlgebraTraceTemplates, getTemplates

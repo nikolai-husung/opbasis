@@ -229,7 +229,7 @@ class Trace:
          [der.rotation(plane) for der in self.derivatives], self.factor)
 
 
-class Commutative:
+class _Commutative:
    """Collection of Trace and Bilinear that commute among one another.
 
    Allows to have various traces and bilinears simultaneously and deals with the
@@ -309,7 +309,7 @@ class Commutative:
       """Iterator over all `Bilinear` in current term.
 
       Allows the user direct access to all instances of `Bilinear` present in
-      the current instance of Commutative, i.e., within the current term.
+      the current instance of _Commutative, i.e., within the current term.
 
       Returns
       -------
@@ -325,7 +325,7 @@ class Commutative:
       """Iterator over all `Trace` in current term.
 
       Allows the user to direct access to all instances of `Trace` present in the
-      current instance of Commutative, i.e., within the current term.
+      current instance of _Commutative, i.e., within the current term.
 
       Returns
       -------
@@ -348,12 +348,12 @@ class LinearComb:
 
    Parameters
    ----------
-   terms : list[Commutative]
+   terms : list[_Commutative]
       Collection of terms in the linear combination.
    factor : int|Fraction|Complex, optional
       Overall factor, defaults to 1.
    """
-   def __init__(self, terms:list[Commutative], factor:int|Fraction|Complex = 1):
+   def __init__(self, terms:list[_Commutative], factor:int|Fraction|Complex = 1):
       self.terms  = terms
       self.factor = factor if isinstance(factor,Complex) else Complex(factor)
 
@@ -412,7 +412,7 @@ class LinearComb:
          for fterm in fcp.terms:
             for sterm in cp.terms:
                newTerms.append(
-                  Commutative(_copy(sterm.prod) + _copy(fterm.prod), None,
+                  _Commutative(_copy(sterm.prod) + _copy(fterm.prod), None,
                               sterm.factor * fterm.factor))
          return LinearComb(newTerms, self.factor*fac.factor)
       if isinstance(fac, (int,Fraction,Complex)):
@@ -541,7 +541,7 @@ class LinearComb:
 
 def _productRule(op:LinearComb)->bool:
    """
-   Searches for an overall derivative in `Commutative` to rewrite it via the
+   Searches for an overall derivative in `_Commutative` to rewrite it via the
    product rule as an appropriate `LinearComb`.
 
    Parameters

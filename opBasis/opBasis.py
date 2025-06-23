@@ -27,7 +27,7 @@ from .blocks import Block, d, D, Dl, D0, D0l,\
    M, dM
 from .dirac import Gamma
 from .pauli import SU2
-from .ops import LinearComb, Commutative, Bilinear, Trace
+from .ops import LinearComb, _Commutative, Bilinear, Trace
 from .basics import Complex, rotPlanes, Union
 
 # end-points for _AlgebraBlock templates
@@ -35,7 +35,7 @@ _ALG = "|".join(["F","DF"])
 
 _PROTECTED = ["Block", "d", "D", "Dl", "F", "DF", "D0", "D0l",
    "Colour", "M", "dM", "Gamma", "SU2", "Multiplicative",
-   "LinearComb", "Commutative", "Bilinear", "Trace"]
+   "LinearComb", "Bilinear", "Trace"]
 
 MAX_ITER = 100
 
@@ -404,7 +404,7 @@ def parseAnsatz(template:str, model:Model)->Iterator[LinearComb]:
    for c in product(*[_parsePart(p, model) for p in template.\
       replace(" ", "").split("*")]):
       for dd in derivatives:
-         yield LinearComb([Commutative(_copy(list(c)), _copy(list(dd)), 1)], 1)
+         yield LinearComb([_Commutative(_copy(list(c)), _copy(list(dd)), 1)], 1)
 
 
 def symmetrise(ansatz:LinearComb, model:Model)->LinearComb:

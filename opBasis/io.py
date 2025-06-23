@@ -17,7 +17,7 @@ from .blocks import Block, d, D, Dl, \
    D0, D0l, Colour, M, dM
 from .dirac import Gamma
 from .pauli import SU2
-from .ops import LinearComb, Commutative, Bilinear, Trace
+from .ops import LinearComb, _Commutative, Bilinear, Trace
 from .opBasis import Model
 from .templates import TemplateRep
 
@@ -222,7 +222,7 @@ def _parseLinearComb(expr:str, term:str, bilin:str, oTrace:str,
          Fraction(*[x for x in fre.split("/")]),
          Fraction(*[x for x in fim.split("/")]))
       der,comm = comm.split("<")
-      c = Commutative([],
+      c = _Commutative([],
          [d(d._types()[0](int(d_.split("[")[1][:-1]))) \
             for d_ in der.split(".") if d_!=""],
          factor)

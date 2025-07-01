@@ -2,9 +2,7 @@
 # basis for pure gauge theory or Wilson quarks.
 import sys
 from fractions import Fraction
-
 import opBasis as opb
-
 
 name = sys.argv[1]
 md   = int(sys.argv[2])
@@ -48,33 +46,29 @@ for template in templates:
          print(b)
    if len(basis)>0:
       bases.append(basis)
-
-# Need to specify EOMs.
+# Declare relevant EOMs. Be careful when additional flavour-space generators
+# are introduced as those must be added to the Bilinear part of the gluon EOM.
 gEOM = opb.GluonEOM(Fraction(1,2),Fraction(3),[],[])
-gluonPart = "\t-2*<tr(D[#nu#].F[#nu#,#mu#].Colour)>"
-gluonPart = "\n".join(gluonPart.replace("#nu#", str(nu)) for nu in range(4))
-fermionPart = ""
-for fset in model.flavourSets.keys():
-   fermionPart += "\t-1*<%s.Gamma[#gmu#].Colour.%s>\n"%(fset,fset)
-
-for mu in range(4):
-   gEOM.gluonPart.append(opb.parseLinearCombs("+1*{\n" + gluonPart.\
-      replace("#mu#", str(mu)) + "\n}", model)[0])
-   if len(model.flavourSets):
-      gEOM.fermionPart.append(opb.parseLinearCombs("+1*{\n" + fermionPart.\
-         replace("#gmu#", opb.axisGammas[mu].name) + "}", model)[0])
-   else:
-      gEOM.fermionPart.append(None)
-
-fEOMs = list()
+gluonPart = "-2*{" + "".join("+1*<tr(D[%i].F[%i,#mu#].Colour)>"%(nu,nu)
+                             for nu in range(4)) + "}"
+gluonPart = "\n".join(gluonPart.replace("#mu#", str(mu)) for mu in range(4))
+gEOM.gluonPart = opb.parseLinearCombs(gluonPart, model)
+fEOMs = None
 if len(model.flavourSets):
-   for fset in model.flavourSets.keys():
-      fEOM = "\t+1*<%s.Gamma[#gnu#].D[#nu#].%s>"%(fset,fset)
-      fEOM = "\n".join(fEOM.replace("#gnu#", opb.axisGammas[nu].name).\
-         replace("#nu#", str(nu)) for nu in range(4))
-      fEOM += "\n\t+1*<%s.Gamma[id_].M.%s>"%(fset,fset)
-      fEOMs.append(opb.parseLinearCombs("+1*{\n" + fEOM + "\n}", model)[0])
-
+   fermionPart = ""
+   for fset in model.flavourSets:
+      fermionPart += "-1*<Psi.Gamma[#gmu#].Colour.Psi>"
+   gEOM.fermionPart = opb.parseLinearCombs("\n".join(
+      "+1*{"+fermionPart.replace("#gmu#", opb.axisGammas[mu].name)+"}"
+      for mu in range(4)), model)
+   fEOMs = list()
+   for fset in model.flavourSets:
+      fEOM = "".join("+1*<%s.Gamma[#gnu#].D[%i].%s>".replace("#gnu#",
+         opb.axisGammas[nu].name)%(fset,nu,fset) for nu in range(4))
+      fEOM += "+1*<%s.Gamma[id_].M.%s>"%(fset,fset)
+      fEOMs.append("+1*{" + fEOM + "}")
+   fEOMs = opb.parseLinearCombs("\n".join(fEOMs), model)
+   
 for basis in opb.findMinBases(bases, gEOM, fEOMs, model):
    print("############################################")
    for b in basis:

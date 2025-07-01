@@ -37,7 +37,7 @@ _PROTECTED = ["Block", "d", "D", "Dl", "F", "DF", "D0", "D0l",
    "Colour", "M", "dM", "Gamma", "SU2", "Multiplicative",
    "LinearComb", "Bilinear", "Trace"]
 
-MAX_ITER = 100
+MAX_ITER = 50
 
 def _checkProtected(name:str, type_:str, protected:list[str]):
    """
@@ -440,9 +440,7 @@ def symmetrise(ansatz:LinearComb, model:Model)->LinearComb:
    anyNew = True
    coll = Union()
    coll.add(ansatz)
-   niter = 0
    while anyNew:
-      niter += 1
       anyNew = False
       for c in coll:
          negc = -c
@@ -450,7 +448,13 @@ def symmetrise(ansatz:LinearComb, model:Model)->LinearComb:
             for i,b in enumerate(behaviour):
                if b=="x": continue
                temp = _copy(c)
+               niter = 0
                while True:
+                  niter += 1
+                  if niter > MAX_ITER:
+                     raise ValueError("Enforcing the desired transformations "
+                        "onto the current ansatz\n   %s\nfails within %i "
+                        "iterations."%(str(ansatz),MAX_ITER))
                   temp = (1 if b=="+" else -1) * \
                          getattr(model.pyModule, transf)(temp, i)
                   temp.simplify()

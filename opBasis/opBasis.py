@@ -439,6 +439,8 @@ def symmetrise(ansatz:LinearComb, model:Model)->LinearComb:
    """
    anyNew = True
    coll = Union()
+   # Ensure that ansatz is simplified such that it serves as a valid reference.
+   ansatz.simplify()
    coll.add(ansatz)
    while anyNew:
       anyNew = False
@@ -465,10 +467,6 @@ def symmetrise(ansatz:LinearComb, model:Model)->LinearComb:
                      ansatz.factor = 0
                      return ansatz
                   anyNew |= coll.add(temp)
-      if niter > MAX_ITER:
-         raise ValueError("Enforcing the desired transformations onto the " +
-            "current ansatz\n   %s\nfails within %i iterations."%(
-               str(ansatz),MAX_ITER))
    coll = iter(coll)
    ansatz = next(coll)
    for c in coll:
@@ -503,7 +501,6 @@ def overcompleteBasis(template:str, model:Model)->list[LinearComb]:
    """
    basis = Union()
    for ansatz in parseAnsatz(template, model):
-      ansatz.simplify()
       ansatz = symmetrise(ansatz, model)
       if ansatz.factor == 0: continue
       if not all(getattr(model.pyModule, sp)(ansatz) for sp in model.spurion):

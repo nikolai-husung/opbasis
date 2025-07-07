@@ -193,6 +193,8 @@ def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
    middle = ""
    s0 = dict()
    s0["Bilinear"] = 1
+   s0[flavours[0] + "#bar"] = 1
+   s0[flavours[1]] = 1
    for m0 in filter(lambda x: x.__massDim__==0, cblocks):
       middle += m0.__name__ + "."
       s0[m0.__name__] = 1

@@ -1,6 +1,6 @@
 [project]
-name = "opBasis"
-version = "0.9.5"
+name = "opbasis"
+version = "0.9.6"
 description = "Python scripts to derive a minimal operator basis for lattice gauge theory."
 readme = "README.md"
 license = "MIT"
@@ -19,11 +19,11 @@ classifiers = [
 keywords = ["lattice field theory", "operator basis"]
 
 [project.urls]
-Repository = "https://github.com/nikolai-husung/opBasis"
+Repository = "https://github.com/nikolai-husung/opbasis"
 
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["opBasis"]
+packages = ["opbasis"]

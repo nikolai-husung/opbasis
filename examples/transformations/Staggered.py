@@ -1,4 +1,4 @@
-import opBasis as opb
+import opbasis as opb
 # Implement custom taste space transformation for modified C, P, T, rotations
 # and remnant chiral. As it turns out, MULTABLE stays exactly the same if you
 # replace \gamma_\mu -> \tau_\mu in all the expressions.

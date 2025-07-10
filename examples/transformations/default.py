@@ -1,4 +1,4 @@
-import opBasis as opb
+import opbasis as opb
 # Specify discrete transformations as listed in model file.
 def H4(op:opb.LinearComb, plane:int):
    return op.rotation(plane)

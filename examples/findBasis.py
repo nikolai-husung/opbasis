@@ -2,7 +2,7 @@
 # basis for pure gauge theory or Wilson quarks.
 import sys
 from fractions import Fraction
-import opBasis as opb
+import opbasis as opb
 
 name = sys.argv[1]
 md   = int(sys.argv[2])

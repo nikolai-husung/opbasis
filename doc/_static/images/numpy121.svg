@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="25">
+<title>NumPy: 1.21+</title>
+<clipPath id="r"><rect width="100" height="25" rx="4" fill="#fff"/></clipPath>
+<g clip-path="url(#r)" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="10pt">
+<rect width="55" height="25" fill="#555"/>
+<text text-anchor="middle" x="28" y="50%" fill="#fff" dominant-baseline="middle">NumPy</text>
+<rect x="55" width="45" height="25" fill="#0a7d91"/>
+<text text-anchor="middle" x="77" y="50%" fill="#fff" dominant-baseline="middle">1.14+</text>
+</g>
+</svg>

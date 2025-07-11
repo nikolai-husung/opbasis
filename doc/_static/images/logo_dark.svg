@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200">
+<title>opbasis logo (dark)</title>
+<g font-weight="bold" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="55pt">
+<text text-anchor="middle" x="200" y="38%" fill="white">opbasis</text>
+<text text-anchor="middle" x="200" y="-62%" fill="rgb(119,172,48)" transform="scale(1,-1)">opb<tspan fill="rgb(217,83,25)">asis</tspan></text>
+</g>
+</svg>

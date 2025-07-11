@@ -4,8 +4,8 @@ Insertions of (subclasses of) `Block` are used to implement covariant
 derivatives, field-strength tensors, etc. including their default transformation
 properties.
 
-Custom implementations of `Block` then allow for extensions to models with non-
-trivial transformation properties, e.g., due to more complicated flavour
+Custom implementations of `Block` then allow for extensions to models with
+non-trivial transformation properties, e.g., due to more complicated flavour
 symmetries.
 """
 

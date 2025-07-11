@@ -1,0 +1,946 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 --><title>Index - opbasis documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">opbasis  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/images/logo_light.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/images/logo_dark.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blocks.html">blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dirac.html">dirac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eoms.html">eoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minBasis.html">minBasis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opBasis.html">opBasis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ops.html">ops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pauli.html">pauli</a></li>
+</ul>
+
+</div></div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          
+<section class="genindex-section">
+  <h1 id="index">Index</h1>
+  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a> | <a href="#V"><strong>V</strong></a> | <a href="#W"><strong>W</strong></a> | <a href="#X"><strong>X</strong></a> | <a href="#Y"><strong>Y</strong></a> | <a href="#Z"><strong>Z</strong></a></div>
+</section>
+<section id="_" class="genindex-section">
+  <h2>_</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="io.html#opbasis.io.CompressedBasis.__contains__">__contains__() (CompressedBasis method)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.Block.__indexName__">__indexName__ (Block attribute)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.Block.__indexType__">__indexType__ (Block attribute)</a>
+</li>
+        <li><a href="ops.html#opbasis.ops.LinearComb.__mul__">__mul__() (LinearComb method)</a>
+
+        <ul>
+          <li><a href="blocks.html#opbasis.blocks.Multiplicative.__mul__">(Multiplicative method)</a>
+</li>
+        </ul></li>
+        <li><a href="blocks.html#opbasis.blocks.Block.__neg__">__neg__() (Block method)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks._AlgebraBlock.__str__">__str__() (_AlgebraBlock method)</a>
+
+        <ul>
+          <li><a href="blocks.html#opbasis.blocks.Block.__str__">(Block method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.LinearComb.__str__">(LinearComb method)</a>
+</li>
+        </ul></li>
+        <li><a href="blocks.html#opbasis.blocks.Block.__suffix__">__suffix__ (Block attribute)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks._AlgebraBlock">_AlgebraBlock (class in opbasis.blocks)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis.Model._checkBlockConsistency">_checkBlockConsistency() (Model method)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis._checkProtected">_checkProtected() (in module opbasis.opBasis)</a>
+</li>
+        <li><a href="ops.html#opbasis.ops._Commutative">_Commutative (class in opbasis.ops)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="minBasis.html#opbasis.minBasis._dA">_dA (class in opbasis.minBasis)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks._DFl">_DFl (class in opbasis.blocks)</a>
+</li>
+        <li><a href="minBasis.html#opbasis.minBasis._IBPbilinear">_IBPbilinear() (in module opbasis.minBasis)</a>
+</li>
+        <li><a href="minBasis.html#opbasis.minBasis._IBPtrace">_IBPtrace() (in module opbasis.minBasis)</a>
+</li>
+        <li><a href="minBasis.html#opbasis.minBasis._mapCoefficients">_mapCoefficients() (in module opbasis.minBasis)</a>
+</li>
+        <li><a href="io.html#opbasis.io._parseBilinear">_parseBilinear() (in module opbasis.io)</a>
+</li>
+        <li><a href="io.html#opbasis.io._parseLinearComb">_parseLinearComb() (in module opbasis.io)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis._parsePart">_parsePart() (in module opbasis.opBasis)</a>
+</li>
+        <li><a href="ops.html#opbasis.ops._productRule">_productRule() (in module opbasis.ops)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.Block._toRegex">_toRegex() (Block class method)</a>
+</li>
+        <li><a href="minBasis.html#opbasis.minBasis._toRep">_toRep() (in module opbasis.minBasis)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.Block._types">_types() (Block class method)</a>
+</li>
+        <li><a href="minBasis.html#opbasis.minBasis._unmaskAlgebraBlock">_unmaskAlgebraBlock() (in module opbasis.minBasis)</a>
+</li>
+        <li><a href="eoms.html#opbasis.eoms._unmaskfeom">_unmaskfeom() (in module opbasis.eoms)</a>
+</li>
+        <li><a href="eoms.html#opbasis.eoms._unmaskgeom">_unmaskgeom() (in module opbasis.eoms)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="A" class="genindex-section">
+  <h2>A</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.Complex.abs2">abs2() (Complex method)</a>
+</li>
+        <li><a href="io.html#opbasis.io.CompressedBasis.add">add() (CompressedBasis method)</a>
+
+        <ul>
+          <li><a href="basics.html#opbasis.basics.Union.add">(Union method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.apply">apply() (Model method)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.axisGamma">axisGamma (in module opbasis.dirac)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="B" class="genindex-section">
+  <h2>B</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="ops.html#opbasis.ops.Bilinear">Bilinear (class in opbasis.ops)</a>
+</li>
+        <li><a href="ops.html#opbasis.ops._Commutative.bilinears">bilinears (_Commutative property)</a>
+
+        <ul>
+          <li><a href="ops.html#opbasis.ops.LinearComb.bilinears">(LinearComb property)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks.Block">Block (class in opbasis.blocks)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.blocks">blocks (Model attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="C" class="genindex-section">
+  <h2>C</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks._AlgebraBlock.charge">charge() (_AlgebraBlock method)</a>
+
+        <ul>
+          <li><a href="ops.html#opbasis.ops._Commutative.charge">(_Commutative method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks._DFl.charge">(_DFl method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Bilinear.charge">(Bilinear method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.Block.charge">(Block method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.D.charge">(D method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.D0.charge">(D0 method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.D0l.charge">(D0l method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.DF.charge">(DF method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.Dl.charge">(Dl method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.dM.charge">(dM method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.F.charge">(F method)</a>
+</li>
+          <li><a href="dirac.html#opbasis.dirac.Gamma.charge">(Gamma method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.LinearComb.charge">(LinearComb method)</a>
+</li>
+          <li><a href="pauli.html#opbasis.pauli.SU2.charge">(SU2 method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Trace.charge">(Trace method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="ops.html#opbasis.ops._Commutative.chiralSpurion">chiralSpurion() (_Commutative method)</a>
+
+        <ul>
+          <li><a href="ops.html#opbasis.ops.Bilinear.chiralSpurion">(Bilinear method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.Block.chiralSpurion">(Block method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.D0.chiralSpurion">(D0 method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.D0l.chiralSpurion">(D0l method)</a>
+</li>
+          <li><a href="dirac.html#opbasis.dirac.Gamma.chiralSpurion">(Gamma method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.LinearComb.chiralSpurion">(LinearComb method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.M.chiralSpurion">(M method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Trace.chiralSpurion">(Trace method)</a>
+</li>
+        </ul></li>
+        <li><a href="blocks.html#opbasis.blocks.Colour">Colour (class in opbasis.blocks)</a>
+</li>
+        <li><a href="basics.html#opbasis.basics.Complex">Complex (class in opbasis.basics)</a>
+</li>
+        <li><a href="io.html#opbasis.io.CompressedBasis">CompressedBasis (class in opbasis.io)</a>
+</li>
+        <li><a href="basics.html#opbasis.basics.Complex.conj">conj() (Complex method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="D" class="genindex-section">
+  <h2>D</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks.D">D (class in opbasis.blocks)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.d">d (class in opbasis.blocks)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.D0">D0 (class in opbasis.blocks)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.D0l">D0l (class in opbasis.blocks)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.defaultIndices">defaultIndices() (in module opbasis.basics)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.DF">DF (class in opbasis.blocks)</a>
+</li>
+        <li><a href="basics.html#opbasis.basics.dim">dim (in module opbasis.basics)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.Dl">Dl (class in opbasis.blocks)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks.dM">dM (class in opbasis.blocks)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks.F">F (class in opbasis.blocks)</a>
+</li>
+        <li><a href="eoms.html#opbasis.eoms.GluonEOM.fermionPart">fermionPart (GluonEOM attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="minBasis.html#opbasis.minBasis.findMinBases">findMinBases() (in module opbasis.minBasis)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.flavourSets">flavourSets (Model attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="G" class="genindex-section">
+  <h2>G</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.g5">g5 (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Gamma">Gamma (class in opbasis.dirac)</a>
+</li>
+        <li><a href="io.html#opbasis.io.CompressedBasis.get">get() (CompressedBasis method)</a>
+</li>
+        <li><a href="io.html#opbasis.io.CompressedBasis.getTemplates">getTemplates() (CompressedBasis method)</a>
+</li>
+        <li><a href="eoms.html#opbasis.eoms.GluonEOM">GluonEOM (class in opbasis.eoms)</a>
+</li>
+        <li><a href="eoms.html#opbasis.eoms.GluonEOM.gluonPart">gluonPart (GluonEOM attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gw">gw (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gw5">gw5 (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gwx">gwx (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gwy">gwy (Dirac attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gwz">gwz (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gx">gx (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gx5">gx5 (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gxy">gxy (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gxz">gxz (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gy">gy (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gy5">gy5 (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gyz">gyz (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gz">gz (Dirac attribute)</a>
+</li>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.gz5">gz5 (Dirac attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="I" class="genindex-section">
+  <h2>I</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="dirac.html#opbasis.dirac.Dirac.id_">id_ (Dirac attribute)</a>
+
+        <ul>
+          <li><a href="pauli.html#opbasis.pauli.Pauli.id_">(Pauli attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.indices">indices() (in module opbasis.basics)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="L" class="genindex-section">
+  <h2>L</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="ops.html#opbasis.ops.LinearComb">LinearComb (class in opbasis.ops)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="M" class="genindex-section">
+  <h2>M</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks.M">M (class in opbasis.blocks)</a>
+</li>
+        <li><a href="basics.html#opbasis.basics.massDim">massDim() (in module opbasis.basics)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis.Model">Model (class in opbasis.opBasis)</a>
+</li>
+        <li>
+    module
+
+        <ul>
+          <li><a href="basics.html#module-opbasis.basics">opbasis.basics</a>
+</li>
+          <li><a href="blocks.html#module-opbasis.blocks">opbasis.blocks</a>
+</li>
+          <li><a href="dirac.html#module-opbasis.dirac">opbasis.dirac</a>
+</li>
+          <li><a href="eoms.html#module-opbasis.eoms">opbasis.eoms</a>
+</li>
+          <li><a href="io.html#module-opbasis.io">opbasis.io</a>
+</li>
+          <li><a href="minBasis.html#module-opbasis.minBasis">opbasis.minBasis</a>
+</li>
+          <li><a href="opBasis.html#module-opbasis.opBasis">opbasis.opBasis</a>
+</li>
+          <li><a href="ops.html#module-opbasis.ops">opbasis.ops</a>
+</li>
+          <li><a href="pauli.html#module-opbasis.pauli">opbasis.pauli</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks.Multiplicative">Multiplicative (class in opbasis.blocks)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="N" class="genindex-section">
+  <h2>N</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="eoms.html#opbasis.eoms.GluonEOM.Nc">Nc (GluonEOM attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="O" class="genindex-section">
+  <h2>O</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    opbasis.basics
+
+        <ul>
+          <li><a href="basics.html#module-opbasis.basics">module</a>
+</li>
+        </ul></li>
+        <li>
+    opbasis.blocks
+
+        <ul>
+          <li><a href="blocks.html#module-opbasis.blocks">module</a>
+</li>
+        </ul></li>
+        <li>
+    opbasis.dirac
+
+        <ul>
+          <li><a href="dirac.html#module-opbasis.dirac">module</a>
+</li>
+        </ul></li>
+        <li>
+    opbasis.eoms
+
+        <ul>
+          <li><a href="eoms.html#module-opbasis.eoms">module</a>
+</li>
+        </ul></li>
+        <li>
+    opbasis.io
+
+        <ul>
+          <li><a href="io.html#module-opbasis.io">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    opbasis.minBasis
+
+        <ul>
+          <li><a href="minBasis.html#module-opbasis.minBasis">module</a>
+</li>
+        </ul></li>
+        <li>
+    opbasis.opBasis
+
+        <ul>
+          <li><a href="opBasis.html#module-opbasis.opBasis">module</a>
+</li>
+        </ul></li>
+        <li>
+    opbasis.ops
+
+        <ul>
+          <li><a href="ops.html#module-opbasis.ops">module</a>
+</li>
+        </ul></li>
+        <li>
+    opbasis.pauli
+
+        <ul>
+          <li><a href="pauli.html#module-opbasis.pauli">module</a>
+</li>
+        </ul></li>
+        <li><a href="opBasis.html#opbasis.opBasis.overcompleteBasis">overcompleteBasis() (in module opbasis.opBasis)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="P" class="genindex-section">
+  <h2>P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.parse">parse() (Model static method)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis.parseAnsatz">parseAnsatz() (in module opbasis.opBasis)</a>
+</li>
+        <li><a href="io.html#opbasis.io.parseLinearCombs">parseLinearCombs() (in module opbasis.io)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.Complex.phase">phase() (Complex method)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.pyModule">pyModule (Model attribute)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.pyName">pyName (Model attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="R" class="genindex-section">
+  <h2>R</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.read">read() (Model static method)</a>
+</li>
+        <li><a href="blocks.html#opbasis.blocks._AlgebraBlock.reflection">reflection() (_AlgebraBlock method)</a>
+
+        <ul>
+          <li><a href="ops.html#opbasis.ops._Commutative.reflection">(_Commutative method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Bilinear.reflection">(Bilinear method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.Block.reflection">(Block method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.d.reflection">(d method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.F.reflection">(F method)</a>
+</li>
+          <li><a href="dirac.html#opbasis.dirac.Gamma.reflection">(Gamma method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.LinearComb.reflection">(LinearComb method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Trace.reflection">(Trace method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks._AlgebraBlock.rotation">rotation() (_AlgebraBlock method)</a>
+
+        <ul>
+          <li><a href="ops.html#opbasis.ops._Commutative.rotation">(_Commutative method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Bilinear.rotation">(Bilinear method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.Block.rotation">(Block method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.d.rotation">(d method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.F.rotation">(F method)</a>
+</li>
+          <li><a href="dirac.html#opbasis.dirac.Gamma.rotation">(Gamma method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.LinearComb.rotation">(LinearComb method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Trace.rotation">(Trace method)</a>
+</li>
+        </ul></li>
+        <li><a href="basics.html#opbasis.basics.rotPlanes">rotPlanes (in module opbasis.basics)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="S" class="genindex-section">
+  <h2>S</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks._AlgebraBlock.simplify">simplify() (_AlgebraBlock method)</a>
+
+        <ul>
+          <li><a href="ops.html#opbasis.ops._Commutative.simplify">(_Commutative method)</a>
+</li>
+          <li><a href="minBasis.html#opbasis.minBasis._dA.simplify">(_dA method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Bilinear.simplify">(Bilinear method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.Block.simplify">(Block method)</a>
+</li>
+          <li><a href="blocks.html#opbasis.blocks.F.simplify">(F method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.LinearComb.simplify">(LinearComb method)</a>
+</li>
+          <li><a href="ops.html#opbasis.ops.Trace.simplify">(Trace method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.spurion">spurion (Model attribute)</a>
+</li>
+        <li><a href="pauli.html#opbasis.pauli.SU2">SU2 (class in opbasis.pauli)</a>
+</li>
+        <li><a href="ops.html#opbasis.ops.Bilinear.swapFlavours">swapFlavours() (Bilinear method)</a>
+</li>
+        <li><a href="opBasis.html#opbasis.opBasis.symmetrise">symmetrise() (in module opbasis.opBasis)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="T" class="genindex-section">
+  <h2>T</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="pauli.html#opbasis.pauli.Pauli.t1">t1 (Pauli attribute)</a>
+</li>
+        <li><a href="pauli.html#opbasis.pauli.Pauli.t2">t2 (Pauli attribute)</a>
+</li>
+        <li><a href="pauli.html#opbasis.pauli.Pauli.t3">t3 (Pauli attribute)</a>
+</li>
+        <li><a href="eoms.html#opbasis.eoms.GluonEOM.TF">TF (GluonEOM attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.toReference">toReference() (Model method)</a>
+</li>
+        <li><a href="ops.html#opbasis.ops.Trace">Trace (class in opbasis.ops)</a>
+</li>
+        <li><a href="ops.html#opbasis.ops._Commutative.traces">traces (_Commutative property)</a>
+
+        <ul>
+          <li><a href="ops.html#opbasis.ops.LinearComb.traces">(LinearComb property)</a>
+</li>
+        </ul></li>
+        <li><a href="opBasis.html#opbasis.opBasis.Model.transf">transf (Model attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="U" class="genindex-section">
+  <h2>U</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.Union">Union (class in opbasis.basics)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="eoms.html#opbasis.eoms.unmaskFermionEOMs">unmaskFermionEOMs() (in module opbasis.eoms)</a>
+</li>
+        <li><a href="eoms.html#opbasis.eoms.unmaskGluonEOMs">unmaskGluonEOMs() (in module opbasis.eoms)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="V" class="genindex-section">
+  <h2>V</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="blocks.html#opbasis.blocks.Block.variants">variants() (Block class method)</a>
+
+        <ul>
+          <li><a href="blocks.html#opbasis.blocks.F.variants">(F class method)</a>
+</li>
+          <li><a href="dirac.html#opbasis.dirac.Gamma.variants">(Gamma class method)</a>
+</li>
+          <li><a href="pauli.html#opbasis.pauli.SU2.variants">(SU2 class method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="W" class="genindex-section">
+  <h2>W</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.sptIdx.w">w (sptIdx attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="X" class="genindex-section">
+  <h2>X</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.sptIdx.x">x (sptIdx attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="Y" class="genindex-section">
+  <h2>Y</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.sptIdx.y">y (sptIdx attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="Z" class="genindex-section">
+  <h2>Z</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="basics.html#opbasis.basics.sptIdx.z">z (sptIdx attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Nikolai Husung
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://www.python.org/downloads/" aria-label="Python"><img style="height:25px;width:100%" src="_static/images/python310.svg" alt="Python>=3.10" /></a>
+              <a class="muted-link " href="https://numpy.org/install/" aria-label="NumPy"><img style="height:25px;width:100%" src="_static/images/numpy121.svg" alt="NumPy>=1.21" /></a>
+              <a class="muted-link " href="https://arxiv.org" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="25xx.xxxxx" /></a>
+              <a class="muted-link " href="../../../../LICENSE" aria-label="License"><img style="height:25px;width:100%" src="_static/images/license.svg" alt="License: MIT" /></a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>

@@ -249,10 +249,16 @@
 <h1>opbasis<a class="headerlink" href="#opbasis" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<p>This Python package allows the derivation of a minimal operator basis for typical use cases of lattice gauge theory practicioners. After specifying the transformation properties of the operator basis of interest, the package allows to derive the full basis at a given canonical mass-dimension. This includes the use of integration-by-parts identites and equations of motions to work out the minimal operator basis while allowing the user some control which operators to prioritise. Depending on the problem the user might, e.g., prefer to keep massive operators or total derivatives in favour of other variants.</p>
-<p>Definition of a model amounts to declaring the flavour content, any transformation properties of the target basis, and possibly any Spurion symmetries to filter out unwanted operators. The specific transformations have to be implemented by the user in a dedicated Python file leaving in principle total freedom to the user what transformations are being realised. Similarly, to take equations of motions into account the user has to specify them, which then allows for example to consider a theory with a canonical or chirally-twisted mass term.</p>
+<p>This Python package allows the derivation of a minimal operator basis for typical use cases of lattice gauge theory practicioners.
+After specifying the transformation properties of the operator basis of interest, the package allows to derive the full basis at a given canonical mass-dimension.
+This includes the use of integration-by-parts identites and equations of motions to work out the minimal operator basis while allowing the user some control which operators to prioritise.
+Depending on the problem the user might, e.g., prefer to keep massive operators or total derivatives in favour of other variants.</p>
+<p>Definition of a model amounts to declaring the flavour content, any transformation properties of the target basis, and possibly any Spurion symmetries to filter out unwanted operators.
+The specific transformations have to be implemented by the user in a dedicated Python file leaving in principle total freedom to the user what transformations are being realised.
+Similarly, to take equations of motions into account the user has to specify them, which then allows for example to consider a theory with a canonical or chirally-twisted mass term.</p>
 <p>A lot of freedom is added by allowing the user to further introduce custom <a class="reference internal" href="blocks.html#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> implementations, which may for example be used to introduce generators of a specific flavour symmetry like isospin or tastes for Staggered quarks.</p>
-<p>A <a class="reference internal" href="#minimal-working-example">Minimal working example</a> is presented in the following and various other <a class="reference external" href="https://github.com/nikolai-husung/opbasis/tree/master/examples">examples</a> are available as well. For a more focused discussion of the package you may also have a look at <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>A <a class="reference internal" href="#minimal-working-example">Minimal working example</a> is presented in the following and various other <a class="reference external" href="https://github.com/nikolai-husung/opbasis/tree/master/examples">examples</a> are available as well.
+For a more focused discussion of the package you may also have a look at <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <p>The package consists of multiple submodules, whose features can be explored via the corresponding sub-pages in the sidebar.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
@@ -271,10 +277,41 @@
 </section>
 <section id="minimal-working-example">
 <h2>Minimal working example<a class="headerlink" href="#minimal-working-example" title="Link to this heading">¶</a></h2>
-<p>To highlight the general workflow we give here</p>
+<p>To highlight the general workflow we derive the mass-dimension 6 operator basis describing all O(<em>a²</em>) lattice artifacts for a pure gauge action compatible with the symmetry transformations left on a hypercubic lattice.
+First we set up the directory structure</p>
+<ul>
+<li><p>Work directory</p>
+<blockquote>
+<div><p>Contains the main script, here <a class="reference external" href="https://github.com/nikolai-husung/opbasis/tree/master/examples/findBasis.py">findBasis.py</a>, controlling the details of deriving the basis.</p>
+<ul>
+<li><p>models</p>
+<blockquote>
+<div><p>Contains the declaration of transformations and other details of the current model, here <a class="reference external" href="https://github.com/nikolai-husung/opbasis/tree/master/examples/models/pureGauge.in">pureGauge.in</a> including the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Transf:</span> <span class="pre">default</span></code> directive declaring the associated Python implementation.</p>
+</div></blockquote>
+</li>
+<li><p>transformations</p>
+<blockquote>
+<div><p>Contains the Python implementation of the transformations required for the current model, here <a class="reference external" href="https://github.com/nikolai-husung/opbasis/tree/master/examples/models/transformations/default.py">default.py</a>.
+This already implements all the spacetime symmetry transformation one typically requires in a theory on a hypercubic lattice.</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>In the model file we denote the following tranformation properties</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Discrete</span><span class="p">:</span> <span class="n">P</span> <span class="o">++++</span>
+<span class="n">Discrete</span><span class="p">:</span> <span class="n">C</span> <span class="o">+</span>
+<span class="n">Discrete</span><span class="p">:</span> <span class="n">H4</span> <span class="o">++++++</span>
+</pre></div>
+</div>
+<p>Each line corresponds to another transformation, here Euclidean reflections, charge conjugation, and hypercubic rotations.
+The transformation behaviour is then denoted by either <code class="xref py py-obj docutils literal notranslate"><span class="pre">+</span></code> or  <code class="xref py py-obj docutils literal notranslate"><span class="pre">-</span></code>.
+If a particular direction should be omitted <code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code> can be chosen instead.</p>
+<p>Running <a class="reference external" href="https://github.com/nikolai-husung/opbasis/tree/master/examples/findBasis.py">findBasis.py</a> with this input (and specifying the proper gluon EOM) then yields the expected operator basis.</p>
 <hr class="docutils" />
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id2" role="doc-footnote">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <ol class="upperalpha simple" start="14">
 <li><p>Husung, <em>opbasis – a Python package to derive minimal operator bases</em>, unpublished (2025) [<a class="reference external" href="https://arxiv.org/">25??.?????</a>].</p></li>

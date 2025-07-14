@@ -1,7 +1,7 @@
 [![](docs/_static/images/python310.svg)](https://www.python.org/downloads/) [![](docs/_static/images/numpy121.svg)](https://numpy.org/install/) [![](docs/_static/images/arXiv.svg)](https://arxiv.org) [![Licence: MIT](docs/_static/images/license.svg)](LICENSE)
 # opbasis
 This Python package allows the derivation of a minimal operator basis for typical use cases of lattice gauge theory practicioners.
-- **Full documentation** and some introductory examples see the [Github Pages](https://nikolai-husung.github.io/opbasis/).
+- **Full documentation** and some introductory examples see the [GitHub Pages](https://nikolai-husung.github.io/opbasis/).
 - **Installation** see the instructions below.
 
 ## Installation

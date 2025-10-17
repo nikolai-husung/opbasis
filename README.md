@@ -8,7 +8,7 @@ This Python package allows the derivation of a minimal operator basis for typica
 There are three ways to make this package available on your client:
 - Use pip to install the latest version supplied in the git via
 ```bash
-pip3 install opbasis-0.9.6-py3-none-any.whl
+pip3 install opbasis-0.9.7-py3-none-any.whl
 ```
 - Run the Makefile to build and install the latest version yourself.
 - Add the *opbasis* folder containing all the Python source files to your work directory or to `sys.path`.

@@ -500,12 +500,16 @@ def overcompleteBasis(template:str, model:Model)->list[LinearComb]:
       all Spurion symmetry checks.
    """
    basis = Union()
+   bblks = set()
    for ansatz in parseAnsatz(template, model):
+      ansatz.simplify()
+      if str(ansatz.terms[0]) in bblks: continue
       ansatz = symmetrise(ansatz, model)
       if ansatz.factor == 0: continue
       if not all(getattr(model.pyModule, sp)(ansatz) for sp in model.spurion):
          continue
       if ansatz != 0:
          basis.add(ansatz)
+         bblks |= set(str(term) for term in ansatz.terms)
    return basis.content
 

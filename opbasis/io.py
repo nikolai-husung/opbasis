@@ -206,8 +206,8 @@ def _parseLinearComb(expr:str, term:str, bilin:str, oTrace:str,
    fre = fac[1] if not fac[1] is None else ("0" if fac[3] is None else fac[3])
    fim = fac[2] if not fac[2] is None else ("0" if fac[4] is None else fac[4])
    factor = (-1 if factor[0]=="-" else 1) * Complex(
-      Fraction(*[x for x in fre.split("/")]),
-      Fraction(*[x for x in fim.split("/")]))
+      Fraction(*[int(x) for x in fre.split("/")]),
+      Fraction(*[int(x) for x in fim.split("/")]))
    lcomb = LinearComb([], factor)
    tfound = re.search(term, expr)
    while tfound:
@@ -219,8 +219,8 @@ def _parseLinearComb(expr:str, term:str, bilin:str, oTrace:str,
       fim = fac[2] if not fac[2] is None else \
          ("0" if fac[4] is None else fac[4])
       factor = (-1 if factor[0]=="-" else 1) * Complex(
-         Fraction(*[x for x in fre.split("/")]),
-         Fraction(*[x for x in fim.split("/")]))
+         Fraction(*[int(x) for x in fre.split("/")]),
+         Fraction(*[int(x) for x in fim.split("/")]))
       der,comm = comm.split("<")
       c = _Commutative([],
          [d(d._types()[0](int(d_.split("[")[1][:-1]))) \

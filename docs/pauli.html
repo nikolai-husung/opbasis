@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="ops" href="ops.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Changelog" href="changelog.html" /><link rel="prev" title="ops" href="ops.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>pauli - opbasis documentation</title>
@@ -211,6 +211,7 @@
 <li class="toctree-l1"><a class="reference internal" href="opBasis.html">opBasis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ops.html">ops</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">pauli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
 </div></div>
@@ -249,6 +250,7 @@
 <span id="pauli"></span><h1>pauli<a class="headerlink" href="#module-opbasis.pauli" title="Link to this heading">¶</a></h1>
 <p>This submodule implements elements of SU(2), i.e., the identity and the Pauli
 matrices and their multiplication rules.</p>
+<p>changelog</p>
 <dl class="py class enum">
 <dt class="sig sig-object py" id="opbasis.pauli.Pauli">
 <em class="property"><span class="k"><span class="pre">enum</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Pauli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.pauli.Pauli" title="Link to this definition">¶</a></dt>
@@ -278,14 +280,14 @@ matrices and their multiplication rules.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="opbasis.pauli.SU2">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SU2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#opbasis.pauli.Pauli" title="opbasis.pauli.Pauli"><span class="pre">Pauli</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.13)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.pauli.SU2" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SU2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#opbasis.pauli.Pauli" title="opbasis.pauli.Pauli"><span class="pre">Pauli</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.pauli.SU2" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="blocks.html#opbasis.blocks.Multiplicative" title="opbasis.blocks.Multiplicative"><code class="xref py py-class docutils literal notranslate"><span class="pre">Multiplicative</span></code></a></p>
 <p>Implements the hermitian 2x2 matrices (1, pauli_{1,2,3}).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tau</strong> (<a class="reference internal" href="#opbasis.pauli.Pauli" title="opbasis.pauli.Pauli"><em>Pauli</em></a>) – Identifier of the chosen pauli matrix / identity.</p></li>
-<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>|</em><em>Fraction</em><em>|</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>, </em><em>optional</em>) – Overall factor, defaults to 1.</p></li>
+<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><em>Fraction</em><em>|</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>, </em><em>optional</em>) – Overall factor, defaults to 1.</p></li>
 </ul>
 </dd>
 </dl>
@@ -329,7 +331,15 @@ Block.</p>
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="changelog.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Changelog</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="ops.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">

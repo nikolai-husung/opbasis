@@ -211,6 +211,7 @@
 <li class="toctree-l1"><a class="reference internal" href="opBasis.html">opBasis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ops.html">ops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pauli.html">pauli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
 </div></div>
@@ -256,11 +257,12 @@ including their transformations under the usual discrete spacetime symmetries.</
 mu=0,1,2,3.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a>[<a class="reference internal" href="#opbasis.dirac.Dirac" title="opbasis.dirac.Dirac">Dirac</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference internal" href="#opbasis.dirac.Dirac" title="opbasis.dirac.Dirac">Dirac</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
+<p>changelog</p>
 <dl class="py class enum">
 <dt class="sig sig-object py" id="opbasis.dirac.Dirac">
 <em class="property"><span class="k"><span class="pre">enum</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Dirac</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Dirac" title="Link to this definition">¶</a></dt>
@@ -350,14 +352,14 @@ mu=0,1,2,3.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="opbasis.dirac.Gamma">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#opbasis.dirac.Dirac" title="opbasis.dirac.Dirac"><span class="pre">Dirac</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.13)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Gamma" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#opbasis.dirac.Dirac" title="opbasis.dirac.Dirac"><span class="pre">Dirac</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Gamma" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="blocks.html#opbasis.blocks.Multiplicative" title="opbasis.blocks.Multiplicative"><code class="xref py py-class docutils literal notranslate"><span class="pre">Multiplicative</span></code></a></p>
 <p>Implementation of 4d Dirac gamma matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>gamma</strong> (<a class="reference internal" href="#opbasis.dirac.Dirac" title="opbasis.dirac.Dirac"><em>Dirac</em></a>) – Identifier of the chosen gamma matrix.</p></li>
-<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>|</em><em>Fraction</em><em>|</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>, </em><em>optional</em>) – Overall factor, detaults to 1.</p></li>
+<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><em>Fraction</em><em>|</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>, </em><em>optional</em>) – Overall factor, detaults to 1.</p></li>
 </ul>
 </dd>
 </dl>
@@ -385,18 +387,18 @@ mu=0,1,2,3.</p>
 trivially under chiral spurion.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.dirac.Gamma.reflection">
-<span class="sig-name descname"><span class="pre">reflection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Gamma.reflection" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reflection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Gamma.reflection" title="Link to this definition">¶</a></dt>
 <dd><p>Implements conventional Euclidean reflection in direction <em>mu</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Spacetime direction.</p>
+<dd class="field-odd"><p><strong>mu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Spacetime direction.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A copy of itself transformed accordingly.</p>
@@ -409,12 +411,12 @@ trivially under chiral spurion.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.dirac.Gamma.rotation">
-<span class="sig-name descname"><span class="pre">rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plane</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Gamma.rotation" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plane</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Gamma.rotation" title="Link to this definition">¶</a></dt>
 <dd><p>Implements conventional 90 degree rotations in the chosen <em>plane</em> as
 defined in <a class="reference internal" href="basics.html#opbasis.basics.rotPlanes" title="opbasis.basics.rotPlanes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotPlanes</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Identifier of the current rotational plane [0,len(<a class="reference internal" href="basics.html#opbasis.basics.rotPlanes" title="opbasis.basics.rotPlanes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotPlanes</span></code></a>)[.</p>
+<dd class="field-odd"><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Identifier of the current rotational plane [0,len(<a class="reference internal" href="basics.html#opbasis.basics.rotPlanes" title="opbasis.basics.rotPlanes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotPlanes</span></code></a>)[.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A copy of itself transformed accordingly.</p>

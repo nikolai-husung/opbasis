@@ -1,4 +1,4 @@
-[![](docs/_static/images/python310.svg)](https://www.python.org/downloads/) [![](docs/_static/images/numpy121.svg)](https://numpy.org/install/) [![](docs/_static/images/arXiv.svg)](https://arxiv.org) [![Licence: MIT](docs/_static/images/license.svg)](LICENSE)
+[![](docs/_static/images/python310.svg)](https://www.python.org/downloads/) [![](docs/_static/images/numpy121.svg)](https://numpy.org/install/) [![](docs/_static/images/arXiv.svg)](https://arxiv.org/abs/2511.00165) [![Licence: MIT](docs/_static/images/license.svg)](LICENSE)
 # opbasis
 This Python package allows the derivation of a minimal operator basis for typical use cases of lattice gauge theory practicioners.
 - **Full documentation** and some introductory examples see the [GitHub Pages](https://nikolai-husung.github.io/opbasis/).
@@ -8,7 +8,7 @@ This Python package allows the derivation of a minimal operator basis for typica
 There are three ways to make this package available on your client:
 - Use pip to install the latest version supplied in the git via
 ```bash
-pip3 install opbasis-0.9.7-py3-none-any.whl
+pip3 install opbasis-0.9.8-py3-none-any.whl
 ```
 - Run the Makefile to build and install the latest version yourself.
 - Add the *opbasis* folder containing all the Python source files to your work directory or to `sys.path`.

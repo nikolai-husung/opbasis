@@ -1,0 +1,15 @@
+span.bug {
+   color: rgb(217,83,25);
+   font-size: 75%;
+   font-weight: bold;
+}
+span.change {
+   color: orange;/*rgb(217,83,25); */
+   font-size: 75%;
+   font-weight: bold;
+}
+span.new,span.improv {
+   color: rgb(119,172,48);
+   font-size: 75%;
+   font-weight: bold;
+}

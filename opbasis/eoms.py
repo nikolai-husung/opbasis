@@ -116,7 +116,8 @@ def unmaskGluonEOMs(op:LinearComb, gluonEOM:GluonEOM):
    It is assumed that there will be at most one pair of Colour in any
    expression, i.e., at most 4-quark operators!
 
-   **CAUTION:** *op* and *gluonEOM* will be changed!
+   .. caution::
+      *op* and *gluonEOM* will be changed!
 
    Parameters
    ----------
@@ -207,7 +208,7 @@ def _unmaskfeom(unmasked:LinearComb, fEOM:LinearComb, fEOMl:LinearComb,
 
 def unmaskFermionEOMs(op:LinearComb, fEOM:LinearComb, model:Model):
    """
-   Writes out all fermionic EOM contained in *op* explicitly.
+   Writes out all fermion EOMs contained in *op* explicitly.
    Expects *fEOM* to be of the form (for a specific set of flavours or flavour)
 
       Psi.D0.Psi := Psi.Gamma[gmu].D[mu].Psi + Psi.M.Psi
@@ -215,7 +216,8 @@ def unmaskFermionEOMs(op:LinearComb, fEOM:LinearComb, model:Model):
    Any deviation from this default form can be implemented by changing the
    linear combination.
 
-   **CAUTION:** *op* will be changed!
+   .. caution::
+      *op* will be changed!
 
    Parameters
    ----------

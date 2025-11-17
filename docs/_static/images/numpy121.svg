@@ -5,6 +5,6 @@
 <rect width="55" height="25" fill="#555"/>
 <text text-anchor="middle" x="28" y="50%" fill="#fff" dominant-baseline="middle">NumPy</text>
 <rect x="55" width="45" height="25" fill="#0a7d91"/>
-<text text-anchor="middle" x="77" y="50%" fill="#fff" dominant-baseline="middle">1.14+</text>
+<text text-anchor="middle" x="77" y="50%" fill="#fff" dominant-baseline="middle">1.21+</text>
 </g>
 </svg>

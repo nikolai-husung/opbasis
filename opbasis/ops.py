@@ -324,7 +324,7 @@ class _Commutative:
    def traces(self):
       """Iterator over all `Trace` in current term.
 
-      Allows the user to direct access to all instances of `Trace` present in the
+      Allows the user direct access to all instances of `Trace` present in the
       current instance of _Commutative, i.e., within the current term.
 
       Returns
@@ -430,10 +430,11 @@ class LinearComb:
 
    def __str__(self):
       """
-      Assigns a unique string to the current instance of LinearComb.
+      Assigns a unique string to the current instance of `LinearComb`.
       
-      **CAVEAT:** Make sure to always go through LinearComb.__str__ and not the
-      sub-elements!
+      .. important::
+         Make sure to always go through `LinearComb.__str__` and not the
+         sub-elements!
 
       Returns
       -------
@@ -448,6 +449,19 @@ class LinearComb:
             rep += whiteSpace + "%s*"%str(term.factor) + str(term) + "\n"
          return rep + "}"
       return "+0"
+
+   @staticmethod
+   def ZERO():
+      """
+      Should be used to define a literal zero, e.g., when planning to sum up
+      various instances of `LinearComb`.
+
+      Returns
+      -------
+      LinearComb
+         Representation of zero in terms of `LinearComb`.
+      """
+      return LinearComb(list(), 0)
 
    def simplify(self):
       """

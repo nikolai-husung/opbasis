@@ -6,10 +6,11 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="io" href="io.html" /><link rel="prev" title="dirac" href="dirac.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>eoms - opbasis documentation</title>
+        <title>eoms - opbasis 0.10.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=3a258699" />
     
     
 
@@ -166,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis  documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 0.10.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -211,6 +212,8 @@
 <li class="toctree-l1"><a class="reference internal" href="opBasis.html">opBasis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ops.html">ops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pauli.html">pauli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reps.html">reps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
@@ -253,7 +256,6 @@
 deriving an overcomplete basis. This way we have a handle on keeping track of
 EOM-vanishing operators and impose those relations when deriving a minimal
 basis.</p>
-<p>changelog</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opbasis.eoms.GluonEOM">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GluonEOM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gluonPart</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><span class="pre">LinearComb</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fermionPart</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><span class="pre">LinearComb</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.eoms.GluonEOM" title="Link to this definition">¶</a></dt>
@@ -335,14 +337,17 @@ unmasked.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opbasis.eoms.unmaskFermionEOMs">
 <span class="sig-name descname"><span class="pre">unmaskFermionEOMs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><span class="pre">LinearComb</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fEOM</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><span class="pre">LinearComb</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="opBasis.html#opbasis.opBasis.Model" title="opbasis.opBasis.Model"><span class="pre">Model</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.eoms.unmaskFermionEOMs" title="Link to this definition">¶</a></dt>
-<dd><p>Writes out all fermionic EOM contained in <em>op</em> explicitly.
+<dd><p>Writes out all fermion EOMs contained in <em>op</em> explicitly.
 Expects <em>fEOM</em> to be of the form (for a specific set of flavours or flavour)</p>
 <blockquote>
 <div><p>Psi.D0.Psi := Psi.Gamma[gmu].D[mu].Psi + Psi.M.Psi</p>
 </div></blockquote>
 <p>Any deviation from this default form can be implemented by changing the
 linear combination.</p>
-<p><strong>CAUTION:</strong> <em>op</em> will be changed!</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p><em>op</em> will be changed!</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -372,7 +377,10 @@ linear combination.</p>
 </div></blockquote>
 <p>It is assumed that there will be at most one pair of Colour in any
 expression, i.e., at most 4-quark operators!</p>
-<p><strong>CAUTION:</strong> <em>op</em> and <em>gluonEOM</em> will be changed!</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p><em>op</em> and <em>gluonEOM</em> will be changed!</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -426,7 +434,7 @@ to be unmasked.</p></li>
             <div class="icons">
               <a class="muted-link " href="https://www.python.org/downloads/" aria-label="Python"><img style="height:25px;width:100%" src="_static/images/python310.svg" alt="Python>=3.10" /></a>
               <a class="muted-link " href="https://numpy.org/install/" aria-label="NumPy"><img style="height:25px;width:100%" src="_static/images/numpy121.svg" alt="NumPy>=1.21" /></a>
-              <a class="muted-link " href="https://arxiv.org" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="25xx.xxxxx" /></a>
+              <a class="muted-link " href="https://arxiv.org/abs/2511.00165" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="2511.00165" /></a>
               <a class="muted-link " href="../../../../LICENSE" aria-label="License"><img style="height:25px;width:100%" src="_static/images/license.svg" alt="License: MIT" /></a>
               
             </div>
@@ -470,7 +478,7 @@ to be unmasked.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="_static/documentation_options.js?v=82662543"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

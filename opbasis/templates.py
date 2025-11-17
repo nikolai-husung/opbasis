@@ -1,3 +1,26 @@
+"""
+This submodule implements so called templates that are being used to find all
+variants of possible operators to a given canonical mass-dimension, while
+keeping any indices - spacetime or otherwise - as wildcards. The presence of
+wildcards then allows to classify different kinds of operators like total
+derivatives, Algebra-valued traces etc. in a relatively compact form. The
+meta-information of how many traces are present, whether the class of operators
+contains insertions of EOMs and so on can then be used to order the templates
+according to the user's problem or even veto particular classes of operators.
+Any symmetry argument can (and must) be postponed to the point where the
+wildcards are replaced with all the variants possible.
+
+.. caution::
+   Discarding any templates may likely invalidate the completeness of the
+   basis derived in the end. However, shuffling the templates to ones liking
+   is safe.
+
+.. tip::
+   In case the user has very specific needs (or already knows exactly what
+   operator classes to expect) the templates can also be provided manually
+   to `opBasis.parseAnsatz` or `opBasis.overcompleteBasis`.
+"""
+
 from copy import deepcopy as _copy
 
 from fractions import Fraction
@@ -10,7 +33,7 @@ from .ops import Trace,Bilinear
 
 class TemplateRep(dict):
    """
-   Represents building blocks ued to create the overall templates potentially
+   Represents building blocks used to create the overall templates potentially
    consisting of bilinears, algebra traces, and other traces. Allows to track
    details like the presence of EOM insertions, custom blocks, etc.
 
@@ -54,7 +77,7 @@ class TemplateRep(dict):
 
 def _prepareAlgebraBlockTemplates(nb:int, mdTarget:int|Fraction):
    """
-   Distributes covariant derivatives among all the `nb` blocks remaining.
+   Distributes covariant derivatives among all the *nb* blocks remaining.
 
    Parameters
    ----------
@@ -68,7 +91,7 @@ def _prepareAlgebraBlockTemplates(nb:int, mdTarget:int|Fraction):
    -------
    Iterator[list[int]]
       Collection of all possible ways to distribute covariant derivatives among
-      the `nb` blocks.
+      the *nb* blocks.
    """
    if nb>0:
       for i in range(mdTarget//D.__massDim__ + 1):
@@ -81,7 +104,7 @@ def _prepareAlgebraBlockTemplates(nb:int, mdTarget:int|Fraction):
 
 def getAlgebraTraceTemplates(mdTarget:int|Fraction)->list[TemplateRep]:
    """
-   Returns all templates for algebra traces of mass-dimension `mdTarget`
+   Returns all templates for algebra traces of mass-dimension *mdTarget*
    (except for the identity). Those can be obtained from their lower
    dimensional variants simply by adding an appropriate number of derivatives.
    Cyclicity of the `Trace` is already taken into account to reduce the overall
@@ -95,7 +118,7 @@ def getAlgebraTraceTemplates(mdTarget:int|Fraction)->list[TemplateRep]:
    Returns
    -------
    list[str]
-      All the templates for alegbra traces relevant at this mass-dimension.
+      All the templates for algebra traces relevant at this mass-dimension.
    """
    # Only added for consistency - this should never have an effect.
    mdTarget -= Trace.__massDim__
@@ -132,7 +155,7 @@ def getAlgebraTraceTemplates(mdTarget:int|Fraction)->list[TemplateRep]:
 def _getCustomBlockTemplates(cblocks:list[type], mdTarget:int|Fraction):
    """
    Generator returning all possible combinations of variants of `Block` in
-   `cblocks` that have the appropriate mass-dimension.
+   *cblocks* that have the appropriate mass-dimension.
 
    Parameters
    ----------
@@ -161,7 +184,7 @@ def _getCustomBlockTemplates(cblocks:list[type], mdTarget:int|Fraction):
 def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
    mdTarget:int|Fraction)->list[TemplateRep]:
    """
-   Produce all templates of bilinears that have mass-dimension `mdTarget`.
+   Produce all templates of bilinears that have mass-dimension *mdTarget*.
 
    Parameters
    ----------
@@ -182,7 +205,7 @@ def getBilinearTemplates(flavours:tuple[str,str], cblocks:list[type],
    Raises
    ------
    AssertionError
-      If `cblocks` contains unexpected types.
+      If *cblocks* contains unexpected types.
    """
    mdTarget -= Bilinear.__massDim__
    if mdTarget<0: return list()
@@ -270,8 +293,8 @@ def _prepareCustomMassTemplates(cblocks:list[type], mdTarget:int|Fraction):
 def getCustomMassTemplates(cblocks:list[type], mdTarget:int|Fraction):
    """
    Given a collection of "mass-like" implementations of `Block`, i.e.,
-   subclasses of `M` with `@massDim(n)` at `n>0`, all templates for single
-   traces with appropriate mass-dimension `mdTarget` are being derived.
+   subclasses of `M` with ``@massDim(n)`` at ``n>0``, all templates for single
+   traces with appropriate mass-dimension *mdTarget* are being derived.
 
    Parameters
    ----------
@@ -301,14 +324,14 @@ def _buildCombinations(active:list[TemplateRep], excl:list[TemplateRep],
    mdTarget:int|Fraction, minExcl:int):
    """
    Finds all combinations of templates for traces, bilinears, and derivatives
-   thereof, that have the desired mass-dimension `mdTarget`.
+   thereof, that have the desired mass-dimension *mdTarget*.
 
    Parameters
    ----------
    active : list[TemplateRep]
-      Collection of templates to be used exclusively until `minExcl==0`.
+      Collection of templates to be used exclusively until ``minExcl==0``.
    excl : list[TemplateRep]
-      Collection of templates to be included once `minExcl==0`.
+      Collection of templates to be included once ``minExcl==0``.
    mdTarget : int|Fraction
       The desired mass-dimension of the full template.
    minExcl : int
@@ -319,7 +342,7 @@ def _buildCombinations(active:list[TemplateRep], excl:list[TemplateRep],
    Returns
    -------
    Iterator[TemplateRep]
-      All possible templates with mass-dimension `mdTarget`.
+      All possible templates with mass-dimension *mdTarget*.
    """
    if mdTarget>0:
       if minExcl<=0 and len(excl)>0:
@@ -337,8 +360,8 @@ def getTemplates(mdTarget:int|Fraction, flavours:list[tuple[str,str]]=None,
    cblocks:list[type]=None, algTrace:bool=True,
    customFilter:Callable[[TemplateRep],bool]=None):
    """
-   Produces all templates with a given mass-dimension `mdTarget` including
-   product of traces, bilinears etc.
+   Produces all templates with a given mass-dimension *mdTarget* including
+   products of traces, bilinears etc.
 
    Parameters
    ----------
@@ -357,6 +380,10 @@ def getTemplates(mdTarget:int|Fraction, flavours:list[tuple[str,str]]=None,
       Additional filter to drop any undesired templates, e.g., keep only
       even powers of the twisted-mass parameter in templates for `Trace`.
 
+      .. caution::
+         Discarding any templates in general invalidates the completeness of
+         the basis derived in the end.
+
    Returns
    -------
    list[TemplateRep]
@@ -365,9 +392,9 @@ def getTemplates(mdTarget:int|Fraction, flavours:list[tuple[str,str]]=None,
    Raises
    ------
    AssertionError
-      If `mdTarget` is negative.
+      If *mdTarget* is negative.
    ValueError
-      If `mdTarget` is too large and would allow for 6-quark operators.
+      If *mdTarget* is too large and would allow for 6-quark operators.
    """
    assert mdTarget>=0, "mdTarget has to be a non-negative rational number."
    if not flavours is None and mdTarget >= 3*Bilinear.__massDim__:

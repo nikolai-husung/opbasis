@@ -28,7 +28,7 @@ class SU2(Multiplicative):
    Parameters
    ----------
    tau : Pauli
-      Identifier of the chosen pauli matrix / identity.
+      Identifier of the chosen Pauli matrix / identity.
    factor : int|Fraction|Complex, optional
       Overall factor, defaults to 1.
    """

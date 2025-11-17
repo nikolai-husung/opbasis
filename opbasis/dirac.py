@@ -51,7 +51,7 @@ class Gamma(Multiplicative):
    gamma : Dirac
       Identifier of the chosen gamma matrix.
    factor : int|Fraction|Complex, optional
-      Overall factor, detaults to 1.
+      Overall factor, defaults to 1.
    """
    def __init__(self, gamma:Dirac, factor:int|Fraction|Complex = 1):
       self.factor = factor

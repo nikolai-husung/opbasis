@@ -15,5 +15,6 @@ from .minBasis import findMinBases
 from .opBasis import Model, overcompleteBasis, symmetrise, parseAnsatz
 from .ops import LinearComb, _Commutative, Trace, Bilinear
 from .pauli import Pauli, SU2
+from .reps import createProjector, H4mapConjClasses, reconstructH4GroupElems
 from .templates import TemplateRep, getBilinearTemplates,\
    getAlgebraTraceTemplates, getTemplates

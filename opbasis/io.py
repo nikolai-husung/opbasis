@@ -175,30 +175,30 @@ def _parseBilinear(expr:str, flavourMask:str, oBlock:str, model:Model)\
 def _parseLinearComb(expr:str, term:str, bilin:str, oTrace:str,
    flavourMask:str, oBlock:str, model:Model)->LinearComb:
    """
-   Turns the string representation of LinearComb back into an instance of this
-   type.
+   Turns the string representation of `LinearComb` back into an instance of
+   this type.
 
    Parameters
    ----------
    expr : str
-      String expression of the full LinearComb.
+      String expression of the full `LinearComb`.
    term : str
       Regular expression to identify one term.
    bilin : str
-      Regular expression to identify a Bilinear.
+      Regular expression to identify a `Bilinear`.
    oTrace : str
-      Regular expression to identify a non-algebra Trace.
+      Regular expression to identify a non-algebra `Trace`.
    flavourMask : str
       Regular expression to identify flavours.
    oBlock : str
-      Regular expression to identify of (also custom) instances Block.
+      Regular expression to identify of (also custom) instances `Block`.
    model : Model
       Descriptor of the considered theory.
    
    Returns
    -------
    LinearComb
-      Parsed instance of LinearComb.
+      Parsed instance of `LinearComb`.
    """
    # figure out prefactor
    factor,expr = expr.split("*{")
@@ -255,20 +255,20 @@ def _parseLinearComb(expr:str, term:str, bilin:str, oTrace:str,
 
 def parseLinearCombs(expr:str, model:Model)->list[LinearComb]:
    """
-   Identifies all LinearComb separated by linebreaks and hands them to the
+   Identifies all `LinearComb` separated by linebreaks and hands them to the
    function _parseLinearComb to be parsed.
 
    Parameters
    ----------
    expr : str
-      String containing instances of LinearComb separated by linebreaks.
+      String containing instances of `LinearComb` separated by linebreaks.
    model : Model
-      Descriptor of the Model the LinearCombs correspond to.
+      Descriptor of the Model the various `LinearComb` correspond to.
    
    Returns
    -------
    list[LinearComb]
-      Collection of all instances of LinearComb parsed from *expr*.
+      Collection of all instances of `LinearComb` parsed from *expr*.
    
    Raises
    ------
@@ -311,11 +311,11 @@ class CompressedBasis:
    """
    Allows easy access to storing the overcomplete set of operators for various
    templates in separate files which are combined into a single zip-archive.
-   If the file already exists, allows to extract stored LinearCombs.
+   If the file already exists, allows to extract stored `LinearComb`.
 
-   **CAVEAT:** Requires the Python module of the provided Model to be imported
-   to ensure the availability of any custom implementations of `Block` defined
-   within.
+   .. important::
+      Requires the Python module of the provided Model to be imported to ensure
+      the availability of any custom implementations of `Block` defined within.
 
    Parameters
    ----------
@@ -330,7 +330,7 @@ class CompressedBasis:
    Raises
    ------
    AssertionError
-      If the Pyhon module of the provided *model* is not already imported.
+      If the Python module of the provided *model* is not already imported.
    ValueError
       If the provided *model* does not agree with the one stored in the
       zip-archive.
@@ -380,7 +380,6 @@ class CompressedBasis:
       representation of the operators *ops*. Raises a ValueError in case
       *template*.ops already exists.
 
-      
       Parameters
       ----------
       template : TemplateRep
@@ -404,13 +403,13 @@ class CompressedBasis:
          zf.writestr(template.rep+".ops", "\n".join(str(op) for op in ops))
          zf.writestr(template.rep+".rep", "\n".join(
             [str(template.md),str(template.tder)] +\
-            [key+" : "+str(item) for key,item in template.items()]))
+            [key+" : "+str(item) for key,item in sorted(template.items())]))
       self.templates.append(template.rep)
 
    def get(self, template:str, model:Model)->list[LinearComb]:
       """
       Reads all operators contained in *template*.ops and parses them into
-      LinearComb. The resulting list of operators is returned. 
+      `LinearComb`. The resulting list of operators is returned. 
 
       Parameters
       ----------

@@ -68,13 +68,14 @@ def _checkProtected(name:str, type_:str, protected:list[str]):
 @dataclass
 class Model:
    """
-   Represents a theory with optional flavour contant and a given set of
+   Represents a theory with optional flavour content and a given set of
    transformations that keep the action invariant. Any composite field
    may transform non-trivially as selected by the transformation behaviour
    accompanying each transformation.
 
-   **CAUTION:** Not intended for direct use. The user should  go through the
-   static method `read` or `parse` instead.
+   .. important::
+      Not intended for direct use. The user should  go through the static
+      method `read` or `parse` instead.
    """
    pyName: str
    blocks: list[str]
@@ -434,8 +435,8 @@ def symmetrise(ansatz:LinearComb, model:Model)->LinearComb:
    Raises
    ------
    ValueError
-      If enforcing the desired transformation properties fails within MAX_ITER
-      iterations.
+      If enforcing the desired transformation properties fails within
+      ``MAX_ITER`` iterations.
    """
    anyNew = True
    coll = Union()

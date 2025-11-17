@@ -6,10 +6,11 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="ops" href="ops.html" /><link rel="prev" title="minBasis" href="minBasis.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>opBasis - opbasis documentation</title>
+        <title>opBasis - opbasis 0.10.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=3a258699" />
     
     
 
@@ -166,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis  documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 0.10.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -211,6 +212,8 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">opBasis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ops.html">ops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pauli.html">pauli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reps.html">reps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
@@ -257,17 +260,19 @@ basis. While proposing ansätze via templates can be performed manually, via
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">getTemplates</span></code> one may get a complete set of templates without the danger of
 overlooking any. After imposing the specified transformation-behaviour through
 a call to <a class="reference internal" href="#opbasis.opBasis.overcompleteBasis" title="opbasis.opBasis.overcompleteBasis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overcompleteBasis</span></code></a> this yields a yet overcomplete basis.</p>
-<p>changelog</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opbasis.opBasis.Model">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pyName</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spurion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flavourSets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pyModule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.opBasis.Model" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Represents a theory with optional flavour contant and a given set of
+<p>Represents a theory with optional flavour content and a given set of
 transformations that keep the action invariant. Any composite field
 may transform non-trivially as selected by the transformation behaviour
 accompanying each transformation.</p>
-<p><strong>CAUTION:</strong> Not intended for direct use. The user should  go through the
-static method <a class="reference internal" href="#opbasis.opBasis.Model.read" title="opbasis.opBasis.Model.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read</span></code></a> or <a class="reference internal" href="#opbasis.opBasis.Model.parse" title="opbasis.opBasis.Model.parse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse</span></code></a> instead.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Not intended for direct use. The user should  go through the static
+method <a class="reference internal" href="#opbasis.opBasis.Model.read" title="opbasis.opBasis.Model.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read</span></code></a> or <a class="reference internal" href="#opbasis.opBasis.Model.parse" title="opbasis.opBasis.Model.parse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse</span></code></a> instead.</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.opBasis.Model._checkBlockConsistency">
 <span class="sig-name descname"><span class="pre">_checkBlockConsistency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.opBasis.Model._checkBlockConsistency" title="Link to this definition">¶</a></dt>
@@ -518,8 +523,8 @@ transformation properties.</p></li>
 <dd class="field-odd"><p><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb">LinearComb</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If enforcing the desired transformation properties fails within MAX_ITER
-    iterations.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If enforcing the desired transformation properties fails within
+    <code class="docutils literal notranslate"><span class="pre">MAX_ITER</span></code> iterations.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -566,7 +571,7 @@ transformation properties.</p></li>
             <div class="icons">
               <a class="muted-link " href="https://www.python.org/downloads/" aria-label="Python"><img style="height:25px;width:100%" src="_static/images/python310.svg" alt="Python>=3.10" /></a>
               <a class="muted-link " href="https://numpy.org/install/" aria-label="NumPy"><img style="height:25px;width:100%" src="_static/images/numpy121.svg" alt="NumPy>=1.21" /></a>
-              <a class="muted-link " href="https://arxiv.org" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="25xx.xxxxx" /></a>
+              <a class="muted-link " href="https://arxiv.org/abs/2511.00165" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="2511.00165" /></a>
               <a class="muted-link " href="../../../../LICENSE" aria-label="License"><img style="height:25px;width:100%" src="_static/images/license.svg" alt="License: MIT" /></a>
               
             </div>
@@ -618,7 +623,7 @@ transformation properties.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="_static/documentation_options.js?v=82662543"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

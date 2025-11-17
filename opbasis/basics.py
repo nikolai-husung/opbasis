@@ -101,12 +101,11 @@ def massDim(md:int|Fraction):
    Allows to assign a non-zero mass dimension to an instance of `Block` through
    use of a `decorator <https://docs.python.org/3/glossary.html#term-decorator>`_
    @massDim(...) in front of the class implementation. Mass-dimensions are
-   expected to be non-negative integers. If you want to deviate from this, one
-   may rescale all other mass-dimensions to restore overall integer-valuedness.
+   expected to be non-rational numbers. 
 
    Parameters
    ----------
-   md : int
+   md : int | Fraction
       Mass-dimension that should be assigned to the current implementation of
       `Block`.
 

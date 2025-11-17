@@ -6,10 +6,11 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="dirac" href="dirac.html" /><link rel="prev" title="basics" href="basics.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>blocks - opbasis documentation</title>
+        <title>blocks - opbasis 0.10.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=3a258699" />
     
     
 
@@ -166,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis  documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 0.10.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -211,6 +212,8 @@
 <li class="toctree-l1"><a class="reference internal" href="opBasis.html">opBasis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ops.html">ops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pauli.html">pauli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reps.html">reps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
@@ -248,21 +251,25 @@
         <article role="main" id="furo-main-content">
           <section id="module-opbasis.blocks">
 <span id="blocks"></span><h1>blocks<a class="headerlink" href="#module-opbasis.blocks" title="Link to this heading">¶</a></h1>
-<p>This submodule provides the basic implementaion of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> and its subclasses.
+<p>This submodule provides the basic implementation of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> and its subclasses.
 Insertions of (subclasses of) <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> are used to implement covariant
-derivatives, field-strength tensors, etc. including their default transformation
-properties.</p>
+derivatives, field-strength tensors, etc. including their default
+transformation properties.</p>
 <p>Custom implementations of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> then allow for extensions to models with
 non-trivial transformation properties, e.g., due to more complicated flavour
 symmetries.</p>
-<p>changelog</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opbasis.blocks.Block">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.Block" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Super class to derive from. Already implements default behaviour if
-sensible. Implements the transformations acting as the identity.
-=&gt; To be overwritten by appropriate non-trivial cases.</p>
+sensible. Implements the transformations acting as the identity.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For implementations of Block transforming non-trivially the corresponding
+transformations need to be overwritten by the appropriate non-trivial
+cases.</p>
+</div>
 <p>If the instance of a Block carries indices (or a more general suffix), those
 details must be specified via a
 <a class="reference external" href="https://docs.python.org/3/glossary.html#term-decorator">decorator</a>
@@ -292,7 +299,10 @@ there are two cases</p>
    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong>CAVEAT:</strong> Deviating from this pattern will break the package!</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Deviating from this pattern will break the package!</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><em>Fraction</em><em>|</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>, </em><em>optional</em>) – Overall factor, defaults to 1.</p>
@@ -302,7 +312,11 @@ there are two cases</p>
 <dt class="sig sig-object py" id="opbasis.blocks.Block.__indexName__">
 <span class="sig-name descname"><span class="pre">__indexName__</span></span><a class="headerlink" href="#opbasis.blocks.Block.__indexName__" title="Link to this definition">¶</a></dt>
 <dd><p>Refers to the name for each of the indices used in the implementation of
-Block. <strong>CAVEAT:</strong> Do not modify!</p>
+<a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Do not modify!</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
@@ -314,8 +328,12 @@ Block. <strong>CAVEAT:</strong> Do not modify!</p>
 <dt class="sig sig-object py" id="opbasis.blocks.Block.__indexType__">
 <span class="sig-name descname"><span class="pre">__indexType__</span></span><a class="headerlink" href="#opbasis.blocks.Block.__indexType__" title="Link to this definition">¶</a></dt>
 <dd><p>Refers to the type of each of the indices used in the implementation of
-Block. Must be chosen accordingly to properly stringify and parse this
-Block. <strong>CAVEAT:</strong> Do not modify!</p>
+<a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>. Must be chosen accordingly to properly stringify and parse this
+<a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Do not modify!</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.14)">type</a>]</p>
@@ -327,12 +345,31 @@ Block. <strong>CAVEAT:</strong> Do not modify!</p>
 <dt class="sig sig-object py" id="opbasis.blocks.Block.__suffix__">
 <span class="sig-name descname"><span class="pre">__suffix__</span></span><a class="headerlink" href="#opbasis.blocks.Block.__suffix__" title="Link to this definition">¶</a></dt>
 <dd><p>String representation of all the indices. Expected to contain as many
-<em>%s</em> as there are indices present in the implementation of Block. This
-will be used for both calls to <a class="reference internal" href="#opbasis.blocks.Block.__str__" title="opbasis.blocks.Block.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a> as well as parsing Block from
-string via regular expressions. <strong>CAVEAT:</strong> Do not modify!</p>
+<em>%s</em> as there are indices present in the implementation of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>. This
+will be used for both calls to <a class="reference internal" href="#opbasis.blocks.Block.__str__" title="opbasis.blocks.Block.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a> as well as parsing <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> from
+string via regular expressions.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Do not modify!</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opbasis.blocks.Block.__massDim__">
+<span class="sig-name descname"><span class="pre">__massDim__</span></span><a class="headerlink" href="#opbasis.blocks.Block.__massDim__" title="Link to this definition">¶</a></dt>
+<dd><p>Refers to the canonical mass-dimension of the specific <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Do not modify!</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>|Fraction</p>
 </dd>
 </dl>
 </dd></dl>
@@ -343,7 +380,7 @@ string via regular expressions. <strong>CAVEAT:</strong> Do not modify!</p>
 <dd><p>Changes the sign of the overall factor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A copy of Block with negative overall factor.</p>
+<dd class="field-odd"><p>A copy of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> with negative overall factor.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block">Block</a></p>
@@ -354,11 +391,11 @@ string via regular expressions. <strong>CAVEAT:</strong> Do not modify!</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.blocks.Block.__str__">
 <span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.Block.__str__" title="Link to this definition">¶</a></dt>
-<dd><p>Returns identifiable string representation of Block including the
+<dd><p>Returns identifiable string representation of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> including the
 appropriate index structure for non-trivial indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>String representation of implementation of Block.</p>
+<dd class="field-odd"><p>String representation of implementation of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
@@ -373,13 +410,13 @@ appropriate index structure for non-trivial indices.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.blocks.Block._toRegex">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_toRegex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.Block._toRegex" title="Link to this definition">¶</a></dt>
-<dd><p>Turns the specific Block implementation <em>cls</em> into a regex string to be
-used when parsing string representations of a LinearComb. The class name
-as well as any index or generalisation thereof are (expected to be) put
-into a regex group.</p>
+<dd><p>Turns the specific <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> implementation <em>cls</em> into a regex string to be
+used when parsing string representations of a <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>. The class
+name as well as any index or generalisation thereof are (expected to be)
+put into a regex group.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Regular expression matching the particular implementation of Block
+<dd class="field-odd"><p>Regular expression matching the particular implementation of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>
 starting with the class name followed by an implementation-specific
 suffix. Typically some indices.</p>
 </dd>
@@ -392,9 +429,8 @@ suffix. Typically some indices.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.blocks.Block._types">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.Block._types" title="Link to this definition">¶</a></dt>
-<dd><p>Determines the types for the indices relevant for the (custom) Block
-implementation from the function-signature of Block.__init__.
-<strong>Type hints involving the exact types of the indices are mandatory!</strong></p>
+<dd><p>Determines the types for the indices relevant for the (custom) <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>
+implementation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Type for each of the indices.</p>
@@ -473,7 +509,11 @@ defined in <a class="reference internal" href="basics.html#opbasis.basics.rotPla
 <dt class="sig sig-object py" id="opbasis.blocks.Block.simplify">
 <span class="sig-name descname"><span class="pre">simplify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.Block.simplify" title="Link to this definition">¶</a></dt>
 <dd><p>Is expected to take care of any relations among different index
-permutations. =&gt; Has to be adapted for non-trivial cases!</p>
+permutations.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Has to be adapted for non-trivial cases.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -481,11 +521,14 @@ permutations. =&gt; Has to be adapted for non-trivial cases!</p>
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">variants</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.Block.variants" title="Link to this definition">¶</a></dt>
 <dd><p>Yields a generator over all declared (generalised) indices thus amounting
 to all the allowed index combinations.</p>
-<p>=&gt; May be adapted for non-trivial cases!</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>May be adapted for non-trivial cases.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Iterator over all possible variants of the particular implementation of
-Block.</p>
+<dd class="field-odd"><p>Iterator over all possible variants of the particular implementation
+of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Iterator[<a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block">Block</a>]</p>
@@ -664,9 +707,10 @@ trivially under chiral spurion.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">F</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="basics.html#opbasis.basics.sptIdx" title="opbasis.basics.sptIdx"><span class="pre">sptIdx</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="basics.html#opbasis.basics.sptIdx" title="opbasis.basics.sptIdx"><span class="pre">sptIdx</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.F" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-class docutils literal notranslate"><span class="pre">Block</span></code></a></p>
 <p>Represents the field strength tensor</p>
-<blockquote>
-<div><p>F(mu,nu) = [D(mu),D(nu)]</p>
-</div></blockquote>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[F_{\mu\nu} = [D_\mu,D_\nu]\]</div>
+</div>
 <p>with all the expected transformation properties. Current convention is to
 keep mu&lt;nu and otherwise introduce an overall minus sign.</p>
 <dl class="field-list simple">
@@ -731,7 +775,11 @@ defined in <a class="reference internal" href="basics.html#opbasis.basics.rotPla
 <dt class="sig sig-object py" id="opbasis.blocks.F.simplify">
 <span class="sig-name descname"><span class="pre">simplify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.F.simplify" title="Link to this definition">¶</a></dt>
 <dd><p>Is expected to take care of any relations among different index
-permutations. =&gt; Has to be adapted for non-trivial cases!</p>
+permutations.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Has to be adapted for non-trivial cases.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -754,7 +802,7 @@ permutations. =&gt; Has to be adapted for non-trivial cases!</p>
 <dt class="sig sig-object py" id="opbasis.blocks.M">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">M</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.M" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-class docutils literal notranslate"><span class="pre">Block</span></code></a></p>
-<p>Represents the quark mass matrix when inserted into a singlet or a Trace.
+<p>Represents the quark mass matrix when inserted into a singlet or a <a class="reference internal" href="ops.html#opbasis.ops.Trace" title="opbasis.ops.Trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Trace</span></code></a>.
 Otherwise it is the average sum of quark masses of the bilinear (which is
 equivalent to the quark mass matrix for the singlet).</p>
 <dl class="field-list simple">
@@ -836,7 +884,7 @@ that is algebra valued.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>String representation of all instances of <a class="reference internal" href="#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a> contained within the
-_AlgebraBlock.</p>
+<a class="reference internal" href="#opbasis.blocks._AlgebraBlock" title="opbasis.blocks._AlgebraBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_AlgebraBlock</span></code></a>.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
@@ -897,7 +945,11 @@ defined in <a class="reference internal" href="basics.html#opbasis.basics.rotPla
 <dt class="sig sig-object py" id="opbasis.blocks._AlgebraBlock.simplify">
 <span class="sig-name descname"><span class="pre">simplify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks._AlgebraBlock.simplify" title="Link to this definition">¶</a></dt>
 <dd><p>Is expected to take care of any relations among different index
-permutations. =&gt; Has to be adapted for non-trivial cases!</p>
+permutations.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Has to be adapted for non-trivial cases.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -989,13 +1041,19 @@ defined in <a class="reference internal" href="basics.html#opbasis.basics.rotPla
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.dM" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#opbasis.blocks.M" title="opbasis.blocks.M"><code class="xref py py-class docutils literal notranslate"><span class="pre">M</span></code></a></p>
 <p>Represents half the difference of quark masses of the left and right flavour
-in a Bilinear,</p>
+in a <a class="reference internal" href="ops.html#opbasis.ops.Bilinear" title="opbasis.ops.Bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bilinear</span></code></a>,</p>
 <blockquote>
 <div><p>q.dM.Q = (m(q)-m(Q))/2 q.Q</p>
 </div></blockquote>
 <p>i.e., dM vanishes when inserted into a singlet. In combination with M this
 allows to work out mass-differences arising from <a class="reference internal" href="#opbasis.blocks.D0l" title="opbasis.blocks.D0l"><code class="xref py py-obj docutils literal notranslate"><span class="pre">D0l</span></code></a>, <a class="reference internal" href="#opbasis.blocks.D0" title="opbasis.blocks.D0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">D0</span></code></a> acting in both
 directions within a <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Should only be used with explicit flavour notation. Has no knowledge
+about any user-defined flavour matrices and may thus lead to wrong
+results.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><em>Fraction</em><em>|</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>, </em><em>optional</em>) – Overall factor, defaults to 1.</p>
@@ -1005,10 +1063,10 @@ directions within a <a class="reference internal" href="ops.html#opbasis.ops.Lin
 <dt class="sig sig-object py" id="opbasis.blocks.dM.charge">
 <span class="sig-name descname"><span class="pre">charge</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.blocks.dM.charge" title="Link to this definition">¶</a></dt>
 <dd><p>The mass-difference changes sign under charge conjugations as the
-flavours in a Bilinear get exchanged.</p>
+flavours in a <a class="reference internal" href="ops.html#opbasis.ops.Bilinear" title="opbasis.ops.Bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bilinear</span></code></a> get exchanged.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A copy of this instance with opposite sign of the overal factor.</p>
+<dd class="field-odd"><p>A copy of this instance with opposite sign of the overall factor.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#opbasis.blocks.dM" title="opbasis.blocks.dM">dM</a></p>
@@ -1060,7 +1118,7 @@ flavours in a Bilinear get exchanged.</p>
             <div class="icons">
               <a class="muted-link " href="https://www.python.org/downloads/" aria-label="Python"><img style="height:25px;width:100%" src="_static/images/python310.svg" alt="Python>=3.10" /></a>
               <a class="muted-link " href="https://numpy.org/install/" aria-label="NumPy"><img style="height:25px;width:100%" src="_static/images/numpy121.svg" alt="NumPy>=1.21" /></a>
-              <a class="muted-link " href="https://arxiv.org" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="25xx.xxxxx" /></a>
+              <a class="muted-link " href="https://arxiv.org/abs/2511.00165" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="2511.00165" /></a>
               <a class="muted-link " href="../../../../LICENSE" aria-label="License"><img style="height:25px;width:100%" src="_static/images/license.svg" alt="License: MIT" /></a>
               
             </div>
@@ -1086,6 +1144,7 @@ flavours in a Bilinear get exchanged.</p>
 <li><a class="reference internal" href="#opbasis.blocks.Block.__indexName__"><code class="docutils literal notranslate"><span class="pre">Block.__indexName__</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.blocks.Block.__indexType__"><code class="docutils literal notranslate"><span class="pre">Block.__indexType__</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.blocks.Block.__suffix__"><code class="docutils literal notranslate"><span class="pre">Block.__suffix__</span></code></a></li>
+<li><a class="reference internal" href="#opbasis.blocks.Block.__massDim__"><code class="docutils literal notranslate"><span class="pre">Block.__massDim__</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.blocks.Block.__neg__"><code class="docutils literal notranslate"><span class="pre">Block.__neg__()</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.blocks.Block.__str__"><code class="docutils literal notranslate"><span class="pre">Block.__str__()</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.blocks.Block._toRegex"><code class="docutils literal notranslate"><span class="pre">Block._toRegex()</span></code></a></li>
@@ -1169,9 +1228,10 @@ flavours in a Bilinear get exchanged.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="_static/documentation_options.js?v=82662543"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

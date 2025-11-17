@@ -48,7 +48,7 @@ class _dA(Block):
 def _unmaskAlgebraBlock(op:LinearComb)->bool:
    """
    Looks for an instance of `_AlgebraBlock` and reexpresses it by the
-   appropriate commutators of covariant derivitaves acting on the right-most
+   appropriate commutators of covariant derivatives acting on the right-most
    algebra block, which can be a field strength tensor or `Colour`.
 
    Parameters
@@ -223,7 +223,7 @@ def _mapCoefficients(rep:list[tuple[str,Complex]], map_:dict[str,int]):
    ----------
    rep : list[tuple[str,Complex]]
       String-representations of all the terms of an operator together with the
-      correspodning factor.
+      corresponding factor.
    map_ : dict[str,int]
       Table mapping each string-representation of a term into a component
       of the full #terms-dimensional vector.
@@ -246,16 +246,18 @@ def findMinBases(bases:list[list[LinearComb]], gEOM:GluonEOM|None=None,
    bases while dropping linear dependent terms. The ordering of the sets of
    bases and within each basis determine which operators to keep. Operators
    with higher priority should come first.
-
+   
    Optionally allows to start from EOMs still being masked by `D0`, `D0l`, and
    `DF`.
 
    In which case the appropriate EOMs must be provided:
-   <= fEOMs & model or both None
-   <= gEOM or None
 
-   If any are `None`, please make sure that all `D0`, `D0l`, and `DF` are
-   unmasked!
+   * *fEOMs* & *model* or both `None`
+   * *gEOM* or `None`
+
+   .. attention::
+      If any EOMs are `None`, please make sure that all `D0`, `D0l`, and `DF`
+      are unmasked!
 
    Parameters
    ----------
@@ -282,27 +284,27 @@ def findMinBases(bases:list[list[LinearComb]], gEOM:GluonEOM|None=None,
    AssertionError
       If fermion EOMs are provided but *model* is `None`.
    """
-   bases = _copy(bases)
+   _bases = _copy(bases)
    labels = tuple([str(op) for op in basis] for basis in bases)
    
    assert not ((not fEOMs is None) and model is None)
 
    if not fEOMs is None:
       for fEOM in fEOMs:
-         for basis in bases:
+         for basis in _bases:
             for op in basis:
                unmaskFermionEOMs(op, fEOM, model)
    if not gEOM is None:
-      for basis in bases:
+      for basis in _bases:
          for op in basis:
             unmaskGluonEOMs(op, gEOM)
 
-   bases = list(list(_toRep(op) for op in basis) for basis in bases)
+   _bases = list(list(_toRep(op) for op in basis) for basis in _bases)
 
    # Obtain unique identifiers to write down eigenvectors.
    # Enforce future ordering for 
    uniqueLabels = set()
-   for basis in bases:
+   for basis in _bases:
       for rep in basis:
          if rep is None:
             continue
@@ -312,26 +314,27 @@ def findMinBases(bases:list[list[LinearComb]], gEOM:GluonEOM|None=None,
    idxMap = dict(zip(uniqueLabels, range(len(uniqueLabels))))
    
    evecs = list()
-   for basis in bases:
+   for basis in _bases:
       tempBasis = list()
       for rep in basis:
          tempBasis.append(None if rep is None else \
             _mapCoefficients(rep, idxMap))
       evecs.append(tempBasis)
    
-   evecsIndep = set()
+   evecsIndep = list()
    minBases = list()
    lastRank = 0
-   for ile,le in enumerate(zip(labels,evecs)):
+   for ile,elems in enumerate(evecs):
       linIndep = list()
-      l,elems = le
       for i,evec in enumerate(elems):
          # Probably highly inefficient but does the job.
          if evec is None: continue
-         evecsIndep.add(evec)
-         rank = np.linalg.matrix_rank(np.array(list(evecsIndep)))
+         evecsIndep.append(evec)
+         rank = np.linalg.matrix_rank(np.array(evecsIndep))
          if lastRank<rank:
             lastRank += 1
-            linIndep.append(l[i])
+            linIndep.append(bases[ile][i])
+         else:
+            evecsIndep = evecsIndep[:-1]
       minBases.append(linIndep)
    return minBases

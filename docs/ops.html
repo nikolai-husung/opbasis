@@ -6,10 +6,11 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="pauli" href="pauli.html" /><link rel="prev" title="opBasis" href="opBasis.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>ops - opbasis documentation</title>
+        <title>ops - opbasis 0.10.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=3a258699" />
     
     
 
@@ -166,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis  documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 0.10.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -211,6 +212,8 @@
 <li class="toctree-l1"><a class="reference internal" href="opBasis.html">opBasis</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">ops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pauli.html">pauli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reps.html">reps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
@@ -251,7 +254,6 @@
 <p>This submodule contains the top-level Python representations for a <a class="reference internal" href="#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>
 of terms that form an operator compatible with the desired transformation
 behaviour.</p>
-<p>changelog</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opbasis.ops.Bilinear">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Bilinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blocks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="blocks.html#opbasis.blocks.Block" title="opbasis.blocks.Block"><span class="pre">Block</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="blocks.html#opbasis.blocks.Dl" title="opbasis.blocks.Dl"><span class="pre">Dl</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="blocks.html#opbasis.blocks.D0l" title="opbasis.blocks.D0l"><span class="pre">D0l</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="blocks.html#opbasis.blocks.D" title="opbasis.blocks.D"><span class="pre">D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="blocks.html#opbasis.blocks.D0" title="opbasis.blocks.D0"><span class="pre">D0</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flavours</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivatives</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="blocks.html#opbasis.blocks.d" title="opbasis.blocks.d"><span class="pre">d</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.ops.Bilinear" title="Link to this definition">¶</a></dt>
@@ -347,6 +349,21 @@ into the appropriate simplified linear combination.</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="opbasis.ops.LinearComb.ZERO">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ZERO</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.ops.LinearComb.ZERO" title="Link to this definition">¶</a></dt>
+<dd><p>Should be used to define a literal zero, e.g., when planning to sum up
+various instances of <a class="reference internal" href="#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Representation of zero in terms of <a class="reference internal" href="#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb">LinearComb</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="opbasis.ops.LinearComb.__mul__">
 <span class="sig-name descname"><span class="pre">__mul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fac</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.ops.LinearComb.__mul__" title="Link to this definition">¶</a></dt>
 <dd><p>Implements the multiplication of <a class="reference internal" href="#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a> with an overall factor or
@@ -372,9 +389,12 @@ unchanged and independent of the returned value.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.ops.LinearComb.__str__">
 <span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.ops.LinearComb.__str__" title="Link to this definition">¶</a></dt>
-<dd><p>Assigns a unique string to the current instance of LinearComb.</p>
-<p><strong>CAVEAT:</strong> Make sure to always go through LinearComb.__str__ and not the
+<dd><p>Assigns a unique string to the current instance of <a class="reference internal" href="#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Make sure to always go through <a class="reference internal" href="#opbasis.ops.LinearComb.__str__" title="opbasis.ops.LinearComb.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb.__str__</span></code></a> and not the
 sub-elements!</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Unique string representation.</p>
@@ -558,7 +578,7 @@ and absorb overall factors.</p>
 <dt class="sig sig-object py" id="opbasis.ops._Commutative.traces">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">traces</span></span><a class="headerlink" href="#opbasis.ops._Commutative.traces" title="Link to this definition">¶</a></dt>
 <dd><p>Iterator over all <a class="reference internal" href="#opbasis.ops.Trace" title="opbasis.ops.Trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Trace</span></code></a> in current term.</p>
-<p>Allows the user to direct access to all instances of <a class="reference internal" href="#opbasis.ops.Trace" title="opbasis.ops.Trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Trace</span></code></a> present in the
+<p>Allows the user direct access to all instances of <a class="reference internal" href="#opbasis.ops.Trace" title="opbasis.ops.Trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Trace</span></code></a> present in the
 current instance of _Commutative, i.e., within the current term.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -633,7 +653,7 @@ product rule as an appropriate <a class="reference internal" href="#opbasis.ops.
             <div class="icons">
               <a class="muted-link " href="https://www.python.org/downloads/" aria-label="Python"><img style="height:25px;width:100%" src="_static/images/python310.svg" alt="Python>=3.10" /></a>
               <a class="muted-link " href="https://numpy.org/install/" aria-label="NumPy"><img style="height:25px;width:100%" src="_static/images/numpy121.svg" alt="NumPy>=1.21" /></a>
-              <a class="muted-link " href="https://arxiv.org" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="25xx.xxxxx" /></a>
+              <a class="muted-link " href="https://arxiv.org/abs/2511.00165" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="2511.00165" /></a>
               <a class="muted-link " href="../../../../LICENSE" aria-label="License"><img style="height:25px;width:100%" src="_static/images/license.svg" alt="License: MIT" /></a>
               
             </div>
@@ -665,6 +685,7 @@ product rule as an appropriate <a class="reference internal" href="#opbasis.ops.
 </ul>
 </li>
 <li><a class="reference internal" href="#opbasis.ops.LinearComb"><code class="docutils literal notranslate"><span class="pre">LinearComb</span></code></a><ul>
+<li><a class="reference internal" href="#opbasis.ops.LinearComb.ZERO"><code class="docutils literal notranslate"><span class="pre">LinearComb.ZERO()</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.ops.LinearComb.__mul__"><code class="docutils literal notranslate"><span class="pre">LinearComb.__mul__()</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.ops.LinearComb.__str__"><code class="docutils literal notranslate"><span class="pre">LinearComb.__str__()</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.ops.LinearComb.bilinears"><code class="docutils literal notranslate"><span class="pre">LinearComb.bilinears</span></code></a></li>
@@ -706,7 +727,7 @@ product rule as an appropriate <a class="reference internal" href="#opbasis.ops.
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="_static/documentation_options.js?v=82662543"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

@@ -1,8 +1,8 @@
 """
-This submodule provides the basic implementaion of `Block` and its subclasses.
+This submodule provides the basic implementation of `Block` and its subclasses.
 Insertions of (subclasses of) `Block` are used to implement covariant
-derivatives, field-strength tensors, etc. including their default transformation
-properties.
+derivatives, field-strength tensors, etc. including their default 
+transformation properties.
 
 Custom implementations of `Block` then allow for extensions to models with
 non-trivial transformation properties, e.g., due to more complicated flavour
@@ -23,7 +23,11 @@ class Block:
    """
    Super class to derive from. Already implements default behaviour if
    sensible. Implements the transformations acting as the identity.
-   => To be overwritten by appropriate non-trivial cases.
+
+   .. important::
+      For implementations of Block transforming non-trivially the corresponding
+      transformations need to be overwritten by the appropriate non-trivial
+      cases.
    
    If the instance of a Block carries indices (or a more general suffix), those
    details must be specified via a
@@ -59,7 +63,8 @@ class Block:
       else:
          print(f(int(match)))
 
-   **CAVEAT:** Deviating from this pattern will break the package! 
+   .. danger::
+      Deviating from this pattern will break the package! 
 
    Parameters
    ----------
@@ -68,18 +73,37 @@ class Block:
  
    Attributes
    ----------
+
    __indexName__ : tuple[str]
       Refers to the name for each of the indices used in the implementation of
-      Block. **CAVEAT:** Do not modify!
+      `Block`.
+
+      .. danger::
+         Do not modify!
+
    __indexType__ : tuple[type]
       Refers to the type of each of the indices used in the implementation of
-      Block. Must be chosen accordingly to properly stringify and parse this
-      Block. **CAVEAT:** Do not modify!
+      `Block`. Must be chosen accordingly to properly stringify and parse this
+      `Block`.
+
+      .. danger::
+         Do not modify!
+
    __suffix__ : str
       String representation of all the indices. Expected to contain as many
-      *%s* as there are indices present in the implementation of Block. This
-      will be used for both calls to `__str__` as well as parsing Block from
-      string via regular expressions. **CAVEAT:** Do not modify!
+      *%s* as there are indices present in the implementation of `Block`. This
+      will be used for both calls to `__str__` as well as parsing `Block` from
+      string via regular expressions.
+
+      .. danger::
+         Do not modify!
+
+   __massDim__ : int|Fraction
+      Refers to the canonical mass-dimension of the specific `Block`.
+
+      .. danger::
+         Do not modify!
+
    """
    __suffix__    = ""
    __indexName__ = tuple()
@@ -95,7 +119,7 @@ class Block:
      Returns
      -------
      Block
-        A copy of Block with negative overall factor.
+        A copy of `Block` with negative overall factor.
      """
      cp = _copy(self)
      cp.factor = -cp.factor
@@ -103,13 +127,13 @@ class Block:
 
    def __str__(self):
       """
-      Returns identifiable string representation of Block including the
+      Returns identifiable string representation of `Block` including the
       appropriate index structure for non-trivial indices.
       
       Returns
       -------
       str
-         String representation of implementation of Block.
+         String representation of implementation of `Block`.
       
       Raises
       ------
@@ -180,7 +204,10 @@ class Block:
    def simplify(self):
       """
       Is expected to take care of any relations among different index
-      permutations. => Has to be adapted for non-trivial cases!
+      permutations.
+
+      .. caution::
+         Has to be adapted for non-trivial cases.
       """
       pass
 
@@ -189,14 +216,15 @@ class Block:
       """
       Yields a generator over all declared (generalised) indices thus amounting
       to all the allowed index combinations. 
-
-      => May be adapted for non-trivial cases!
+      
+      .. tip::
+         May be adapted for non-trivial cases.
 
       Returns
       -------
       Iterator[Block]
-         Iterator over all possible variants of the particular implementation of
-         Block.
+         Iterator over all possible variants of the particular implementation
+         of `Block`.
       """
       for indexPerm in product(*cls._types()):
          yield cls(*indexPerm)
@@ -204,9 +232,8 @@ class Block:
    @classmethod
    def _types(cls):
       """
-      Determines the types for the indices relevant for the (custom) Block
-      implementation from the function-signature of Block.__init__.
-      **Type hints involving the exact types of the indices are mandatory!**
+      Determines the types for the indices relevant for the (custom) `Block`
+      implementation.
 
       Returns
       -------
@@ -218,15 +245,15 @@ class Block:
    @classmethod
    def _toRegex(cls):
       """
-      Turns the specific Block implementation *cls* into a regex string to be
-      used when parsing string representations of a LinearComb. The class name
-      as well as any index or generalisation thereof are (expected to be) put
-      into a regex group.
+      Turns the specific `Block` implementation *cls* into a regex string to be
+      used when parsing string representations of a `LinearComb`. The class
+      name as well as any index or generalisation thereof are (expected to be)
+      put into a regex group.
 
       Returns
       -------
       str
-         Regular expression matching the particular implementation of Block
+         Regular expression matching the particular implementation of `Block`
          starting with the class name followed by an implementation-specific
          suffix. Typically some indices.
       """
@@ -284,7 +311,7 @@ class Colour(Block):
 @massDim(1)
 class M(Block):
    """
-   Represents the quark mass matrix when inserted into a singlet or a Trace.
+   Represents the quark mass matrix when inserted into a singlet or a `Trace`.
    Otherwise it is the average sum of quark masses of the bilinear (which is
    equivalent to the quark mass matrix for the singlet).
 
@@ -310,13 +337,18 @@ class M(Block):
 class dM(M):
    """
    Represents half the difference of quark masses of the left and right flavour
-   in a Bilinear,
+   in a `Bilinear`,
 
       q.dM.Q = (m(q)-m(Q))/2 q.Q
 
    i.e., dM vanishes when inserted into a singlet. In combination with M this
    allows to work out mass-differences arising from `D0l`, `D0` acting in both
    directions within a `LinearComb`.
+
+   .. caution::
+      Should only be used with explicit flavour notation. Has no knowledge
+      about any user-defined flavour matrices and may thus lead to wrong
+      results.
    
    Parameters
    ----------
@@ -326,12 +358,12 @@ class dM(M):
    def charge(self):
       """
       The mass-difference changes sign under charge conjugations as the
-      flavours in a Bilinear get exchanged.
+      flavours in a `Bilinear` get exchanged.
 
       Returns
       -------
       dM
-         A copy of this instance with opposite sign of the overal factor.
+         A copy of this instance with opposite sign of the overall factor.
       """
       return self.__class__(-self.factor)
 
@@ -456,10 +488,11 @@ class _DFl(d):
 @massDim(2)
 @defaultIndices
 class F(Block):
-   """
+   r"""
    Represents the field strength tensor
 
-      F(mu,nu) = [D(mu),D(nu)]
+   .. math::
+      F_{\mu\nu} = [D_\mu,D_\nu]
 
    with all the expected transformation properties. Current convention is to
    keep mu<nu and otherwise introduce an overall minus sign.
@@ -565,7 +598,7 @@ class _AlgebraBlock(Block):
       -------
       str
          String representation of all instances of `Block` contained within the
-         _AlgebraBlock.
+         `_AlgebraBlock`.
       """
       assert self.factor==1
       return ".".join([str(b) for b in self.blocks])

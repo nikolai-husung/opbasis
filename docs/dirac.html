@@ -6,10 +6,11 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="eoms" href="eoms.html" /><link rel="prev" title="blocks" href="blocks.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>dirac - opbasis documentation</title>
+        <title>dirac - opbasis 0.10.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=3a258699" />
     
     
 
@@ -166,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis  documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 0.10.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -211,6 +212,8 @@
 <li class="toctree-l1"><a class="reference internal" href="opBasis.html">opBasis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ops.html">ops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pauli.html">pauli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reps.html">reps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
@@ -262,7 +265,6 @@ mu=0,1,2,3.</p>
 </dl>
 </dd></dl>
 
-<p>changelog</p>
 <dl class="py class enum">
 <dt class="sig sig-object py" id="opbasis.dirac.Dirac">
 <em class="property"><span class="k"><span class="pre">enum</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Dirac</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Dirac" title="Link to this definition">¶</a></dt>
@@ -359,7 +361,7 @@ mu=0,1,2,3.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>gamma</strong> (<a class="reference internal" href="#opbasis.dirac.Dirac" title="opbasis.dirac.Dirac"><em>Dirac</em></a>) – Identifier of the chosen gamma matrix.</p></li>
-<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><em>Fraction</em><em>|</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>, </em><em>optional</em>) – Overall factor, detaults to 1.</p></li>
+<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><em>Fraction</em><em>|</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>, </em><em>optional</em>) – Overall factor, defaults to 1.</p></li>
 </ul>
 </dd>
 </dl>
@@ -432,11 +434,14 @@ defined in <a class="reference internal" href="basics.html#opbasis.basics.rotPla
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">variants</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.dirac.Gamma.variants" title="Link to this definition">¶</a></dt>
 <dd><p>Yields a generator over all declared (generalised) indices thus amounting
 to all the allowed index combinations.</p>
-<p>=&gt; May be adapted for non-trivial cases!</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>May be adapted for non-trivial cases.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Iterator over all possible variants of the particular implementation of
-Block.</p>
+<dd class="field-odd"><p>Iterator over all possible variants of the particular implementation
+of <a class="reference internal" href="blocks.html#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a>.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Iterator[<a class="reference internal" href="blocks.html#opbasis.blocks.Block" title="opbasis.blocks.Block">Block</a>]</p>
@@ -488,7 +493,7 @@ Block.</p>
             <div class="icons">
               <a class="muted-link " href="https://www.python.org/downloads/" aria-label="Python"><img style="height:25px;width:100%" src="_static/images/python310.svg" alt="Python>=3.10" /></a>
               <a class="muted-link " href="https://numpy.org/install/" aria-label="NumPy"><img style="height:25px;width:100%" src="_static/images/numpy121.svg" alt="NumPy>=1.21" /></a>
-              <a class="muted-link " href="https://arxiv.org" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="25xx.xxxxx" /></a>
+              <a class="muted-link " href="https://arxiv.org/abs/2511.00165" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="2511.00165" /></a>
               <a class="muted-link " href="../../../../LICENSE" aria-label="License"><img style="height:25px;width:100%" src="_static/images/license.svg" alt="License: MIT" /></a>
               
             </div>
@@ -549,7 +554,7 @@ Block.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="_static/documentation_options.js?v=82662543"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

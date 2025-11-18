@@ -213,15 +213,15 @@ class Complex:
       Imaginary part of the complex number, defaults to 0.
    """
    def __init__(self, re:int|Fraction, im:int|Fraction=0):
-      self.re = re
-      self.im = im
+      self.re = Fraction(re)
+      self.im = Fraction(im)
 
    def __bool__(self):
       return self.re!=0 or self.im!=0
 
    def __eq__(self, cmp):
       if isinstance(cmp, Complex):
-         return self.re==cmp.re and self.im==cmp.im
+         return self.re==cmp.real and self.im==cmp.imag
       if isinstance(cmp, (Fraction, int)):
          return self.re==cmp and self.im==0
       return NotImplemented
@@ -233,7 +233,7 @@ class Complex:
       if self.im==0:
          return ("" if self.re<0 else "+") + str(self.re)
       if self.re==0:
-         return ("" if self.im<0 else "+") + str(self.im)
+         return ("" if self.im<0 else "+") + str(self.im) +"j"
       if self.re<0:
          return "-(" + str(-self.re) + ("" if self.im>0 else "+") +\
             str(-self.im) + "j)"
@@ -244,34 +244,34 @@ class Complex:
       return math.isqrt(self.re*self.re + self.im*self.im)
 
    def __add__(self, add):
-      if isinstance(add, Complex):
-         return self.__class__(self.re+add.re, self.im+add.im)
-      return self.__class__(self.re+add, self.im)
+      if isinstance(add, (int,Fraction,Complex)):
+         return self.__class__(self.re+add.real, self.im+add.imag)
+      return NotImplemented
 
    def __radd__(self, add):
-      return self.__class__(self.re+add, self.im)
+      return self.__add__(add)
 
    def __sub__(self, sub):
-      if isinstance(sub, Complex):
-         return self.__class__(self.re-sub.re, self.im-sub.im)
-      return self.__class__(self.re-sub, self.im)
+      if isinstance(sub, (int,Fraction,Complex)):
+         return self.__class__(self.re-sub.real, self.im-sub.imag)
+      return NotImplemented
 
    def __rsub__(self, sub):
-      return self.__class__(sub-self.re, -self.im)
+      if isinstance(sub, (int,Fraction,Complex)):
+         return self.__class__(sub.real-self.re, sub.imag-self.im)
+      return NotImplemented
 
    def __neg__(self):
       return self.__class__(-self.re, -self.im)
 
    def __mul__(self, mul):
-      if isinstance(mul, Complex):
-         return self.__class__(self.re*mul.re-self.im*mul.im,
-                               self.re*mul.im+self.im*mul.re)
-      if isinstance(mul, (Fraction, int)):
-         return self.__class__(self.re*mul, self.im*mul)
+      if isinstance(mul, (int,Fraction,Complex)):
+         return self.__class__(self.re*mul.real-self.im*mul.imag,
+                               self.re*mul.imag+self.im*mul.real)
       return NotImplemented
    
    def __rmul__(self, mul):
-      return self.__class__(self.re*mul, self.im*mul)
+       return self.__mul__(mul)
 
    def __truediv__(self, div):
       if isinstance(div, (Fraction, int)):
@@ -279,12 +279,13 @@ class Complex:
       if isinstance(div, Complex):
          temp = div.abs2()
          return self.__class__(
-            Fraction(self.re*div.re + self.im*div.im, temp),
-            Fraction(self.im*div.re - self.re*div.im, temp))
+            Fraction(self.re*div.real + self.im*div.imag, temp),
+            Fraction(self.im*div.real - self.re*div.imag, temp))
       return NotImplemented
 
    def __rtruediv__(self, lhs):
-      return self.__class__(Fraction(lhs, self.re), Fraction(lhs, self.im))
+      temp = self.abs2()
+      return self.__class__(Fraction(lhs*self.re, temp), Fraction(-lhs*self.im, temp))
 
    def __floordiv__(self, div):
       return self.__class__(Fraction(self.re, div), Fraction(self.im, div))
@@ -312,7 +313,7 @@ class Complex:
 
    def abs2(self) -> int|Fraction:
       """
-      Computes z*conj(z) of the complex number z.
+      Computes z*conjugate(z) of the complex number z.
       
       Returns
       -------
@@ -321,7 +322,7 @@ class Complex:
       """
       return self.re*self.re + self.im*self.im
 
-   def conj(self):
+   def conjugate(self):
       """
       Complex conjugation.
       
@@ -331,6 +332,18 @@ class Complex:
          Complex conjugate of the current complex number.
       """
       return Complex(self.re, -self.im)
+
+   @property
+   def real(self):
+      """
+      Returns the real part of the complex number to comply with standard 
+      Python number interface.
+      """
+      return self.re
+
+   @property
+   def imag(self):
+      return self.im
  
 dim = 4
 

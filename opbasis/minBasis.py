@@ -55,7 +55,9 @@ def _unmaskAlgebraBlock(op:LinearComb)->bool:
    ----------
    op : LinearComb
       Expression in which `_AlgebraBlock` are supposed to be reexpressed.
-      **The input argument will be changed!**
+
+      .. caution::
+         The input argument will be changed!
 
    Returns
    -------
@@ -238,6 +240,29 @@ def _mapCoefficients(rep:list[tuple[str,Complex]], map_:dict[str,int]):
       evec[map_[key]] = complex(factor.re, factor.im)
    return tuple(evec)
 
+def _mapToVectors(bases:list[LinearComb]):
+   _bases = list(list(_toRep(op) for op in basis) for basis in bases)
+
+   # Obtain unique identifiers to write down eigenvectors.
+   # Enforce future ordering for 
+   uniqueLabels = set()
+   for basis in _bases:
+      for rep in basis:
+         if rep is None:
+            continue
+         l,e = list(zip(*rep))
+         uniqueLabels |= set(l)
+   uniqueLabels = tuple(uniqueLabels)
+   idxMap = dict(zip(uniqueLabels, range(len(uniqueLabels))))
+   
+   evecs = list()
+   for basis in _bases:
+      tempBasis = list()
+      for rep in basis:
+         tempBasis.append(None if rep is None else \
+            _mapCoefficients(rep, idxMap))
+      evecs.append(tempBasis)
+   return evecs, idxMap
 
 def findMinBases(bases:list[list[LinearComb]], gEOM:GluonEOM|None=None,
                  fEOMs:list[LinearComb]|None=None, model:Model|None=None):
@@ -299,27 +324,7 @@ def findMinBases(bases:list[list[LinearComb]], gEOM:GluonEOM|None=None,
          for op in basis:
             unmaskGluonEOMs(op, gEOM)
 
-   _bases = list(list(_toRep(op) for op in basis) for basis in _bases)
-
-   # Obtain unique identifiers to write down eigenvectors.
-   # Enforce future ordering for 
-   uniqueLabels = set()
-   for basis in _bases:
-      for rep in basis:
-         if rep is None:
-            continue
-         l,e = list(zip(*rep))
-         uniqueLabels |= set(l)
-   uniqueLabels = tuple(uniqueLabels)
-   idxMap = dict(zip(uniqueLabels, range(len(uniqueLabels))))
-   
-   evecs = list()
-   for basis in _bases:
-      tempBasis = list()
-      for rep in basis:
-         tempBasis.append(None if rep is None else \
-            _mapCoefficients(rep, idxMap))
-      evecs.append(tempBasis)
+   evecs,_ = _mapToVectors(_bases)
    
    evecsIndep = list()
    minBases = list()

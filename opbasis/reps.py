@@ -258,9 +258,9 @@ class Projector:
       return projected * Fraction(1, sum(map(len, self.cclasses)))
 
 
-def constructDreps(seed:LinearComb|list[LinearComb], d:int,
+def constructDreps(seed:LinearComb, d:int,
    groupElements:list[int|str], _map:dict[int|str,Callable] = H4map,
-   unitary:bool = False):
+   unitary:bool = False, ghat:list[int] = None):
    r"""
    Derives the :math:`d\times d`-dimensional representation matrices 
    :math:`D(h)` for the multi-dimensional irrep identified by the already
@@ -281,10 +281,9 @@ def constructDreps(seed:LinearComb|list[LinearComb], d:int,
 
    Parameters
    ----------
-   seed : LinearComb | list[LinearComb]
+   seed : LinearComb
       A **non-vanishing** projection of an operator into the chosen irrep. Will
-      be used for constructing a basis. Alternatively, a basis can be provided
-      directly.
+      be used for constructing a basis.
 
       .. hint::
          Try to use a small `LinearComb` with few terms, e.g., of low canonical
@@ -301,12 +300,17 @@ def constructDreps(seed:LinearComb|list[LinearComb], d:int,
    unitary : bool, optional
       The representation matrices inherit unitarity from their related group
       elements. Defaults to `False`.
+   ghat : list[int], optional
+      Indices specifying the group elements to be used for building the basis
+      if desired or needed for reproducability. Defaults to `None`.
 
+   Returns
+   -------
    tuple[list[list[Matrix]],list[int]|None]
       The full collection of the representation matrices and the indices of the
       specific group elements used to derive them (for reproducability).
    """
-   if isinstance(seed, LinearComb):
+   if ghat is None:
       _seeds = []
       for g in groupElements:
          temp = _copy(seed)
@@ -320,8 +324,8 @@ def constructDreps(seed:LinearComb|list[LinearComb], d:int,
       evecsIndep = Matrix()
       V = Matrix()
       lastRank = 0
+      _ghat = list()
       ghat = list()
-      ighat = list()
       for i,evec in enumerate(evecs[0]):
          # This should never happen!
          if evec is None: continue
@@ -330,16 +334,24 @@ def constructDreps(seed:LinearComb|list[LinearComb], d:int,
          if lastRank<newrank:
             lastRank += 1
             V.extend(evec, Matrix.ROW)
-            ghat.append(_seeds[i])
-            ighat.append(i)
+            _ghat.append(_seeds[i])
+            ghat.append(i)
          if lastRank==d: break
       else:
          raise ValueError(
             "Could not find %i linearly independent basis vectors."%d)
    else:
-      ghat = seed
-      ighat = [groupElements.index(p) for p in ghat]
-      V = Matrix([_mapCoefficients(_toRep(_copy(p)), idxMap) for p in ghat])
+      _ghat = list()
+      for g in [groupElements[i] for i in ghat]:
+         temp = _copy(seed)
+         for transf in g:
+            temp = _map[transf](temp)
+         temp.simplify()
+         _ghat.append(temp)
+
+      evecs,idxMap = _mapToVectors([_ghat])
+
+      V = Matrix(evecs[0])
       if V.rank()<d:
          raise ValueError("The proposed basis does not contain %i linearly "
             "independent basis vectors."%d)
@@ -350,7 +362,7 @@ def constructDreps(seed:LinearComb|list[LinearComb], d:int,
    for h in groupElements:
       # compute Drep(h)
       rhs = list()
-      for p in ghat:
+      for p in _ghat:
          temp = _copy(p)
          for transf in h:
             temp = _map[transf](temp)
@@ -359,7 +371,7 @@ def constructDreps(seed:LinearComb|list[LinearComb], d:int,
       Drep = solve(A, Vdag @ Matrix(rhs).transpose())
       Drep_h.append(Drep.conjugate().transpose() if unitary \
                     else Drep.inverse())
-   return Drep_h, ighat
+   return Drep_h, ghat
 
 
 class RowProjector:
@@ -376,20 +388,20 @@ class RowProjector:
       change the order of *groupElements* or dictate the basis via handing a
       `list` of length *d* as *seed*.
    """
-   def __init__(self, seed:LinearComb|list[LinearComb], d:int,
-      groupElements:list[LinearComb],
+   def __init__(self, seed:LinearComb, d:int, groupElements:list[LinearComb],
       mapToTransf:dict[int|str,Callable[[LinearComb],LinearComb]] = H4map,
-      Dreps:list[Matrix] = None, unitary:bool = False):
+      unitary:bool = False, ghat:list[int] = None):
+      r"""
+      Derives all the representation matrices :math:`D(h)\forall h\in G` in
+      the irrep chosen by *seed* and stores the details to be used when
+      row-projecting any operators from this irrep.
+      """
       self.groupElements =groupElements
       self.mapToTransf = mapToTransf
       self.dim = d
       self.unitary = unitary
-      if Dreps is None:
-         self.Dreps, self.ghat = constructDreps(seed, d, self.groupElements,
-                                                mapToTransf, unitary)
-      else:
-         self.Dreps = Dreps
-         self.ghat = None
+      self.Dreps, self.ghat = constructDreps(seed, d, self.groupElements,
+                                             mapToTransf, unitary, ghat)
 
    def __call__(self, projected:LinearComb):
       r"""

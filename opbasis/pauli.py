@@ -7,7 +7,8 @@ from fractions import Fraction
 from copy import deepcopy as _copy
 
 from .blocks import Multiplicative
-from .basics import Complex, CustomIndex, indices, defaultIndices
+from .basics import CustomIndex, indices, defaultIndices
+from .calculus import Complex
 
 Pauli = CustomIndex("Pauli", ["id_", "t1", "t2", "t3"], start=1)
 
@@ -44,7 +45,7 @@ class SU2(Multiplicative):
       if rhs.__class__ is self.__class__:
          res = MULTABLE[self.tau.value-1][rhs.tau.value-1]
          return self.__class__(Pauli(abs(res)),
-                               (res//abs(res))*self.factor*rhs.factor)
+                               (res/abs(res))*self.factor*rhs.factor)
       if isinstance(rhs, (Complex, Fraction, int, long)):
          return self.__class__(self.tau, self.factor*lhs)
       # ensures that in all unknown cases rhs.__rmul__ will be called.

@@ -6,13 +6,12 @@ that is fully linearly independent and thus minimal.
 
 from copy import deepcopy as _copy
  
-import numpy as np
-
+from .basics import indices, sptIdx
 from .blocks import d, F, D, Dl, Colour, DF, D0, D0l
+from .calculus import Complex, Matrix
 from .ops import LinearComb, Block, _AlgebraBlock, Trace, Bilinear, _productRule
 from .eoms import GluonEOM, unmaskGluonEOMs, unmaskFermionEOMs
 from .opBasis import Model
-from .basics import Complex, indices, sptIdx
 
 @indices("[%s]", mu=sptIdx)
 class _dA(Block):
@@ -232,13 +231,13 @@ def _mapCoefficients(rep:list[tuple[str,Complex]], map_:dict[str,int]):
 
    Returns
    -------
-   tuple[complex]
+   list[Complex|int|Fraction]
       Eigenvector corresponding to `rep` in the full vector-space.
    """
-   evec = np.zeros(len(map_), dtype=complex)
+   evec = [0]*len(map_)
    for key,factor in rep:
-      evec[map_[key]] = complex(factor.re, factor.im)
-   return tuple(evec)
+      evec[map_[key]] = factor
+   return evec
 
 def _mapToVectors(bases:list[LinearComb]):
    _bases = list(list(_toRep(op) for op in basis) for basis in bases)
@@ -326,7 +325,7 @@ def findMinBases(bases:list[list[LinearComb]], gEOM:GluonEOM|None=None,
 
    evecs,_ = _mapToVectors(_bases)
    
-   evecsIndep = list()
+   evecsIndep = Matrix()
    minBases = list()
    lastRank = 0
    for ile,elems in enumerate(evecs):
@@ -334,12 +333,10 @@ def findMinBases(bases:list[list[LinearComb]], gEOM:GluonEOM|None=None,
       for i,evec in enumerate(elems):
          # Probably highly inefficient but does the job.
          if evec is None: continue
-         evecsIndep.append(evec)
-         rank = np.linalg.matrix_rank(np.array(evecsIndep))
-         if lastRank<rank:
+         evecsIndep.extend(evec, Matrix.ROW)
+         newrank = evecsIndep.rank(True)
+         if lastRank<newrank:
             lastRank += 1
             linIndep.append(bases[ile][i])
-         else:
-            evecsIndep = evecsIndep[:-1]
       minBases.append(linIndep)
    return minBases

@@ -13,7 +13,8 @@ from fractions import Fraction
 from copy import deepcopy as _copy
 
 from .blocks import Multiplicative
-from .basics import rotPlanes, Complex, CustomIndex, indices, defaultIndices
+from .basics import rotPlanes, CustomIndex, indices, defaultIndices
+from .calculus import Complex
 
 Dirac = CustomIndex("Dirac", ["id_", "g5", "gw", "gx", "gy", "gz", "gw5",\
    "gx5", "gy5", "gz5", "gwx", "gwy", "gwz", "gxy", "gxz", "gyz"], start=1)

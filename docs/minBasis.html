@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="opBasis" href="opBasis.html" /><link rel="prev" title="io" href="io.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>minBasis - opbasis 0.10.0 documentation</title>
+        <title>minBasis - opbasis 1.0.0a1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis 0.10.0 documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 1.0.0a1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -205,6 +205,7 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="basics.html">basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="blocks.html">blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculus.html">calculus</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dirac.html">dirac</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eoms.html">eoms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="io.html">io</a></li>
@@ -295,7 +296,7 @@ replaces it by an appropriate combination of covariant derivatives.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="opbasis.minBasis._dA">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_dA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="basics.html#opbasis.basics.sptIdx" title="opbasis.basics.sptIdx"><span class="pre">sptIdx</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivatives</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.minBasis._dA" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_dA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="basics.html#opbasis.basics.sptIdx" title="opbasis.basics.sptIdx"><span class="pre">sptIdx</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivatives</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><span class="pre">Complex</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.minBasis._dA" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="blocks.html#opbasis.blocks.Block" title="opbasis.blocks.Block"><code class="xref py py-class docutils literal notranslate"><span class="pre">Block</span></code></a></p>
 <p>Intended for internal use only to give gluon Trace a unique string
 representation in terms of monomials of the gluon field and its
@@ -324,7 +325,7 @@ permutations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="opbasis.minBasis._mapCoefficients">
-<span class="sig-name descname"><span class="pre">_mapCoefficients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><span class="pre">Complex</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.minBasis._mapCoefficients" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_mapCoefficients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><span class="pre">Complex</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.minBasis._mapCoefficients" title="Link to this definition">¶</a></dt>
 <dd><p>Each unique term in the overcomplete basis can be identified as an
 eigenvector in a vector space spanned by all the terms. Using the factors
 corresponding to the different terms in a <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>, we can thus assign
@@ -333,7 +334,7 @@ independent and thus minimal basis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>rep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>,</em><a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex"><em>Complex</em></a><em>]</em><em>]</em>) – String-representations of all the terms of an operator together with the
+<li><p><strong>rep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>,</em><a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><em>Complex</em></a><em>]</em><em>]</em>) – String-representations of all the terms of an operator together with the
 corresponding factor.</p></li>
 <li><p><strong>map</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>,</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – Table mapping each string-representation of a term into a component
 of the full #terms-dimensional vector.</p></li>
@@ -343,7 +344,7 @@ of the full #terms-dimensional vector.</p></li>
 <dd class="field-even"><p>Eigenvector corresponding to <code class="xref py py-obj docutils literal notranslate"><span class="pre">rep</span></code> in the full vector-space.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex">Complex</a>|<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>|Fraction]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -363,7 +364,7 @@ vector-space.</p>
 <dd class="field-even"><p>Returns the details needed to map the operator into our vector-space.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>,<a class="reference internal" href="basics.html#opbasis.basics.Complex" title="opbasis.basics.Complex">Complex</a>]] | None</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>,<a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex">Complex</a>]] | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -376,8 +377,12 @@ appropriate commutators of covariant derivatives acting on the right-most
 algebra block, which can be a field strength tensor or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Colour</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>op</strong> (<a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><em>LinearComb</em></a>) – Expression in which <a class="reference internal" href="blocks.html#opbasis.blocks._AlgebraBlock" title="opbasis.blocks._AlgebraBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_AlgebraBlock</span></code></a> are supposed to be reexpressed.
-<strong>The input argument will be changed!</strong></p>
+<dd class="field-odd"><p><strong>op</strong> (<a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><em>LinearComb</em></a>) – <p>Expression in which <a class="reference internal" href="blocks.html#opbasis.blocks._AlgebraBlock" title="opbasis.blocks._AlgebraBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_AlgebraBlock</span></code></a> are supposed to be reexpressed.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The input argument will be changed!</p>
+</div>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Indicating whether an instance of <a class="reference internal" href="blocks.html#opbasis.blocks._AlgebraBlock" title="opbasis.blocks._AlgebraBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_AlgebraBlock</span></code></a> was encountered.</p>
@@ -473,7 +478,6 @@ intact while ensuring that earlier groups take precedence.</p>
           <div class="right-details">
             <div class="icons">
               <a class="muted-link " href="https://www.python.org/downloads/" aria-label="Python"><img style="height:25px;width:100%" src="_static/images/python310.svg" alt="Python>=3.10" /></a>
-              <a class="muted-link " href="https://numpy.org/install/" aria-label="NumPy"><img style="height:25px;width:100%" src="_static/images/numpy121.svg" alt="NumPy>=1.21" /></a>
               <a class="muted-link " href="https://arxiv.org/abs/2511.00165" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="2511.00165" /></a>
               <a class="muted-link " href="../../../../LICENSE" aria-label="License"><img style="height:25px;width:100%" src="_static/images/license.svg" alt="License: MIT" /></a>
               
@@ -517,7 +521,7 @@ intact while ensuring that earlier groups take precedence.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=82662543"></script>
+</div><script src="_static/documentation_options.js?v=a480e030"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

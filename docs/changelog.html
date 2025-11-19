@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="templates" href="templates.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Changelog - opbasis 0.10.0 documentation</title>
+        <title>Changelog - opbasis 1.0.0a1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis 0.10.0 documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 1.0.0a1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -205,6 +205,7 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="basics.html">basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="blocks.html">blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculus.html">calculus</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dirac.html">dirac</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eoms.html">eoms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="io.html">io</a></li>
@@ -273,18 +274,34 @@
 </tbody>
 </table>
 </div>
-<section id="v0-10-0">
-<h2>v0.10.0<a class="headerlink" href="#v0-10-0" title="Link to this heading">¶</a></h2>
+<section id="v1-0-0a1">
+<h2>v1.0.0a1<a class="headerlink" href="#v1-0-0a1" title="Link to this heading">¶</a></h2>
 <blockquote>
 <div><ul>
 <li><p>Now a call to <a class="reference internal" href="minBasis.html#opbasis.minBasis.findMinBases" title="opbasis.minBasis.findMinBases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">findMinBases</span></code></a> actually returns the promised linearly independent <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a> and not just their string-representations. <span class="bug">(BUG)</span></p></li>
+<li><p>Began thoroughly testing of <a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Complex</span></code></a> type beyond multiplication:</p>
+<ul class="simple">
+<li><p>String representation of purely imaginary number was missing the imaginary unit. <span class="bug">(BUG)</span></p></li>
+<li><p>Fixed wrong implementation of <code class="docutils literal notranslate"><span class="pre">__rtruediv__</span></code> of type <a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Complex</span></code></a>. <span class="bug">(BUG)</span></p></li>
+<li><p>Changed name of <a class="reference internal" href="calculus.html#opbasis.calculus.Complex.conjugate" title="opbasis.calculus.Complex.conjugate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Complex.conjugate</span></code></a> to comply with Python nomenclature. <span class="change">(CHANGE)</span></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#abs" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">abs</span></code></a> now supports <a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Complex</span></code></a> with rational numbers as long as real and imaginary part sum to a fraction of squares. <span class="improv">(IMPROVED)</span></p></li>
+<li><p>Added <code class="xref py py-obj docutils literal notranslate"><span class="pre">&#64;property</span></code> <a class="reference internal" href="calculus.html#opbasis.calculus.Complex.real" title="opbasis.calculus.Complex.real"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Complex.real</span></code></a> and <a class="reference internal" href="calculus.html#opbasis.calculus.Complex.imag" title="opbasis.calculus.Complex.imag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Complex.imag</span></code></a> to be compatible with Python-internal number conventions. <span class="improv">(IMPROVED)</span></p></li>
+</ul>
+</li>
 <li><p>Changed the way the templates are being stored in <a class="reference internal" href="io.html#opbasis.io.CompressedBasis.add" title="opbasis.io.CompressedBasis.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CompressedBasis.add</span></code></a> to ensure identical ordering within two identical runs. This ensures</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>diff<span class="w"> </span>-r<span class="w"> </span>old/<span class="w"> </span>new/
 </pre></div>
 </div>
 <p>agrees if <em>old</em> and <em>new</em> are uncompressed bases originating from identical runs. <span class="improv">(IMPROVED)</span></p>
 </li>
-<li><p>Added <a class="reference internal" href="reps.html#module-opbasis.reps" title="opbasis.reps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reps.py</span></code></a> submodule to deal with (irreducible) representations more easily. <span class="new">(NEW)</span></p></li>
+<li><p>Transitioned to built-in <a class="reference internal" href="calculus.html#opbasis.calculus.Matrix.rank" title="opbasis.calculus.Matrix.rank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matrix.rank</span></code></a> to compute the rank of the matrix formed by the current set of eigenvectors considered, when trying to find a minimal basis in <a class="reference internal" href="minBasis.html#opbasis.minBasis.findMinBases" title="opbasis.minBasis.findMinBases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">findMinBases</span></code></a>. This now allows eigenvectors with rational complex coefficients and no reliance on floating-point precision (or NumPy for that matter). <span class="improv">(IMPROVED)</span></p></li>
+<li><p>Added <a class="reference internal" href="reps.html#module-opbasis.reps" title="opbasis.reps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reps.py</span></code></a> submodule to deal with (irreducible) representations more easily:</p>
+<ul class="simple">
+<li><p>Projection into a representation chosen by characters. <span class="new">(NEW)</span></p></li>
+<li><p>Working out representation matrices for higher-dimensional irreps. <span class="new">(NEW)</span></p></li>
+<li><p>Projecting into (some choice of) rows of higher-dimensional irreps. <span class="new">(NEW)</span></p></li>
+</ul>
+</li>
 </ul>
 </div></blockquote>
 </section>
@@ -337,7 +354,6 @@
           <div class="right-details">
             <div class="icons">
               <a class="muted-link " href="https://www.python.org/downloads/" aria-label="Python"><img style="height:25px;width:100%" src="_static/images/python310.svg" alt="Python>=3.10" /></a>
-              <a class="muted-link " href="https://numpy.org/install/" aria-label="NumPy"><img style="height:25px;width:100%" src="_static/images/numpy121.svg" alt="NumPy>=1.21" /></a>
               <a class="muted-link " href="https://arxiv.org/abs/2511.00165" aria-label="arXiv"><img style="height:25px;width:100%" src="_static/images/arXiv.svg" alt="2511.00165" /></a>
               <a class="muted-link " href="../../../../LICENSE" aria-label="License"><img style="height:25px;width:100%" src="_static/images/license.svg" alt="License: MIT" /></a>
               
@@ -360,7 +376,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Changelog</a><ul>
-<li><a class="reference internal" href="#v0-10-0">v0.10.0</a></li>
+<li><a class="reference internal" href="#v1-0-0a1">v1.0.0a1</a></li>
 <li><a class="reference internal" href="#v0-9-8">v0.9.8</a></li>
 <li><a class="reference internal" href="#v0-9-7">v0.9.7</a></li>
 </ul>
@@ -374,7 +390,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=82662543"></script>
+</div><script src="_static/documentation_options.js?v=a480e030"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

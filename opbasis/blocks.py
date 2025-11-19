@@ -16,7 +16,8 @@ from itertools import product
 
 from abc import ABC, abstractmethod
 
-from .basics import rotPlanes, Complex, dim, CustomIndex, IntIndex, sptIdx,\
+from .calculus import Complex
+from .basics import rotPlanes, dim, CustomIndex, IntIndex, sptIdx,\
    indices, defaultIndices, massDim
 
 class Block:

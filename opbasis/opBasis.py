@@ -22,13 +22,14 @@ from itertools import product, combinations_with_replacement as cwr
 
 from typing import Iterator
 
+from .basics import rotPlanes, Union
+from .calculus import Complex
 from .blocks import Block, d, D, Dl, D0, D0l,\
    _AlgebraBlock, F, DF, Colour,\
    M, dM
 from .dirac import Gamma
 from .pauli import SU2
 from .ops import LinearComb, _Commutative, Bilinear, Trace
-from .basics import Complex, rotPlanes, Union
 
 # end-points for _AlgebraBlock templates
 _ALG = "|".join(["F","DF"])

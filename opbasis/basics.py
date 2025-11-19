@@ -1,7 +1,7 @@
 """
 This submodule implements the most basic objects used throughout the package,
-ranging from `Union` and `Complex` numbers to customisable indices via
-`CustomIndex` and `IntIndex`. The latter then have to be tracked for custom
+ranging from `Union` to customisable indices via `CustomIndex` and `IntIndex`.
+The latter then have to be tracked for custom
 `Block` implementations by use of the
 `decorators <https://docs.python.org/3/glossary.html#term-decorator>`_
 `@indices` or `@defaultIndices`.
@@ -17,7 +17,6 @@ rotPlanes : tuple[tuple[sptIdx,sptIdx]]
 from fractions import Fraction
 from enum import Enum, IntEnum, unique
 from copy import deepcopy as _copy
-import math
 
 
 whiteSpace = "\t"
@@ -201,150 +200,6 @@ class Union:
       return iter(self.content)
 
 
-class Complex:
-   """
-   Rudimentary implementation of a rational-number-valued complex number.
-
-   Parameters
-   ----------   
-   re : int|Fraction
-      Real part of the complex number.
-   im : int|Fraction, optional
-      Imaginary part of the complex number, defaults to 0.
-   """
-   def __init__(self, re:int|Fraction, im:int|Fraction=0):
-      self.re = Fraction(re)
-      self.im = Fraction(im)
-
-   def __bool__(self):
-      return self.re!=0 or self.im!=0
-
-   def __eq__(self, cmp):
-      if isinstance(cmp, Complex):
-         return self.re==cmp.real and self.im==cmp.imag
-      if isinstance(cmp, (Fraction, int)):
-         return self.re==cmp and self.im==0
-      return NotImplemented
-      
-   def __repr__(self):
-      return self.__class__.__name__ + "(%s,%s)"%(str(self.re),str(self.im))
-
-   def __str__(self):
-      if self.im==0:
-         return ("" if self.re<0 else "+") + str(self.re)
-      if self.re==0:
-         return ("" if self.im<0 else "+") + str(self.im) +"j"
-      if self.re<0:
-         return "-(" + str(-self.re) + ("" if self.im>0 else "+") +\
-            str(-self.im) + "j)"
-      return "+(" + str(self.re) + ("" if self.im<0 else "+") +\
-            str(self.im) + "j)"
-
-   def __abs__(self):
-      return math.isqrt(self.re*self.re + self.im*self.im)
-
-   def __add__(self, add):
-      if isinstance(add, (int,Fraction,Complex)):
-         return self.__class__(self.re+add.real, self.im+add.imag)
-      return NotImplemented
-
-   def __radd__(self, add):
-      return self.__add__(add)
-
-   def __sub__(self, sub):
-      if isinstance(sub, (int,Fraction,Complex)):
-         return self.__class__(self.re-sub.real, self.im-sub.imag)
-      return NotImplemented
-
-   def __rsub__(self, sub):
-      if isinstance(sub, (int,Fraction,Complex)):
-         return self.__class__(sub.real-self.re, sub.imag-self.im)
-      return NotImplemented
-
-   def __neg__(self):
-      return self.__class__(-self.re, -self.im)
-
-   def __mul__(self, mul):
-      if isinstance(mul, (int,Fraction,Complex)):
-         return self.__class__(self.re*mul.real-self.im*mul.imag,
-                               self.re*mul.imag+self.im*mul.real)
-      return NotImplemented
-   
-   def __rmul__(self, mul):
-       return self.__mul__(mul)
-
-   def __truediv__(self, div):
-      if isinstance(div, (Fraction, int)):
-         return self.__class__(Fraction(self.re, div), Fraction(self.im, div))
-      if isinstance(div, Complex):
-         temp = div.abs2()
-         return self.__class__(
-            Fraction(self.re*div.real + self.im*div.imag, temp),
-            Fraction(self.im*div.real - self.re*div.imag, temp))
-      return NotImplemented
-
-   def __rtruediv__(self, lhs):
-      temp = self.abs2()
-      return self.__class__(Fraction(lhs*self.re, temp), Fraction(-lhs*self.im, temp))
-
-   def __floordiv__(self, div):
-      return self.__class__(Fraction(self.re, div), Fraction(self.im, div))
-
-   def phase(self):
-      """
-      Assuming the complex number to be purely real or purely imaginary, this
-      function returns the sign and (for a purely imaginary number) an
-      imaginary unit.
-      
-      Returns
-      -------
-      Complex
-         Sign and any overall imaginary unit.
-
-      Raises
-      ------
-      AssertionError
-         If number is not purely real or purely imaginary.
-      """
-      assert self.re==0 or self.im==0
-      return self.__class__(
-         0 if self.im!=0 else (-1 if self.re<0 else 1),
-         -1 if self.im<0 else (1 if self.re==0 else 0))
-
-   def abs2(self) -> int|Fraction:
-      """
-      Computes z*conjugate(z) of the complex number z.
-      
-      Returns
-      -------
-      int|Fraction
-         Absolute value squared of the current complex number.
-      """
-      return self.re*self.re + self.im*self.im
-
-   def conjugate(self):
-      """
-      Complex conjugation.
-      
-      Returns
-      -------
-      Complex
-         Complex conjugate of the current complex number.
-      """
-      return Complex(self.re, -self.im)
-
-   @property
-   def real(self):
-      """
-      Returns the real part of the complex number to comply with standard 
-      Python number interface.
-      """
-      return self.re
-
-   @property
-   def imag(self):
-      return self.im
- 
 dim = 4
 
 sptIdx = IntIndex("sptIdx", ["w","x","y","z"], start=0)#: :meta hide-value:

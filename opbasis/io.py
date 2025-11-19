@@ -11,10 +11,11 @@ import warnings
 from fractions import Fraction
 from zipfile import Path, ZipFile, ZIP_DEFLATED
 
-from .basics import Complex, CustomIndex, dim
+from .basics import CustomIndex, dim
 from .blocks import Block, d, D, Dl, \
    _AlgebraBlock, F, DF, \
    D0, D0l, Colour, M, dM
+from .calculus import Complex
 from .dirac import Gamma
 from .pauli import SU2
 from .ops import LinearComb, _Commutative, Bilinear, Trace

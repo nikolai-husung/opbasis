@@ -7,13 +7,12 @@ behaviour.
 from copy import deepcopy as _copy
 from fractions import Fraction
 
-import numpy as np
 
-
+from .basics import dim, whiteSpace, massDim
 from .blocks import Block, _AlgebraBlock, Multiplicative,\
    d, D0l, D0, Dl, D, DF, F, M, dM, Colour
+from .calculus import Complex
 from .dirac import Dirac, axisGammas, Gamma
-from .basics import dim, Complex, whiteSpace, massDim
 
 
 @massDim(dim-1)
@@ -103,7 +102,10 @@ class Bilinear:
          _copy(self.derivatives), self.factor)
 
    def chiralSpurion(self):
-      return np.prod([b.chiralSpurion() for b in self.covl+self.blocks+self.covr])
+      prod = 1
+      for b in self.covl+self.blocks+self.covr:
+         prod *= b.chiralSpurion()
+      return prod
 
    def reflection(self, mu:int):
       return Bilinear([b.reflection(mu) for b in self.blocks], 

@@ -99,7 +99,8 @@ class Complex:
 
    def __rtruediv__(self, lhs):
       temp = self.abs2()
-      return self.__class__(Fraction(lhs*self.re, temp), Fraction(-lhs*self.im, temp))
+      return self.__class__(Fraction(lhs*self.re, temp),
+                            Fraction(-lhs*self.im, temp))
 
    def __floordiv__(self, div):
       if isinstance(div, int):
@@ -166,10 +167,23 @@ class Complex:
 
    @property
    def imag(self):
+      """
+      Returns the imaginary part of the complex number to comply with standard
+      Python number interface.
+      """
       return self.im
 
 
 class Matrix:
+   """Basic implementation of a matrix with complex rational coefficients.
+
+   Parameters
+   ----------
+   components : list[list[Complex]], optional
+      The rows and columns of the matrix. If `None` are given, yields an empty
+      matrix which is a valid starting point to build your matrix via 
+      `Matrix.extend`.
+   """
    ROW = 0
    COL = 1
    def __init__(self, components:list[list[Complex]] = None):
@@ -179,23 +193,37 @@ class Matrix:
 
    @property
    def M(self):
+      """Returns the number of rows."""
       return len(self.components)
 
    @property
    def N(self):
+      """Returns the number of columns."""
       if self.M==0: return 0
       return len(self.components[0])
 
    @staticmethod
-   def ZERO(_M:int,_N:int):
-      return Matrix([[0]*_M]*_N)
+   def ZERO(M:int,N:int):
+      r"""Returns an :math:`M\times N` matrix filled with zeros."""
+      return Matrix([[0]*M]*N)
 
    @staticmethod
-   def diag(delems:list[Complex],M=None,N=None):
+   def diag(delems:list[Complex], M=None, N=None):
       """Generalisation of a standard diagonal square matrix.
 
       The user can choose the dimensions freely as long as the diagonal entries
       fit into the matrix.
+
+      Parameters
+      ----------
+      diag : list[Complex]
+         Diagonal elements to fill the matrix with.
+      M : int, optional
+         Requested number of rows. Defaults to `None`. Otherwise, must be at
+         least the number of *delems* given.
+      N : int, optional
+         Requested number of columnss. Defaults to `None`. Otherwise, must be
+         at least the number of *delems* given.
 
       Returns
       -------
@@ -310,6 +338,13 @@ class Matrix:
             "There are no other variants available for now (?)")
 
    def transpose(self):
+      """Exchanges rows and columns.
+
+      Returns
+      -------
+      Matrix
+         Transposed matrix.
+      """
       comp = list()
       for c in range(self.N):
          row = list()
@@ -319,13 +354,28 @@ class Matrix:
       return Matrix(comp)
 
    def conjugate(self):
+      """Charge conjugation.
+
+      Returns
+      -------
+      Matrix
+         Charge conjugated matrix.
+      """
       return Matrix([[c.conjugate() for c in row] for row in self.components])
 
    def trace(self):
+      """Computes the generalised trace.
+
+      Returns
+      -------
+      Complex
+         Sum of all the diagonal elements.
+      """
       return sum(self.components[i][i] for i in range(min([self.M,self.N])))
 
    def inverse(self):
-      """
+      """Inversion of the matrix.
+
       Uses basic implementation of Gauss elimination for inverse of complex
       rational square matrix.
 
@@ -397,7 +447,7 @@ def solve(A:Matrix, y:Matrix):
    Solves the general linear system of equations via Gauss elimination
 
    .. math::
-      A*x = y
+      Ax = y
 
    Parameters
    ----------
@@ -418,8 +468,10 @@ def solve(A:Matrix, y:Matrix):
 
    for col in range(N):
       rnew = col
-      while mat[rnew][col] == 0:
+      while rnew < N and mat[rnew][col] == 0:
          rnew += 1
+      if rnew == N:
+         raise ValueError("System of equations is not (uniquely?) solvable.")
       if rnew!=col:
          temp = mat[col]
          mat[col] = mat[rnew]

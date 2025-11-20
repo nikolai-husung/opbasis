@@ -178,45 +178,60 @@ def H4mapConjClasses(cclasses:list[list]):
 
 
 class Projector:
-   def __init__(self, cclasses:list[list[int|str]],
+   r"""Defines a new projector onto any representation of the chosen group.
+
+   Each group element must be identified with a chain of transformations acting
+   on the `LinearComb` to be projected. The user has to provide a map
+   *mapToTransf* of identifiers to the actual transformations, which can then
+   be used to describe the various group elements in each conjugacy class.
+
+   Naming and providing the transformations is up to the user unless he relies
+   on the built-in `H4map`, that can be used to map the full hypercubic group
+   with reflections into the built-in transformations.
+
+   The projector uses the standard projection formula
+
+   .. math::
+      \mathop{\mathrm{proj}}_{\chi}\,O = \frac{d}{|G|}\sum_{C}\chi(C)\sum_{g\in C} [g\circ O]
+
+   where :math:`[g\circ O]` denotes the transformation of :math:`O` and
+   :math:`\chi` are the chosen characters for the different conjugacy classes.
+
+   Parameters
+   ----------
+   d : int
+      Dimension of the representation.
+   chars : list[Complex|int|Fraction]
+      Characters specifying the chosen representation.
+   cclasses : list[list[int|str]]
+      Collections of chains of identifiers resolved in *map2transf* for each
+      element of each conjugacy class.
+   map2transf : dict[int|str,Callable[[LinearComb],LinearComb]], optional
+      Translates the identifiers used to describe each group element in terms
+      of accessible transformations. The details of the map must be provided by
+      the user. Defaults to H4map.
+   """
+   def __init__(self, d, chars, cclasses:list[list[int|str]],
       mapToTransf:dict[int|str,Callable[[LinearComb],LinearComb]] = H4map):
-      r"""Defines a new projector onto any representation of the chosen group.
-
-      Each group element must be identified with a chain of transformations
-      acting on the `LinearComb` to be projected. The user has to provide a map
-      *mapToTransf* of identifiers to the actual transformations, which can
-      then be used to describe the various group elements in each conjugacy
-      class.
-
-      Naming and providing the transformations is up to the user unless he
-      relies on the built-in `H4map`, that can be used to map the full
-      hypercubic group with reflections into the built-in transformations.
-
-      The projector uses the standard projection formula
-
-      .. math::
-         \mathop{\mathrm{proj}}_{\chi}\,O = \frac{1}{|G|}\sum_{C}\chi(C)\sum_{g\in C} [g\circ O]
-
-      where :math:`[g\circ O]` denotes the transformation of :math:`O` and
-      :math:`\chi` are the chosen characters for the different conjugacy
-      classes. To allow also reducible representations, we omit the prefactor
-      of the dimension of the irrep.
-
-      Parameters
-      ----------
-      cclasses : list[list[int|str]]
-         Collections of chains of identifiers resolved in *map2transf* for each
-         element of each conjugacy class.
-      map2transf : dict[int|str,Callable[[LinearComb],LinearComb]], optional
-         Translates the identifiers used to describe each group element in
-         terms of accessible transformations. The details of the map must be
-         provided by the user. Defaults to H4map.
-      """
       self.cclasses = cclasses
       self.mapToTransf = mapToTransf
+      self.chars = chars
+      self.dim = d
 
-   def __call__(self, chars:list[Complex|int|Fraction],
-      ansatz:LinearComb):
+   def __str__(self):
+      """
+      Returns a string containing the relevant information about the projector.
+      """
+      return """Projector onto irrep
+====================
+
+Dimension of group |G|: %i
+Dimension of irrep:     %i
+Characters:
+%r
+"""%(sum(map(len, self.cclasses)), self.dim, self.chars)
+
+   def __call__(self, ansatz:LinearComb):
       r"""Projects the *ansatz* to the chosen representation.
 
       An operator transforming in a specific representation - not necessarily
@@ -225,7 +240,7 @@ class Projector:
       projection according to the formula
 
       .. math::
-         \mathop{\mathrm{proj}}_{\chi}\,O=\frac{1}{|G|}\sum_{C}\chi(C)\sum_{g\in C} [g\circ O]
+         \mathop{\mathrm{proj}}_{\chi}\,O=\frac{d}{|G|}\sum_{C}\chi(C)\sum_{g\in C} [g\circ O]
 
       where :math:`[g\circ O]` denotes the transformation of :math:`O` and
       :math:`\chi` are the chosen characters for the different conjugacy
@@ -233,8 +248,6 @@ class Projector:
 
       Parameters
       ----------
-      chars : list[Complex|int|Fraction]
-         Characters specifying the chosen representation.
       ansatz : LinearComb
          This can be any `LinearComb`. Typically, it amounts to a seed, when
          trying to find an operator transforming in a given representation. It
@@ -247,20 +260,19 @@ class Projector:
          Projection of input *ansatz*.
       """
       projected = LinearComb.ZERO()
-      for ic in range(len(chars)):
-         if chars[ic] == 0: continue
+      for ic in range(len(self.chars)):
+         if self.chars[ic] == 0: continue
          for elem in self.cclasses[ic]:
             temp = _copy(ansatz)
             for it in elem:
                temp = self.mapToTransf[it](temp)
-            projected += chars[ic]*temp
+            projected += self.chars[ic]*temp
       projected.simplify()
-      return projected * Fraction(1, sum(map(len, self.cclasses)))
+      return projected * Fraction(self.dim, sum(map(len, self.cclasses)))
 
 
-def constructDreps(seed:LinearComb, d:int,
-   groupElements:list[int|str], _map:dict[int|str,Callable] = H4map,
-   unitary:bool = False, ghat:list[int] = None):
+def constructDreps(seed:LinearComb, d:int, groupElements:list[int|str],
+   _map:dict[int|str,Callable] = H4map, ghat:list[int] = None):
    r"""
    Derives the :math:`d\times d`-dimensional representation matrices 
    :math:`D(h)` for the multi-dimensional irrep identified by the already
@@ -285,9 +297,9 @@ def constructDreps(seed:LinearComb, d:int,
       A **non-vanishing** projection of an operator into the chosen irrep. Will
       be used for constructing a basis.
 
-      .. hint::
-         Try to use a small `LinearComb` with few terms, e.g., of low canonical
-         mass-dimension.
+      .. danger::
+         Use the `LinearComb` with lowest canoncial mass-dimension available to
+         avoid some problems (?!)
 
    d : int
       Dimension of the chosen irrep.
@@ -297,30 +309,37 @@ def constructDreps(seed:LinearComb, d:int,
    _map : dict[int|str,Callable], optional
       Maps the labels used to represent the goup elements into the actual
       transformations acting on `LinearComb`. Defaults to `H4map`.
-   unitary : bool, optional
-      The representation matrices inherit unitarity from their related group
-      elements. Defaults to `False`.
    ghat : list[int], optional
       Indices specifying the group elements to be used for building the basis
       if desired or needed for reproducability. Defaults to `None`.
 
    Returns
    -------
-   tuple[list[list[Matrix]],list[int]|None]
+   tuple[list[Matrix],list[int]]
       The full collection of the representation matrices and the indices of the
       specific group elements used to derive them (for reproducability).
    """
+   # build in check that dim span(R(g) O)=d!
+   _seeds = []
+   for g in groupElements:
+      temp = _copy(seed)
+      for transf in g:
+         temp = _map[transf](temp)
+      temp.simplify()
+      _seeds.append(temp)
+
+   evecs,idxMap = _mapToVectors([_seeds])
+
+   rank = Matrix(evecs[0]).transpose().rank()
+   if rank > d:
+      raise ValueError("Choose an operator of lower canonical mass-dimension "
+         "to derive the representation matrices: dim(span(R(g)O)) = %i > %i."%(
+         rank,d))
+   elif rank < d:
+      raise ValueError(
+         "Could not find %i linearly independent basis vectors."%d)
+
    if ghat is None:
-      _seeds = []
-      for g in groupElements:
-         temp = _copy(seed)
-         for transf in g:
-            temp = _map[transf](temp)
-         temp.simplify()
-         _seeds.append(temp)
-
-      evecs,idxMap = _mapToVectors([_seeds])
-
       evecsIndep = Matrix()
       V = Matrix()
       lastRank = 0
@@ -337,28 +356,17 @@ def constructDreps(seed:LinearComb, d:int,
             _ghat.append(_seeds[i])
             ghat.append(i)
          if lastRank==d: break
-      else:
-         raise ValueError(
-            "Could not find %i linearly independent basis vectors."%d)
    else:
-      _ghat = list()
-      for g in [groupElements[i] for i in ghat]:
-         temp = _copy(seed)
-         for transf in g:
-            temp = _map[transf](temp)
-         temp.simplify()
-         _ghat.append(temp)
+      _ghat = [_seeds[i] for i in ghat]
 
-      evecs,idxMap = _mapToVectors([_ghat])
-
-      V = Matrix(evecs[0])
+      V = Matrix([_mapCoefficients(_toRep(p), idxMap) for p in _ghat])
       if V.rank()<d:
          raise ValueError("The proposed basis does not contain %i linearly "
             "independent basis vectors."%d)
    Vdag = V.conjugate()
-   A = Vdag @ V.transpose()
+   A = (Vdag @ V.transpose()).inverse()
 
-   Drep_h = list()
+   Dreps = list()
    for h in groupElements:
       # compute Drep(h)
       rhs = list()
@@ -367,11 +375,9 @@ def constructDreps(seed:LinearComb, d:int,
          for transf in h:
             temp = _map[transf](temp)
          rhs.append(_mapCoefficients(_toRep(temp), idxMap))
-      # Inverse could be avoided depending on the properties of Drep_h.
-      Drep = solve(A, Vdag @ Matrix(rhs).transpose())
-      Drep_h.append(Drep.conjugate().transpose() if unitary \
-                    else Drep.inverse())
-   return Drep_h, ghat
+      Dreps.append((A @ (Vdag @ Matrix(rhs).transpose())).conjugate())
+      # do we need the inverse here? Drep.inverse()
+   return Dreps, ghat
 
 
 class RowProjector:
@@ -396,14 +402,26 @@ class RowProjector:
       the irrep chosen by *seed* and stores the details to be used when
       row-projecting any operators from this irrep.
       """
-      self.groupElements =groupElements
+      self.groupElements = groupElements
       self.mapToTransf = mapToTransf
       self.dim = d
-      self.unitary = unitary
+      self.seed = seed
       self.Dreps, self.ghat = constructDreps(seed, d, self.groupElements,
-                                             mapToTransf, unitary, ghat)
+                                             mapToTransf, ghat)
 
-   def __call__(self, projected:LinearComb):
+   def __str__(self):
+      return """RowProjector onto the %i rows of the irrep
+=========================================
+
+Dimension of group |G|:  %i
+Irrep dimension:         %i
+Chosen basis:            %s
+Projected seed operator:
+%s
+"""%(self.dim, len(self.groupElements), self.dim,
+       ", ".join("g_%i"%g for g in self.ghat), str(self.seed))
+
+   def __call__(self, projected:list[LinearComb]):
       r"""
       Applies the projection formula
 
@@ -424,12 +442,13 @@ class RowProjector:
          Projection into the *d* rows of the chosen irrep.
       """
       rows = [LinearComb.ZERO() for r in range(self.dim)]
-      for ie,elem in enumerate(self.groupElements):
-         temp = _copy(projected)
-         for it in elem:
-            temp = self.mapToTransf[it](temp)
-         for r in range(self.dim):
-            rows[r] += self.Dreps[ie].components[r][r] * temp
+      for ie, elem in enumerate(self.groupElements):
+         #for ip,ipe in enumerate(self.ghat):
+            temp = _copy(projected)
+            for it in elem: 
+               temp = self.mapToTransf[it](temp)
+            for r in range(self.dim):
+               rows[r] += self.Dreps[ie].components[r][r] * temp
       fac = Fraction(self.dim, len(self.groupElements))
       for r in range(self.dim):
          rows[r].simplify()

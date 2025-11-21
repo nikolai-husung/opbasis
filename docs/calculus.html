@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="dirac" href="dirac.html" /><link rel="prev" title="blocks" href="blocks.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>calculus - opbasis 1.0.0a1 documentation</title>
+        <title>calculus - opbasis 1.0.0b1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis 1.0.0a1 documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 1.0.0b1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -253,7 +253,7 @@
           <section id="module-opbasis.calculus">
 <span id="calculus"></span><h1>calculus<a class="headerlink" href="#module-opbasis.calculus" title="Link to this heading">¶</a></h1>
 <p>This submodule collects all the basic functionality for calculus contained
-within this package. The central ingredient is the <a class="reference internal" href="#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Complex</span></code></a> type, wich  allows
+within this package. The central ingredient is the <a class="reference internal" href="#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Complex</span></code></a> type, which allows
 to work with rational-number-valued complex numbers. While not perfect, this is
 sufficient for many scenarios and much simpler to implement and maintain than
 irrational numbers and avoids (most) reliance on rounding.</p>
@@ -301,7 +301,9 @@ irrational numbers and avoids (most) reliance on rounding.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="opbasis.calculus.Complex.imag">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">imag</span></span><a class="headerlink" href="#opbasis.calculus.Complex.imag" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the imaginary part of the complex number to comply with standard
+Python number interface.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.calculus.Complex.phase">
@@ -335,6 +337,14 @@ Python number interface.</p>
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><span class="pre">Complex</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.calculus.Matrix" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Basic implementation of a matrix with complex rational coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>components</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><em>Complex</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – The rows and columns of the matrix. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> are given, yields an empty
+matrix which is a valid starting point to build your matrix via
+<a class="reference internal" href="#opbasis.calculus.Matrix.extend" title="opbasis.calculus.Matrix.extend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matrix.extend</span></code></a>.</p>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.COL">
 <span class="sig-name descname"><span class="pre">COL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#opbasis.calculus.Matrix.COL" title="Link to this definition">¶</a></dt>
@@ -343,12 +353,14 @@ Python number interface.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.M">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">M</span></span><a class="headerlink" href="#opbasis.calculus.Matrix.M" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the number of rows.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.N">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">N</span></span><a class="headerlink" href="#opbasis.calculus.Matrix.N" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the number of columns.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.ROW">
@@ -357,13 +369,37 @@ Python number interface.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.ZERO">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ZERO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">_N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.calculus.Matrix.ZERO" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ZERO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.calculus.Matrix.ZERO" title="Link to this definition">¶</a></dt>
+<dd><p>Creates an <span class="math notranslate nohighlight">\(M\times N\)</span> matrix filled with zeros.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of rows.</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of columns.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An all zero matrix with the requested dimensions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix">Matrix</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.conjugate">
 <span class="sig-name descname"><span class="pre">conjugate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.calculus.Matrix.conjugate" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Charge conjugation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Charge conjugated matrix.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix">Matrix</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.diag">
@@ -372,11 +408,20 @@ Python number interface.</p>
 <p>The user can choose the dimensions freely as long as the diagonal entries
 fit into the matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>New matrix with diagonal entries set to <em>delems</em> and otherwise zero.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><em>Complex</em></a><em>]</em>) – Diagonal elements to fill the matrix with.</p></li>
+<li><p><strong>M</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Requested number of rows. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. Otherwise, must be at
+least the number of <em>delems</em> given.</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Requested number of columns. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>. Otherwise, must be
+at least the number of <em>delems</em> given.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix">Matrix</a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New matrix with diagonal entries set to <em>delems</em> and otherwise zero.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix">Matrix</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -405,7 +450,8 @@ Defaults to <a class="reference internal" href="#opbasis.calculus.Matrix.COL" ti
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.inverse">
 <span class="sig-name descname"><span class="pre">inverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.calculus.Matrix.inverse" title="Link to this definition">¶</a></dt>
-<dd><p>Uses basic implementation of Gauss elimination for inverse of complex
+<dd><p>Inversion of the matrix.</p>
+<p>Uses basic implementation of Gauss elimination for inverse of complex
 rational square matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -446,12 +492,30 @@ matrix as the new matrix at the end of the calculation. Defaults to
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.trace">
 <span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.calculus.Matrix.trace" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the generalised trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sum of all the diagonal elements.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#opbasis.calculus.Complex" title="opbasis.calculus.Complex">Complex</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.calculus.Matrix.transpose">
 <span class="sig-name descname"><span class="pre">transpose</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.calculus.Matrix.transpose" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Exchanges rows and columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Transposed matrix.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix">Matrix</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -461,7 +525,7 @@ matrix as the new matrix at the end of the calculation. Defaults to
 <dd><p>Solves the general linear system of equations via Gauss elimination</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[A*x = y\]</div>
+\[Ax = y\]</div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -577,7 +641,7 @@ matrix as the new matrix at the end of the calculation. Defaults to
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=a480e030"></script>
+</div><script src="_static/documentation_options.js?v=09d090fc"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

@@ -27,22 +27,26 @@ The intended use is as follows:
       To make use of `H4map` (or any other map) one still has to work out the
       representation of the group elements in terms of those labels. For any
       subgroup of the hypercubic group with reflections this can be achieved
-      via a call to `H4mapConjClasses` or `reconstructH4GroupElems`, which take
-      as input integer-valued matrices (in the first case grouped into the
-      specific conjugacy classes) and then iteratively reconstruct those
-      matrices.
+      via a call to `reconstructH4GroupElems`, which takes as input
+      integer-valued matrices and then iteratively reconstructs those matrices.
 
-2. Obtain a `Projector` into the various (irreducible) representations of your
-   group. This requires as input the reconstructed conjugacy classes together
-   with the chosen map.
+2. Obtain a `Projector` into any of the various (irreducible) representations
+   of your group. This requires as input the characters as well as the
+   reconstructed conjugacy classes together with the chosen map.
 
 3. For irreducible representations (irrep) of dimension larger 1 there exists 
    the option to further break down the operators into different so called
    *rows*. To obtain such a `RowProjector`, a non-vanishing `LinearComb`
-   already projected to the irrep must be provided to `constructDreps`. The
-   resulting representation matrices can be reused for any operator already
+   **already projected** to the irrep must be provided to `constructDreps`.
+   The resulting representation matrices can be reused for any operator already
    projected to the irrep to ensure the same conventions on the (otherwise
    equivalent) choices of *rows*.
+
+   .. caution::
+      For operators of higher canonical mass-dimension multiple copies of the
+      same irrep may be realised leading to a failure of the procedure. A check
+      has been build in to catch this case. Recommendation: Use the operator
+      with lowest canonical mass-dimension as a *seed*.
    
 
 Attributes
@@ -104,9 +108,20 @@ H4map = {
 # NMAX is fixed by the full group!
 NMAX = 10
 def reconstructH4GroupElems(elems:list[Matrix]):
-   """
+   r"""
    Reconstructs every element of *elems* in terms of the transformations of
-   the hypercubic group with inversion.
+   the hypercubic group including inversions as they are implemented in the
+   package.
+
+   .. tip::
+      The general strategy employed here should be feasible for other groups
+      by representing them in their matrix representation.
+
+   Parameters
+   ----------
+   elems : list[Matrix]
+      All group elements of the chosen (subgroup of the) hypercubic group with
+      reflections, i.e., the literal :math:`4\times 4` matrices.
 
    Returns
    -------
@@ -156,29 +171,9 @@ def reconstructH4GroupElems(elems:list[Matrix]):
                     "identified within %i iterations."%NMAX)
 
 
-def H4mapConjClasses(cclasses:list[list]):
-   """
-   Turns a collection of group elements grouped into conjugacy classes into
-   labels of the H4map to reconstruct them as transformations on H4.
-
-   Returns
-   -------
-   list[list[str]]
-      Reconstruction prescription in terms of transformations of H4 still
-      grouped into conjugacy classes.
-   """
-   ranges = [len(x) for x in cclasses]
-   allElems = sum(cclasses,start=[])
-   idx = reconstructH4GroupElems(allElems)
-   mapped = []
-   for i in range(len(ranges)):
-      mapped.append(idx[:ranges[i]])
-      idx = idx[ranges[i]:]
-   return mapped
-
-
 class Projector:
-   r"""Defines a new projector onto any representation of the chosen group.
+   r"""Defines a new projector onto a representation specified by *chars* of
+   the chosen group.
 
    Each group element must be identified with a chain of transformations acting
    on the `LinearComb` to be projected. The user has to provide a map
@@ -297,9 +292,16 @@ def constructDreps(seed:LinearComb, d:int, groupElements:list[int|str],
       A **non-vanishing** projection of an operator into the chosen irrep. Will
       be used for constructing a basis.
 
-      .. danger::
-         Use the `LinearComb` with lowest canoncial mass-dimension available to
-         avoid some problems (?!)
+      .. hint::
+         Use the `LinearComb` with lowest canonical mass-dimension available to
+         avoid having various copies of the same irrep present in your operator
+         leading to
+         
+         .. math:
+            \mathop{\mathrm{rank}}(v_1,\ldots,v_n)=md
+
+         with :math:`m>1` and where :math`v_i` are the vectors representing the
+         partner functions.
 
    d : int
       Dimension of the chosen irrep.
@@ -307,17 +309,23 @@ def constructDreps(seed:LinearComb, d:int, groupElements:list[int|str],
       All the group elements of the group expressed in terms of the labels used
       in *_map*.
    _map : dict[int|str,Callable], optional
-      Maps the labels used to represent the goup elements into the actual
+      Maps the labels used to represent the group elements into the actual
       transformations acting on `LinearComb`. Defaults to `H4map`.
    ghat : list[int], optional
       Indices specifying the group elements to be used for building the basis
-      if desired or needed for reproducability. Defaults to `None`.
+      if desired or needed for reproducibility. Defaults to `None`.
 
    Returns
    -------
    tuple[list[Matrix],list[int]]
       The full collection of the representation matrices and the indices of the
-      specific group elements used to derive them (for reproducability).
+      specific group elements used to derive them (for reproducibility).
+
+   Raises
+   ------
+   ValueError
+      Indicating that there is a problem with the number of available
+      linearly independent basis vectors.
    """
    # build in check that dim span(R(g) O)=d!
    _seeds = []
@@ -359,7 +367,7 @@ def constructDreps(seed:LinearComb, d:int, groupElements:list[int|str],
    else:
       _ghat = [_seeds[i] for i in ghat]
 
-      V = Matrix([_mapCoefficients(_toRep(p), idxMap) for p in _ghat])
+      V = Matrix([evecs[0][i] for i in ghat])
       if V.rank()<d:
          raise ValueError("The proposed basis does not contain %i linearly "
             "independent basis vectors."%d)
@@ -448,7 +456,7 @@ Projected seed operator:
             for it in elem: 
                temp = self.mapToTransf[it](temp)
             for r in range(self.dim):
-               rows[r] += self.Dreps[ie].components[r][r] * temp
+               rows[r] += self.Dreps[ie][r,r] * temp
       fac = Fraction(self.dim, len(self.groupElements))
       for r in range(self.dim):
          rows[r].simplify()

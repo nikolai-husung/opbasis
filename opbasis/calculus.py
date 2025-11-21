@@ -1,6 +1,6 @@
 """
 This submodule collects all the basic functionality for calculus contained
-within this package. The central ingredient is the `Complex` type, wich  allows
+within this package. The central ingredient is the `Complex` type, which allows
 to work with rational-number-valued complex numbers. While not perfect, this is
 sufficient for many scenarios and much simpler to implement and maintain than
 irrational numbers and avoids (most) reliance on rounding.
@@ -62,12 +62,26 @@ class Complex:
          return self.__class__(self.re+add.real, self.im+add.imag)
       return NotImplemented
 
+   def __iadd__(self, add):
+      if isinstance(add, (int,Fraction,Complex)):
+         self.re += add.real
+         self.im += add.imag
+         return self
+      return NotImplemented
+
    def __radd__(self, add):
       return self.__add__(add)
 
    def __sub__(self, sub):
       if isinstance(sub, (int,Fraction,Complex)):
          return self.__class__(self.re-sub.real, self.im-sub.imag)
+      return NotImplemented
+
+   def __isub__(self, sub):
+      if isinstance(sub, (int,Fraction,Complex)):
+         self.re -= sub.real
+         self.im -= sub.imag
+         return self
       return NotImplemented
 
    def __rsub__(self, sub):
@@ -83,9 +97,17 @@ class Complex:
          return self.__class__(self.re*mul.real-self.im*mul.imag,
                                self.re*mul.imag+self.im*mul.real)
       return NotImplemented
+
+   def __imul__(self, mul):
+      if isinstance(mul, (int,Fraction,Complex)):
+         temp = self.re*mul.real-self.im*mul.imag
+         self.im = self.re*mul.imag+self.im*mul.real
+         self.re = temp
+         return self
+      return NotImplemented
    
    def __rmul__(self, mul):
-       return self.__mul__(mul)
+      return self.__mul__(mul)
 
    def __truediv__(self, div):
       if isinstance(div, (Fraction, int)):
@@ -101,13 +123,6 @@ class Complex:
       temp = self.abs2()
       return self.__class__(Fraction(lhs*self.re, temp),
                             Fraction(-lhs*self.im, temp))
-
-   def __floordiv__(self, div):
-      if isinstance(div, int):
-         return self.__class__(Fraction(self.re, div), Fraction(self.im, div))
-      if isinstance(div, (Fraction,Complex)):
-         return self.__truediv__(div)
-      return NotImplemented
 
    def __pow__(self, n:int):
       if not isinstance(n, int): return NotImplemented
@@ -204,7 +219,20 @@ class Matrix:
 
    @staticmethod
    def ZERO(M:int,N:int):
-      r"""Returns an :math:`M\times N` matrix filled with zeros."""
+      r"""Creates an :math:`M\times N` matrix filled with zeros.
+
+      Parameters
+      ----------
+      M : int
+         Number of rows.
+      N : int
+         Number of columns.
+      
+      Returns
+      -------
+      Matrix
+         An all zero matrix with the requested dimensions.
+      """
       return Matrix([[0]*M]*N)
 
    @staticmethod
@@ -222,7 +250,7 @@ class Matrix:
          Requested number of rows. Defaults to `None`. Otherwise, must be at
          least the number of *delems* given.
       N : int, optional
-         Requested number of columnss. Defaults to `None`. Otherwise, must be
+         Requested number of columns. Defaults to `None`. Otherwise, must be
          at least the number of *delems* given.
 
       Returns
@@ -260,6 +288,15 @@ class Matrix:
          return Matrix(comp)
       return NotImplemented
 
+   def __iadd__(self, mat):
+      if isinstance(mat, Matrix):
+         comp = list()
+         for r in range(self.M):
+            for c in range(self.N):
+               self.components[r][c] += mat.components[r][c]
+         return self
+      return NotImplemented
+
    def __sub__(self, mat):
       if isinstance(mat, Matrix):
          comp = list()
@@ -271,14 +308,22 @@ class Matrix:
          return Matrix(comp)
       return NotImplemented
 
+   def __isub__(self, mat):
+      if isinstance(mat, Matrix):
+         for r in range(self.M):
+            for c in range(self.N):
+               self.components[r][c] -= mat.components[r][c]
+         return self
+      return NotImplemented
+
    def __rmul__(self, fac):
       if isinstance(fac, (Complex,Fraction,int)):
-         return Matrix([[fac * c for c in row] for row in self.components])
+         return Matrix([[fac * c for c in r] for r in self.components])
       return NotImplemented
 
    def __mul__(self, fac):
       if isinstance(fac, (Complex,Fraction,int)):
-         return Matrix([[fac * c for c in row] for row in self.components])
+         return Matrix([[fac * c for c in r] for r in self.components])
       return NotImplemented
 
    def __matmul__(self, mat):
@@ -294,11 +339,40 @@ class Matrix:
          comp.append(row)
       return Matrix(comp)
 
+   def __imatmul__(self, mat):
+      if not isinstance(mat, Matrix): return NotImplemented
+      for r in range(self.M):
+         temp = [0]*mat.N
+         for c in range(mat.N):
+            for cprime in range(self.N):
+               temp[c] += self.components[r][cprime]*mat.components[cprime][c]
+         self.components[r] = temp
+      return self
+
+   def __truediv__(self, div):
+      if isinstance(div, (int,Fraction,Complex)):
+         return Matrix([[c / div for c in r] for r in self.components])
+
+   def __neg__(self):
+      return Matrix([[-c for c in row] for row in self.components])
+
    def __eq__(self, mat):
       for r in range(self.M):
          if any(map(lambda x,y: x!=y, self.components[r], mat.components[r])):
             return False
       return True
+
+   def __getitem__(self, idx):
+      if isinstance(idx, tuple) and len(idx)==2:
+         return self.components[idx[0]][idx[1]]
+      raise TypeError(
+         "Matrix only supports two indices specifying row and column.")
+
+   def __setitem__(self, idx:tuple[int,int], value:Complex):
+      if isinstance(idx, tuple) and len(idx)==2:
+         self.components[idx[0]][idx[1]] = value
+      raise TypeError(
+         "Matrix only supports two indices specifying row and column.")
 
    def extend(self, elems:list[Complex], dim=COL):
       """Enlarge the matrix by adding a column or row to the existing matrix.
@@ -441,10 +515,8 @@ class Matrix:
       return rank
 
 
-
 def solve(A:Matrix, y:Matrix):
-   """
-   Solves the general linear system of equations via Gauss elimination
+   """Solves the general linear system of equations via Gauss elimination
 
    .. math::
       Ax = y

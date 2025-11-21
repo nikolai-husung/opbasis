@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="templates" href="templates.html" /><link rel="prev" title="pauli" href="pauli.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>reps - opbasis 1.0.0a2 documentation</title>
+        <title>reps - opbasis 1.0.0b1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">opbasis 1.0.0a2 documentation</div></a>
+      <a href="index.html"><div class="brand">opbasis 1.0.0b1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -280,22 +280,28 @@ reflections.</p>
 <p>To make use of <a class="reference internal" href="#opbasis.reps.H4map" title="opbasis.reps.H4map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H4map</span></code></a> (or any other map) one still has to work out the
 representation of the group elements in terms of those labels. For any
 subgroup of the hypercubic group with reflections this can be achieved
-via a call to <a class="reference internal" href="#opbasis.reps.H4mapConjClasses" title="opbasis.reps.H4mapConjClasses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H4mapConjClasses</span></code></a> or <a class="reference internal" href="#opbasis.reps.reconstructH4GroupElems" title="opbasis.reps.reconstructH4GroupElems"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reconstructH4GroupElems</span></code></a>, which take
-as input integer-valued matrices (in the first case grouped into the
-specific conjugacy classes) and then iteratively reconstruct those
-matrices.</p>
+via a call to <a class="reference internal" href="#opbasis.reps.reconstructH4GroupElems" title="opbasis.reps.reconstructH4GroupElems"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reconstructH4GroupElems</span></code></a>, which takes as input
+integer-valued matrices and then iteratively reconstructs those matrices.</p>
 </div>
 </li>
-<li><p>Obtain a <a class="reference internal" href="#opbasis.reps.Projector" title="opbasis.reps.Projector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Projector</span></code></a> into the various (irreducible) representations of your
-group. This requires as input the reconstructed conjugacy classes together
-with the chosen map.</p></li>
+<li><p>Obtain a <a class="reference internal" href="#opbasis.reps.Projector" title="opbasis.reps.Projector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Projector</span></code></a> into any of the various (irreducible) representations
+of your group. This requires as input the characters as well as the
+reconstructed conjugacy classes together with the chosen map.</p></li>
 <li><p>For irreducible representations (irrep) of dimension larger 1 there exists
 the option to further break down the operators into different so called
 <em>rows</em>. To obtain such a <a class="reference internal" href="#opbasis.reps.RowProjector" title="opbasis.reps.RowProjector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RowProjector</span></code></a>, a non-vanishing <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>
-already projected to the irrep must be provided to <a class="reference internal" href="#opbasis.reps.constructDreps" title="opbasis.reps.constructDreps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">constructDreps</span></code></a>. The
-resulting representation matrices can be reused for any operator already
+<strong>already projected</strong> to the irrep must be provided to <a class="reference internal" href="#opbasis.reps.constructDreps" title="opbasis.reps.constructDreps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">constructDreps</span></code></a>.
+The resulting representation matrices can be reused for any operator already
 projected to the irrep to ensure the same conventions on the (otherwise
-equivalent) choices of <em>rows</em>.</p></li>
+equivalent) choices of <em>rows</em>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>For operators of higher canonical mass-dimension multiple copies of the
+same irrep may be realised leading to a failure of the procedure. A check
+has been build in to catch this case. Recommendation: Use the operator
+with lowest canonical mass-dimension as a <em>seed</em>.</p>
+</div>
+</li>
 </ol>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="opbasis.reps.H4map">
@@ -319,29 +325,42 @@ transformations.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="opbasis.reps.H4mapConjClasses">
-<span class="sig-name descname"><span class="pre">H4mapConjClasses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cclasses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.H4mapConjClasses" title="Link to this definition">¶</a></dt>
-<dd><p>Turns a collection of group elements grouped into conjugacy classes into
-labels of the H4map to reconstruct them as transformations on H4.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Reconstruction prescription in terms of transformations of H4 still
-grouped into conjugacy classes.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]]</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py class">
 <dt class="sig sig-object py" id="opbasis.reps.Projector">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Projector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cclasses:</span> <span class="pre">list[list[int</span> <span class="pre">|</span> <span class="pre">str]],</span> <span class="pre">mapToTransf:</span> <span class="pre">dict[int</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">~collections.abc.Callable[[~opbasis.ops.LinearComb],</span> <span class="pre">~opbasis.ops.LinearComb]]</span> <span class="pre">=</span> <span class="pre">{'H4_P0':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P1':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P2':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P3':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R0':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R1':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R2':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R3':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R4':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R5':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.Projector" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Projector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">d,</span> <span class="pre">chars,</span> <span class="pre">cclasses:</span> <span class="pre">list[list[int</span> <span class="pre">|</span> <span class="pre">str]],</span> <span class="pre">mapToTransf:</span> <span class="pre">dict[int</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">~collections.abc.Callable[[~opbasis.ops.LinearComb],</span> <span class="pre">~opbasis.ops.LinearComb]]</span> <span class="pre">=</span> <span class="pre">{'H4_P0':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P1':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P2':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P3':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R0':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R1':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R2':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R3':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R4':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R5':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.Projector" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Defines a new projector onto a representation specified by <em>chars</em> of
+the chosen group.</p>
+<p>Each group element must be identified with a chain of transformations acting
+on the <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a> to be projected. The user has to provide a map
+<em>mapToTransf</em> of identifiers to the actual transformations, which can then
+be used to describe the various group elements in each conjugacy class.</p>
+<p>Naming and providing the transformations is up to the user unless he relies
+on the built-in <a class="reference internal" href="#opbasis.reps.H4map" title="opbasis.reps.H4map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H4map</span></code></a>, that can be used to map the full hypercubic group
+with reflections into the built-in transformations.</p>
+<p>The projector uses the standard projection formula</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathop{\mathrm{proj}}_{\chi}\,O = \frac{d}{|G|}\sum_{C}\chi(C)\sum_{g\in C} [g\circ O]\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\([g\circ O]\)</span> denotes the transformation of <span class="math notranslate nohighlight">\(O\)</span> and
+<span class="math notranslate nohighlight">\(\chi\)</span> are the chosen characters for the different conjugacy classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Dimension of the representation.</p></li>
+<li><p><strong>chars</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><em>Complex</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><em>Fraction</em><em>]</em>) – Characters specifying the chosen representation.</p></li>
+<li><p><strong>cclasses</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em>) – Collections of chains of identifiers resolved in <em>map2transf</em> for each
+element of each conjugacy class.</p></li>
+<li><p><strong>map2transf</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>,</em><em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><em>LinearComb</em></a><em>]</em><em>,</em><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><em>LinearComb</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – Translates the identifiers used to describe each group element in terms
+of accessible transformations. The details of the map must be provided by
+the user. Defaults to H4map.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.reps.Projector.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chars</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><span class="pre">Complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ansatz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><span class="pre">LinearComb</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.Projector.__call__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ansatz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><span class="pre">LinearComb</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.Projector.__call__" title="Link to this definition">¶</a></dt>
 <dd><p>Projects the <em>ansatz</em> to the chosen representation.</p>
 <p>An operator transforming in a specific representation - not necessarily
 an irreducible one - is fully described by the characters <em>chars</em>, the
@@ -349,20 +368,17 @@ conjugacy classes <em>cclasses</em>, and the <em>ansatz</em> on which to perform
 projection according to the formula</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
-\[\mathop{\mathrm{proj}}_{\chi}\,O=\frac{1}{|G|}\sum_{C}\chi(C)\sum_{g\in C} [g\circ O]\]</div>
+\[\mathop{\mathrm{proj}}_{\chi}\,O=\frac{d}{|G|}\sum_{C}\chi(C)\sum_{g\in C} [g\circ O]\]</div>
 </div>
 <p>where <span class="math notranslate nohighlight">\([g\circ O]\)</span> denotes the transformation of <span class="math notranslate nohighlight">\(O\)</span> and
 <span class="math notranslate nohighlight">\(\chi\)</span> are the chosen characters for the different conjugacy
 classes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>chars</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="calculus.html#opbasis.calculus.Complex" title="opbasis.calculus.Complex"><em>Complex</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><em>Fraction</em><em>]</em>) – Characters specifying the chosen representation.</p></li>
-<li><p><strong>ansatz</strong> (<a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><em>LinearComb</em></a>) – This can be any <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>. Typically, it amounts to a seed, when
+<dd class="field-odd"><p><strong>ansatz</strong> (<a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><em>LinearComb</em></a>) – This can be any <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>. Typically, it amounts to a seed, when
 trying to find an operator transforming in a given representation. It
 may also be used to act with the projection onto a complete candidate
-to check if (parts) indeed transform in a specific representation.</p></li>
-</ul>
+to check if (parts) indeed transform in a specific representation.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Projection of input <em>ansatz</em>.</p>
@@ -371,6 +387,12 @@ to check if (parts) indeed transform in a specific representation.</p></li>
 <dd class="field-odd"><p><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb">LinearComb</a>|<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb">LinearComb</a>]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opbasis.reps.Projector.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.Projector.__str__" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a string containing the relevant information about the projector.</p>
 </dd></dl>
 
 </dd></dl>
@@ -392,7 +414,7 @@ change the order of <em>groupElements</em> or dictate the basis via handing a
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="opbasis.reps.RowProjector.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><span class="pre">LinearComb</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.RowProjector.__call__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><span class="pre">LinearComb</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.RowProjector.__call__" title="Link to this definition">¶</a></dt>
 <dd><p>Applies the projection formula</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -417,7 +439,7 @@ is <strong>required</strong> to be already projected into the chosen irrep.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="opbasis.reps.constructDreps">
-<span class="sig-name descname"><span class="pre">constructDreps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">seed:</span> <span class="pre">~opbasis.ops.LinearComb,</span> <span class="pre">d:</span> <span class="pre">int,</span> <span class="pre">groupElements:</span> <span class="pre">list[int</span> <span class="pre">|</span> <span class="pre">str],</span> <span class="pre">_map:</span> <span class="pre">dict[int</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">~collections.abc.Callable]</span> <span class="pre">=</span> <span class="pre">{'H4_P0':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P1':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P2':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P3':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R0':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R1':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R2':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R3':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R4':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R5':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;},</span> <span class="pre">unitary:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">ghat:</span> <span class="pre">list[int]</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.constructDreps" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">constructDreps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">seed:</span> <span class="pre">~opbasis.ops.LinearComb,</span> <span class="pre">d:</span> <span class="pre">int,</span> <span class="pre">groupElements:</span> <span class="pre">list[int</span> <span class="pre">|</span> <span class="pre">str],</span> <span class="pre">_map:</span> <span class="pre">dict[int</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">~collections.abc.Callable]</span> <span class="pre">=</span> <span class="pre">{'H4_P0':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P1':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P2':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_P3':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R0':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R1':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R2':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R3':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R4':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">'H4_R5':</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;},</span> <span class="pre">ghat:</span> <span class="pre">list[int]</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.constructDreps" title="Link to this definition">¶</a></dt>
 <dd><p>Derives the <span class="math notranslate nohighlight">\(d\times d\)</span>-dimensional representation matrices
 <span class="math notranslate nohighlight">\(D(h)\)</span> for the multi-dimensional irrep identified by the already
 projected <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a> <em>seed</em> via the following strategy:</p>
@@ -443,27 +465,32 @@ reused for other operators already projected to the same irrep.</p>
 be used for constructing a basis.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>Try to use a small <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a> with few terms, e.g., of low canonical
-mass-dimension.</p>
+<p>Use the <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a> with lowest canonical mass-dimension available to
+avoid having various copies of the same irrep present in your operator
+leading to</p>
+<p>with <span class="math notranslate nohighlight">\(m&gt;1\)</span> and where :math`v_i` are the vectors representing the
+partner functions.</p>
 </div>
 </p></li>
 <li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Dimension of the chosen irrep.</p></li>
 <li><p><strong>groupElements</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – All the group elements of the group expressed in terms of the labels used
 in <em>_map</em>.</p></li>
-<li><p><strong>_map</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>,</em><em>Callable</em><em>]</em><em>, </em><em>optional</em>) – Maps the labels used to represent the goup elements into the actual
+<li><p><strong>_map</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>,</em><em>Callable</em><em>]</em><em>, </em><em>optional</em>) – Maps the labels used to represent the group elements into the actual
 transformations acting on <a class="reference internal" href="ops.html#opbasis.ops.LinearComb" title="opbasis.ops.LinearComb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearComb</span></code></a>. Defaults to <a class="reference internal" href="#opbasis.reps.H4map" title="opbasis.reps.H4map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H4map</span></code></a>.</p></li>
-<li><p><strong>unitary</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – The representation matrices inherit unitarity from their related group
-elements. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p></li>
 <li><p><strong>ghat</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>, </em><em>optional</em>) – Indices specifying the group elements to be used for building the basis
-if desired or needed for reproducability. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</p></li>
+if desired or needed for reproducibility. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The full collection of the representation matrices and the indices of the
-specific group elements used to derive them (for reproducability).</p>
+specific group elements used to derive them (for reproducibility).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="calculus.html#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix">Matrix</a>]],<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]|None]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="calculus.html#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix">Matrix</a>],<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – Indicating that there is a problem with the number of available
+    linearly independent basis vectors.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -472,17 +499,27 @@ specific group elements used to derive them (for reproducability).</p>
 <dt class="sig sig-object py" id="opbasis.reps.reconstructH4GroupElems">
 <span class="sig-name descname"><span class="pre">reconstructH4GroupElems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="calculus.html#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix"><span class="pre">Matrix</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opbasis.reps.reconstructH4GroupElems" title="Link to this definition">¶</a></dt>
 <dd><p>Reconstructs every element of <em>elems</em> in terms of the transformations of
-the hypercubic group with inversion.</p>
+the hypercubic group including inversions as they are implemented in the
+package.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The general strategy employed here should be feasible for other groups
+by representing them in their matrix representation.</p>
+</div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Reconstruction of each element in <em>elems</em> in terms of labels matching
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="calculus.html#opbasis.calculus.Matrix" title="opbasis.calculus.Matrix"><em>Matrix</em></a><em>]</em>) – All group elements of the chosen (subgroup of the) hypercubic group with
+reflections, i.e., the literal <span class="math notranslate nohighlight">\(4\times 4\)</span> matrices.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reconstruction of each element in <em>elems</em> in terms of labels matching
 the keys of <a class="reference internal" href="#opbasis.reps.H4map" title="opbasis.reps.H4map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">H4map</span></code></a>.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]]</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]]</p>
 </dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – Indicates that the matrices provided in <em>elems</em> are no elements of the
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – Indicates that the matrices provided in <em>elems</em> are no elements of the
     hypercubic group with inversions and thus could not be reconstructed.</p>
 </dd>
 </dl>
@@ -552,9 +589,9 @@ the keys of <a class="reference internal" href="#opbasis.reps.H4map" title="opba
             <ul>
 <li><a class="reference internal" href="#">reps</a><ul>
 <li><a class="reference internal" href="#opbasis.reps.H4map"><code class="docutils literal notranslate"><span class="pre">H4map</span></code></a></li>
-<li><a class="reference internal" href="#opbasis.reps.H4mapConjClasses"><code class="docutils literal notranslate"><span class="pre">H4mapConjClasses()</span></code></a></li>
 <li><a class="reference internal" href="#opbasis.reps.Projector"><code class="docutils literal notranslate"><span class="pre">Projector</span></code></a><ul>
 <li><a class="reference internal" href="#opbasis.reps.Projector.__call__"><code class="docutils literal notranslate"><span class="pre">Projector.__call__()</span></code></a></li>
+<li><a class="reference internal" href="#opbasis.reps.Projector.__str__"><code class="docutils literal notranslate"><span class="pre">Projector.__str__()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#opbasis.reps.RowProjector"><code class="docutils literal notranslate"><span class="pre">RowProjector</span></code></a><ul>
@@ -574,7 +611,7 @@ the keys of <a class="reference internal" href="#opbasis.reps.H4map" title="opba
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=93786a5a"></script>
+</div><script src="_static/documentation_options.js?v=09d090fc"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

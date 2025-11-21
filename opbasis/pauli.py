@@ -44,8 +44,8 @@ class SU2(Multiplicative):
    def __mul__(self, rhs):
       if rhs.__class__ is self.__class__:
          res = MULTABLE[self.tau.value-1][rhs.tau.value-1]
-         return self.__class__(Pauli(abs(res)),
-                               (res/abs(res))*self.factor*rhs.factor)
+         return self.__class__(Pauli(int(res*res.phase().conjugate().real)),
+                               res.phase()*self.factor*rhs.factor)
       if isinstance(rhs, (Complex, Fraction, int, long)):
          return self.__class__(self.tau, self.factor*lhs)
       # ensures that in all unknown cases rhs.__rmul__ will be called.
